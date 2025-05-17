@@ -28,6 +28,8 @@ export default function ProductGridWithModal({
   const [isNewProductModalOpen, setIsNewProductModalOpen] = useState(false)
   const [currentProduct, setCurrentProduct] = useState<IDish | null>(null)
   const [isDeletingDish, setIsDeletingDish] = useState<string | null>(null)
+  const [editImageFile, setEditImageFile] = useState<File | null>(null);
+  const editFileInputRef = useRef<HTMLInputElement>(null);
   const [editedProduct, setEditedProduct] = useState<IDish>({
     name: "",
     price: 0,
@@ -98,11 +100,37 @@ export default function ProductGridWithModal({
     fileInputRef.current?.click()
   }
 
-  const toggleAvailability = (id: string) => {
-    setAvailability((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }))
+  const toggleAvailability = async (id: string) => {
+    try {
+      const dish = dishes.find(d => d.id === id);
+      if (!dish) return;
+
+      const token = localStorage.getItem("access_token");
+      const api = APISDK.getInstance(token);
+      
+      // Update locally first for immediate feedback
+      setAvailability((prev) => ({
+        ...prev,
+        [id]: !prev[id],
+      }));
+
+      // Update on server
+      await api.updateDish(id, {
+        ...dish,
+        is_available: !availability[id]
+      });
+
+      if (refreshData) {
+        await refreshData();
+      }
+    } catch (error) {
+      // Revert local state if server update fails
+      setAvailability((prev) => ({
+        ...prev,
+        [id]: !prev[id],
+      }));
+      showPopup("Failed to update availability", { type: "error" });
+    }
   }
 
   const openEditModal = (product: IDish) => {
@@ -218,7 +246,62 @@ export default function ProductGridWithModal({
       // You might want to show an error message to the user here
     }
   };
+  const handleUpdateDish = async (dishId: string, updatedData: Partial<IDish>) => {
+    try {
+      const token = localStorage.getItem("access_token");
+      if (!token) {
+        showPopup("Authentication required", { type: "error" });
+        return;
+      }
 
+      const api = APISDK.getInstance(token);
+      await api.updateDish(dishId, {
+        name: updatedData.name!,
+        price: updatedData.price!,
+        picture: updatedData.picture!,
+        dish_category_id: updatedData.dish_category_id!,
+        is_available: updatedData.is_available!,
+        is_non_veg: updatedData.is_non_veg!,
+        meta_data: updatedData.meta_data || {}
+      });
+
+      // setDishes((prevDishes) => 
+      //   prevDishes.map((dish) => 
+      //     dish.id === dishId ? { ...dish, ...updatedData } : dish
+      //   )
+      // );
+
+      showPopup("Dish updated successfully", { type: "success" });
+      
+      if (refreshData) {
+        await refreshData();
+      }
+    } catch (error) {
+      showPopup(error instanceof Error ? error.message : "Failed to update dish", { type: "error" });
+    }
+  };
+
+  const handleEditImageSelect = () => {
+    editFileInputRef.current?.click();
+  };
+
+  // Add this handler for edit image change
+  const handleEditImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setEditImageFile(e.target.files[0]);
+      try {
+        const api = APISDK.getInstance();
+        const upload_data = await api.uploadFile(e.target.files[0]);
+        setEditedProduct(prev => ({
+          ...prev,
+          picture: upload_data.url
+        }));
+      } catch (error) {
+        console.error("Error uploading image:", error);
+        showPopup("Failed to upload image", { type: "error" });
+      }
+    }
+  }; 
   if(isLoading) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -300,24 +383,34 @@ export default function ProductGridWithModal({
           onClick={closeModal} // Add click handler to the backdrop
         >
           <div className="bg-white rounded-lg max-w-md w-full overflow-hidden" onClick={e => e.stopPropagation()}>
-            <div className="relative">
-              <div className="h-48 overflow-hidden">
-                <img 
-                  src={currentProduct.picture} 
-                  alt={currentProduct.name} 
-                  className="w-full h-full object-cover"
-                />
-                <button 
-                  className="absolute top-4 right-4 bg-white rounded-full p-2 shadow-md hover:bg-gray-100"
-                  onClick={closeModal}
-                >
-                  <X size={20} className="text-gray-800" />
-                </button>
-                <div className="absolute top-4 left-4 bg-white rounded-lg px-4 py-2 shadow-md">
-                  <span>Update Image</span>
-                </div>
-              </div>
-            </div>
+          <div className="relative">
+    <div className="h-48 overflow-hidden">
+      <img 
+        src={editedProduct.picture} 
+        alt={editedProduct.name} 
+        className="w-full h-full object-cover"
+      />
+      <button 
+        className="absolute top-4 right-4 bg-white rounded-full p-2 shadow-md hover:bg-gray-100"
+        onClick={closeModal}
+      >
+        <X size={20} className="text-gray-800" />
+      </button>
+      <button 
+        onClick={handleEditImageSelect}
+        className="absolute top-4 left-4 bg-white rounded-lg px-4 py-2 shadow-md hover:bg-gray-100 cursor-pointer"
+      >
+        <span>Update Image</span>
+      </button>
+      <input
+        ref={editFileInputRef}
+        type="file"
+        onChange={handleEditImageChange}
+        className="hidden"
+        accept="image/*"
+      />
+    </div>
+  </div>
             
             <form onSubmit={handleSubmit} className="p-6">
               <div className="space-y-6">
@@ -402,8 +495,9 @@ export default function ProductGridWithModal({
                     Cancel
                   </button>
                   <button
-                    type="submit"
+                    type="button"
                     className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-500 hover:bg-orange-600"
+                    onClick={() => handleUpdateDish(editedProduct.id, editedProduct)}
                   >
                     Save Changes
                   </button>
@@ -568,4 +662,6 @@ export default function ProductGridWithModal({
       )}
     </div>
   )
+
+  
 }
