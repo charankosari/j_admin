@@ -1682,6 +1682,36 @@ public async deleteAssistance(assistanceId: string): Promise<{
 
     return await response.json();
 }
+
+  // Add this near other user-related methods
+  public async getAdminUsers(): Promise<{
+    success: boolean;
+    data: {
+      users: {
+        rows: any[];
+      };
+      total: number;
+    };
+  }> {
+    const response = await fetch(
+      `${APISDK.BASE_URL}/admin/users`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.accessToken}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(
+        `Failed to get admin users: ${response.status} ${response.statusText}`
+      );
+    }
+
+    return await response.json();
+  }
 };
 
 
