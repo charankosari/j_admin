@@ -6,9 +6,13 @@ import { APISDK, IDineInOrder, IDineInTable, IDineInTableBooking, IDish } from "
 
 interface IFilterOrder {
     order_id: string;
-    table: string;
-    dish_name: string;
-    quantity: number;
+    table_id: string;
+    items: {
+        dish_name: string;
+        quantity: number;
+        total: number;
+        instructions?: string;
+    }[];
     total: number;
     status: "pending" | "preparing" | "served" | "ready";
 }
@@ -28,19 +32,31 @@ export function OrderPanel(
 ) {
   const [activeTab, setActiveTab] = useState("preparing")
   const [filteredOrders, setFilteredOrders] = useState<IFilterOrder[]>([])
-
+  console.log(orders)
   // Generate individual orders from the data
   const genOrders = orders.map((order) => {
-    const booking = bookings.find((booking) => booking.id === order.booking_id);
-    const table = tables.find((table) => table.id === booking?.table_id);
-    const dish = dishes.find(dish => dish.id === order.dish_id);
-    const total = (dish?.price || 0) * order.quantity;
+    // Find table directly using order's table_id
+    const table = tables.find((table) => table.table_number === order.table_id);
+    
+    // Map each item in the order
+    const orderItems = order.items.map(item => {
+      const dish = dishes.find(d => d.id === item.dish_id);
+      return {
+        dish_name: dish?.name ?? "Unknown Dish",
+        quantity: item.quantity,
+        total: (dish?.price || 0) * item.quantity,
+        instructions: item.instructions
+      };
+    });
+
+    // Calculate total for all items in the order
+    const total = orderItems.reduce((sum: number, item) => sum + item.total, 0);
+    console.log(table,orderItems,order,tables)
 
     return {
       order_id: order.id,
-      table: table?.table_number ?? "Unknown",
-      dish_name: dish?.name ?? "Unknown Dish",
-      quantity: order.quantity,
+      table_id: table?.table_number ?? "Unknown",
+      items: orderItems,
       total,
       status: order.order_status as 'pending' | 'preparing' | 'served' | 'ready',
     };
@@ -172,7 +188,7 @@ const handleStatusChange = async (order: IFilterOrder) => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-medium text-gray-800">Table - {order.table}</h3>
+                    <h3 className="font-medium text-gray-800">Table - {order.table_id}</h3>
                     <p className="text-sm text-blue-400">
                       Order #{order.order_id.substring(0, 8)}
                     </p>
@@ -187,12 +203,24 @@ const handleStatusChange = async (order: IFilterOrder) => {
                 </div>
 
                 <div className="space-y-3">
-                  <div>
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="text-gray-700">{order.dish_name}</span>
-                      <span className="text-gray-500 text-sm">×{order.quantity}</span>
+                  {order.items.map((item, index) => (
+                    <div key={index}>
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-gray-700">{item.dish_name}</span>
+                        <span className="text-gray-500 text-sm">×{item.quantity}</span>
+                      </div>
+                      {item.instructions && (
+                        <p className="text-sm text-gray-500 italic">
+                          Note: {item.instructions}
+                        </p>
+                      )}
+                      <div className="text-sm text-gray-600">
+                        ₹{item.total}
+                      </div>
                     </div>
-                    <div className="mt-2 text-sm text-gray-600">
+                  ))}
+                  <div className="mt-3 pt-3 border-t">
+                    <div className="text-sm font-medium text-gray-900">
                       Total: ₹{order.total}
                     </div>
                   </div>

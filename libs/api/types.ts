@@ -17,7 +17,17 @@ export interface IUser {
     created_at: Date;
     updated_at: Date;
 }
+export interface IAssistance {
 
+    id: string;
+    
+    table_number: string;
+    
+    user_id: string;
+    
+    created_at: Date;
+    
+    }
 export interface IDishCategory {
     id: string;
     name: string;
@@ -53,13 +63,18 @@ export interface IDineInCheckout {
     updated_at: Date;
 }
 
+interface IOrderItem {
+    dish_id: string;
+    quantity: number;
+    instructions?: string;
+}
+
 export interface IDineInOrder {
     id: string;
     booking_id: string;
     user_id: string;
     table_id: string;
-    dish_id: string;
-    quantity: number;
+    items: IOrderItem[];  // Replace dish_id and quantity with items array
     is_served: boolean;
     order_status: string;
     created_at: Date;

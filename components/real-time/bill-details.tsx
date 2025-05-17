@@ -112,10 +112,30 @@ export function BillDetails({ bill, onUpdateCapacityAction, table }: BillDetails
     }
   }
 
-  const handleDeleteTable = () => {
-    setShowMenu(false);
-    // Add delete table functionality here
-    showPopup("Delete table functionality would go here", { type: "info" });
+  const handleDeleteTable = async () => {
+    if (!table?.id) {
+      showPopup("Table ID not found", { type: "error" });
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem("access_token");
+      if (!token) {
+        showPopup("Authentication required", { type: "error" });
+        return;
+      }
+
+      const api = APISDK.getInstance(token);
+      await api.deleteTable(table.id);
+      
+      setShowMenu(false);
+      showPopup("Table deleted successfully", { type: "success" });
+      
+      // Optionally, you might want to trigger a refresh of the parent component
+      // or navigate away from this component since the table no longer exists
+    } catch (error) {
+      showPopup(error instanceof Error ? error.message : "Failed to delete table", { type: "error" });
+    }
   };
 
   const handleCapacityChange = (newCapacity: number) => {

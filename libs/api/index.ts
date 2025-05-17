@@ -7,7 +7,8 @@ import type {
   IDineInOrder,
   IDineInTableBooking,
   IDineInTable,
-  IReview
+  IReview,
+  IAssistance
 } from './types';
 import { TableStatus } from '@/components/real-time/table-grid';
 
@@ -1634,6 +1635,54 @@ export class APISDK {
 
     return await response.json();
   }
+  public async getAllAssistance(): Promise<{
+    success: boolean;
+    data: IAssistance[];
+}> {
+    const response = await fetch(
+        `${APISDK.BASE_URL}/dine-in/assistance`,
+        {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${this.accessToken}`,
+            },
+        }
+    );
+
+    if (!response.ok) {
+        throw new Error(
+            `Failed to get assistance: ${response.status} ${response.statusText}`
+        );
+    }
+
+    return await response.json();
+}
+
+// deleteAssistance
+public async deleteAssistance(assistanceId: string): Promise<{
+    success: boolean;
+}> {
+    const response = await fetch(
+        `${APISDK.BASE_URL}/dine-in/assistance/${assistanceId}`,
+        {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${this.accessToken}`,
+            },
+        }
+    );
+
+    if (!response.ok) {
+        throw new Error(
+            `Failed to delete assistance: ${response.status} ${response.statusText}`
+        );
+    }
+
+    return await response.json();
+}
 };
+
 
 export * from "./types";
