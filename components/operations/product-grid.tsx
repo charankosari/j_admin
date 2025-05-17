@@ -432,13 +432,12 @@ export default function ProductGridWithModal({
                 
                 <div>
                   <div className="flex justify-between items-center">
+                  
                     <label className="block text-gray-500">Product Category</label>
-                    <button type="button" className="text-gray-400 hover:text-gray-600">
-                      <Pencil size={16} />
-                    </button>
                   </div>
                   <input
                     type="text"
+                    disabled
                     name="category"
                     value={categories.find(cat => cat.id === editedProduct.dish_category_id)?.name || ''}
                     onChange={handleInputChange}
