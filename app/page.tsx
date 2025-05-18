@@ -24,7 +24,6 @@ export default function Dashboard() {
   const [categoryOptions, setCategoryOptions] = useState<{ label: string; value: string }[]>([])
   const [revenueTimeRange, setRevenueTimeRange] = useState("7d")
   const [peakHoursTimeRange, setPeakHoursTimeRange] = useState("7d")
-  const [mostSoldTimeRange, setMostSoldTimeRange] = useState("7d")
 
   useEffect(() => {
     fetchCategoriesAndSetDefault()
@@ -116,20 +115,13 @@ export default function Dashboard() {
           <div className="bg-white border rounded-lg p-4">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-sm text-gray-500">Most sold items by Category</h3>
-              <div className="flex gap-2">
-                <CustomSelect 
-                  options={timeRangeOptions} 
-                  value={mostSoldTimeRange}
-                  onValueChange={setMostSoldTimeRange}
-                />
-                <CustomSelect 
-                  options={categoryOptions} 
-                  value={selectedCategory}
-                  onValueChange={setSelectedCategory}
-                />
-              </div>
+              <CustomSelect 
+                options={categoryOptions} 
+                value={selectedCategory}
+                onValueChange={setSelectedCategory}
+              />
             </div>
-            <MostSoldItems selectedTimeRange={mostSoldTimeRange} selectedCategory={selectedCategory} />
+            <MostSoldItems selectedCategory={selectedCategory} />
             <ProductCards selectedCategory={selectedCategory} />
           </div>
         </div>

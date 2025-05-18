@@ -17,36 +17,27 @@ export function AuthGuard({ children }: AuthGuardProps) {
   const [redirectInProgress, setRedirectInProgress] = useState(false)
   const [initialLoadComplete, setInitialLoadComplete] = useState(false)
   
-  // On initial mount, attempt to refresh authentication state
   useEffect(() => {
     if (refreshAuth && !initialLoadComplete) {
-      console.log('AuthGuard: Initial auth refresh')
       refreshAuth()
       setInitialLoadComplete(true)
     }
   }, [refreshAuth, initialLoadComplete])
   
   useEffect(() => {
-    // Skip this check for login page
     if (pathname === "/login") {
       return
     }
 
-    // Prevent redirect loops
     if (redirectInProgress) {
       return
     }
 
-    // Only proceed if we've finished loading auth status
     if (!isLoading) {
-      console.log('Auth status determined:', isAuthenticated ? 'Authenticated' : 'Not authenticated', 'Path:', pathname)
-      
-      // Track if this is the first load
       const isFirstLoad = sessionStorage.getItem('sessionChecked') !== 'true'
       
       if (!isAuthenticated) {
         if (isFirstLoad) {
-          console.log('First load detected, showing auth popup')
           showPopup("Your session has expired. Please login again.", { 
             type: "warning",
             title: "Authentication Required" 
@@ -54,15 +45,9 @@ export function AuthGuard({ children }: AuthGuardProps) {
           sessionStorage.setItem('sessionChecked', 'true')
         }
         
-        // Set redirect flag to prevent loops
         setRedirectInProgress(true)
-        console.log('Redirecting to login page from:', pathname)
-        
-        // Use the router for client-side navigation
         router.push("/login")
       } else {
-        // We're authenticated, update session check
-        console.log('User is authenticated, allowing access to:', pathname)
         sessionStorage.setItem('sessionChecked', 'true')
       }
     }
@@ -90,4 +75,4 @@ export function AuthGuard({ children }: AuthGuardProps) {
 
   // For other routes, only render children if authenticated
   return isAuthenticated ? <>{children}</> : null
-} 
+}

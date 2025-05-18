@@ -9,16 +9,15 @@ interface SoldItem {
 }
 
 interface MostSoldItemsProps {
-  selectedTimeRange: string;
   selectedCategory: string;
 }
 
-export function MostSoldItems({ selectedTimeRange, selectedCategory }: MostSoldItemsProps) {
+export function MostSoldItems({ selectedCategory }: MostSoldItemsProps) {
   const [items, setItems] = useState<SoldItem[]>([])
 
   useEffect(() => {
     fetchSoldItems()
-  }, [selectedTimeRange, selectedCategory]) // Re-fetch when category changes
+  }, [selectedCategory]) // Only re-fetch when category changes
 
   const fetchSoldItems = async () => {
     try {
@@ -27,7 +26,7 @@ export function MostSoldItems({ selectedTimeRange, selectedCategory }: MostSoldI
       
       // Transform and filter the data based on selected category
       const soldItems = response.data.salesOfAllProducts
-        .filter(category => category.category.id === selectedCategory) // Filter by selected category
+        .filter(category => category.category.id === selectedCategory)
         .flatMap(category => 
           category.dishes.map(dish => ({
             product: dish.name,

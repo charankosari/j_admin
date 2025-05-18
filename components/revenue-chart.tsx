@@ -15,7 +15,16 @@ interface RevenueChartProps {
 
 export function RevenueChart({ selectedTimeRange }: RevenueChartProps) {
   const [mounted, setMounted] = useState(false)
-  const [data, setData] = useState<RevenueData[]>([])
+  const [allData, setAllData] = useState<{
+    sevenDays: RevenueData[];
+    thirtyDays: RevenueData[];
+    ninetyDays: RevenueData[];
+  }>({
+    sevenDays: [],
+    thirtyDays: [],
+    ninetyDays: []
+  })
+
   const timeRangeMap = {
     '7d': 'sevenDays',
     '30d': 'thirtyDays',
@@ -25,26 +34,38 @@ export function RevenueChart({ selectedTimeRange }: RevenueChartProps) {
   useEffect(() => {
     setMounted(true)
     fetchRevenueData()
-  }, [selectedTimeRange])
+  }, []) // Keep this effect for initial load
+
+  // Add new effect to handle time range changes
+  useEffect(() => {
+    if (mounted && selectedTimeRange) {
+      fetchRevenueData()
+    }
+  }, [selectedTimeRange, mounted])
 
   const fetchRevenueData = async () => {
     try {
       const api = APISDK.getInstance()
       const response = await api.getAllStats()
-      const apiTimeRange = timeRangeMap[selectedTimeRange as keyof typeof timeRangeMap]
       
-      const revenueData = Object.entries(response.data.revenueHistory[apiTimeRange])
-        .map(([date, value]) => ({
-          name: date,
-          value: value
-        }))
-
-      setData(revenueData)
+      // Direct access to revenueHistory data
+      const revenueData = response.data.revenueHistory
+      
+      setAllData({
+        sevenDays: Object.entries(revenueData.sevenDays || {})
+          .map(([date, value]) => ({ name: date, value })),
+        thirtyDays: Object.entries(revenueData.thirtyDays || {})
+          .map(([date, value]) => ({ name: date, value })),
+        ninetyDays: Object.entries(revenueData.ninetyDays || {})
+          .map(([date, value]) => ({ name: date, value }))
+      })
     } catch (error) {
       console.error('Failed to fetch revenue data:', error)
-      setData([{ name: "Today", value: 0 }])
     }
   }
+
+  // Get current time range data
+  const currentData = allData[timeRangeMap[selectedTimeRange as keyof typeof timeRangeMap]] || []
 
   const formatIndianNumber = (value: number) => {
     if (value >= 10000000) {
@@ -57,14 +78,14 @@ export function RevenueChart({ selectedTimeRange }: RevenueChartProps) {
     return value.toString()
   }
 
-  if (!mounted) {
+  if (!mounted || currentData.length === 0) {
     return <div className="h-64 flex items-center justify-center">Loading chart...</div>
   }
 
   return (
     <div className="h-64">
-      <ResponsiveContainer width="100%" height="90%">
-        <LineChart data={data} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
+      <ResponsiveContainer width="100%" height="100%">
+        <LineChart data={currentData} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
           <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12 }} />
           <YAxis

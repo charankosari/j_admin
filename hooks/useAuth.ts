@@ -13,10 +13,9 @@ export const useAuth = () => {
     useEffect(() => {
         try {
             const token = localStorage.getItem('access_token');
-            console.log('Token from localStorage:', token ? 'Found (length: ' + token.length + ')' : 'Not found');
-            
             if (token) {
                 setAccessToken(token);
+                setIsAuthenticated(true); // Set authenticated immediately if token exists
             } else {
                 setIsLoading(false);
                 setIsAuthenticated(false);
@@ -31,43 +30,33 @@ export const useAuth = () => {
     // Effect to fetch user data when token is available
     useEffect(() => {
         if(!accessToken) {
-            console.log('No access token available, skipping user fetch');
             setIsLoading(false);
             return;
         }
         
         const fetchUser = async () => {
             try {
-                console.log('Attempting to fetch user with token');
-                
-                // Check if token has quotes and remove them if needed
                 const cleanToken = accessToken.startsWith('"') && accessToken.endsWith('"') 
                     ? accessToken.slice(1, -1) 
                     : accessToken;
                 
-                // Initialize API with token
                 const api = APISDK.getInstance(cleanToken);
-                console.log('Calling getUser API');
                 const userData = await api.getUser();
                 
                 if (userData) {
-                    console.log('User data fetched successfully');
                     setUser(userData);
                     setIsAuthenticated(true);
                 } else {
-                    console.error('User data is empty or invalid');
                     throw new Error('Invalid user data received');
                 }
             } catch (error) {
                 console.error('Failed to fetch user:', error);
-                // Clear token on error
-                try {
+                // Don't clear token on network errors
+                if (error instanceof Error && error.message !== 'Failed to fetch') {
                     localStorage.removeItem('access_token');
-                } catch (e) {
-                    console.error('Error removing token from localStorage:', e);
+                    setIsAuthenticated(false);
+                    setUser(undefined);
                 }
-                setAccessToken(null);
-                setIsAuthenticated(false);
             } finally {
                 setIsLoading(false);
             }
@@ -76,21 +65,19 @@ export const useAuth = () => {
         fetchUser();
     }, [accessToken]);
 
+    const refreshAuth = async () => {
+        const token = localStorage.getItem('access_token');
+        if (token) {
+            setAccessToken(token);
+        }
+    };
+
     return {
-        user: user ?? null,
+        user,
         isLoading,
         isAuthenticated,
         setIsAuthenticated,
         setUser,
-        refreshAuth: () => {
-            console.log('Manual auth refresh requested');
-            const token = localStorage.getItem('access_token');
-            if (token) {
-                setAccessToken(token);
-            } else {
-                setIsAuthenticated(false);
-                setUser(undefined);
-            }
-        }
+        refreshAuth
     };
 };

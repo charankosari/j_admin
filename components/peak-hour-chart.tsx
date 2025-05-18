@@ -14,9 +14,29 @@ interface PeakHoursChartProps {
   selectedTimeRange: string;
 }
 
+interface ApiPeakHourData {
+  [date: string]: {
+    [hour: string]: number;
+  };
+}
+
+interface ApiResponse {
+  sevenDays: ApiPeakHourData;
+  thirtyDays: ApiPeakHourData;
+  ninetyDays: ApiPeakHourData;
+}
+
 export default function PeakHoursChart({ selectedTimeRange }: PeakHoursChartProps) {
   const [mounted, setMounted] = useState(false)
-  const [data, setData] = useState<PeakHourData[]>([])
+  const [allData, setAllData] = useState<{
+    sevenDays: PeakHourData[];
+    thirtyDays: PeakHourData[];
+    ninetyDays: PeakHourData[];
+  }>({
+    sevenDays: [],
+    thirtyDays: [],
+    ninetyDays: []
+  })
 
   const timeRangeMap = {
     '7d': 'sevenDays',
@@ -27,50 +47,73 @@ export default function PeakHoursChart({ selectedTimeRange }: PeakHoursChartProp
   useEffect(() => {
     setMounted(true)
     fetchPeakHourData()
-  }, [selectedTimeRange])
+  }, []) // Keep this effect for initial load
+
+  // Add new effect to handle time range changes
+  useEffect(() => {
+    if (mounted && selectedTimeRange) {
+      fetchPeakHourData()
+    }
+  }, [selectedTimeRange, mounted])
 
   const fetchPeakHourData = async () => {
     try {
       const api = APISDK.getInstance()
       const response = await api.getAllStats()
-      const apiTimeRange = timeRangeMap[selectedTimeRange as keyof typeof timeRangeMap]
       
-      const peakHoursData = Object.entries(response.data.peakHours[apiTimeRange])
-        .map(([date, hours]) => {
-          // Calculate total orders for each hour
-          const hourlyOrders = Object.entries(hours).map(([hour, count]) => ({
-            hour: parseInt(hour),
-            orders: typeof count === 'number' ? count : parseInt(count)
-          }))
+      const transformData = (data: ApiPeakHourData) => {
+        return Object.entries(data)
+          .map(([date, hours]) => {
+            const hourlyOrders = Object.entries(hours)
+              .map(([hour, count]) => ({
+                hour: parseInt(hour),
+                orders: count
+              }))
 
-          // Find the peak hour (hour with most orders)
-          const peakHour = hourlyOrders.reduce((max, current) => 
-            current.orders > max.orders ? current : max
-          , hourlyOrders[0])
+            const peakHour = hourlyOrders.reduce((max, current) => 
+              current.orders > max.orders ? current : max
+            , hourlyOrders[0])
 
-          // Format the date
-          const [day, month] = date.split('-')
-          const formattedDate = `${day}/${month}`
+            return {
+              name: date,
+              hour: peakHour.hour,
+              orders: peakHour.orders
+            }
+          })
+      }
 
-          return {
-            name: formattedDate,
-            hour: peakHour.hour,
-            orders: peakHour.orders
-          }
-        })
-        .sort((a, b) => {
-          const [aDay, aMonth] = a.name.split('/')
-          const [bDay, bMonth] = b.name.split('/')
-          return new Date(2025, parseInt(aMonth) - 1, parseInt(aDay)).getTime() -
-                 new Date(2025, parseInt(bMonth) - 1, parseInt(bDay)).getTime()
-        })
-
-      setData(peakHoursData)
+      setAllData({
+        sevenDays: transformData(response.data.peakHours.sevenDays),
+        thirtyDays: transformData(response.data.peakHours.thirtyDays),
+        ninetyDays: transformData(response.data.peakHours.ninetyDays)
+      })
     } catch (error) {
-      console.error('Failed to fetch peak hours data:', error)
-      setData([])
+      console.error('Failed to fetch peak hour data:', error)
     }
   }
+
+  const transformData = (data: Record<string, Record<string, number>>) => {
+    return Object.entries(data)
+      .map(([date, hours]) => {
+        const hourlyOrders = Object.entries(hours)
+          .map(([hour, count]) => ({
+            hour: parseInt(hour),
+            orders: count
+          }))
+
+        const peakHour = hourlyOrders.reduce((max, current) => 
+          current.orders > max.orders ? current : max
+        , hourlyOrders[0])
+
+        return {
+          name: date,
+          hour: peakHour.hour,
+          orders: peakHour.orders
+        }
+      })
+  }
+
+  const currentData = allData[timeRangeMap[selectedTimeRange as keyof typeof timeRangeMap]] || []
 
   const formatHour = (hour: number): string => {
     if (hour === 12) return "12 PM"
@@ -79,14 +122,14 @@ export default function PeakHoursChart({ selectedTimeRange }: PeakHoursChartProp
     return `${hour} AM`
   }
 
-  if (!mounted || data.length === 0) {
+  if (!mounted || currentData.length === 0) {
     return <div className="h-64 w-full flex items-center justify-center">Loading chart...</div>
   }
 
   return (
     <div className="h-64">
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+        <LineChart data={currentData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
           <XAxis 
             dataKey="name"
