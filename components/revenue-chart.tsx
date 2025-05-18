@@ -51,14 +51,17 @@ export function RevenueChart({ selectedTimeRange }: RevenueChartProps) {
       // Direct access to revenueHistory data
       const revenueData = response.data.revenueHistory
       
-      setAllData({
+      const transformedData = {
         sevenDays: Object.entries(revenueData.sevenDays || {})
           .map(([date, value]) => ({ name: date, value })),
         thirtyDays: Object.entries(revenueData.thirtyDays || {})
           .map(([date, value]) => ({ name: date, value })),
         ninetyDays: Object.entries(revenueData.ninetyDays || {})
           .map(([date, value]) => ({ name: date, value }))
-      })
+      }
+
+      console.log('Transformed Revenue Data:', transformedData)
+      setAllData(transformedData)
     } catch (error) {
       console.error('Failed to fetch revenue data:', error)
     }
@@ -87,7 +90,14 @@ export function RevenueChart({ selectedTimeRange }: RevenueChartProps) {
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={currentData} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
-          <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12 }} />
+          <XAxis 
+            dataKey="name" 
+            axisLine={false} 
+            tickLine={false} 
+            tick={{ fontSize: 12 }}
+            interval={currentData.length > 10 ? 'preserveStartEnd' : 0}
+            tickFormatter={(value) => value.split('-')[0]}
+          />
           <YAxis
             axisLine={false}
             tickLine={false}

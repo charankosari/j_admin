@@ -156,6 +156,7 @@ interface ProductSale {
       totalProfit: number;
       salesOfProducts: ProductSale[];
       salesOfAllProducts: CategorySale[];
+      profitPercentage: string;
       peakHours: {
         sevenDays: PeakHourData;
         thirtyDays: PeakHourData;
