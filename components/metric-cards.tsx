@@ -1,51 +1,90 @@
-import {  Users, ShoppingBag, IndianRupee } from "lucide-react"
+import { Users, ShoppingBag, IndianRupee } from "lucide-react"
 import { useEffect, useState } from "react"
 import { APISDK } from "@/libs/api"
 
 export function MetricCards() {
   const [userCount, setUserCount] = useState<number>(0);
+  const [metrics, setMetrics] = useState({
+    todayRevenue: 0,
+    totalItems: 0,
+    totalRevenue: 0
+  });
 
   useEffect(() => {
-    const fetchUserCount = async () => {
+    const fetchData = async () => {
       try {
         const token = localStorage.getItem("access_token");
         const api = APISDK.getInstance(token);
-        const response = await api.getAdminUsers();
-        console.log(response,"ress")
-        setUserCount(response.data.total);
+        const [usersResponse, statsResponse] = await Promise.all([
+          api.getAdminUsers(),
+          api.getAllStats()
+        ]);
+
+        // Set user count
+        setUserCount(usersResponse.data.total);
+
+        // Calculate total items sold
+        const totalItems = statsResponse.data.salesOfAllProducts.reduce((acc, category) => {
+          return acc + category.dishes.reduce((sum, dish) => sum + dish.count, 0);
+        }, 0);
+
+        // Get today's date in the format DD-M-YYYY
+        const today = new Date();
+        const formattedDate = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
+
+        // Get today's revenue from dailyProfits
+        const todayRevenue = statsResponse.data.dailyProfits[formattedDate] || 0;
+
+        setMetrics({
+          todayRevenue: todayRevenue,
+          totalItems: totalItems,
+          totalRevenue: statsResponse.data.totalProfit
+        });
+
       } catch (error) {
-        console.error("Failed to fetch user count:", error);
+        console.error("Failed to fetch metrics:", error);
       }
     };
 
-    fetchUserCount();
+    fetchData();
   }, []);
+
+  const formatCurrency = (amount: number) => {
+    if (amount >= 10000000) {
+      return `${(amount / 10000000).toFixed(2)}Cr INR`;
+    } else if (amount >= 100000) {
+      return `${(amount / 100000).toFixed(2)}L INR`;
+    } else if (amount >= 1000) {
+      return `${(amount / 1000).toFixed(2)}K INR`;
+    }
+    return `${amount} INR`;
+  };
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       <MetricCard
         title="Today Revenue"
-        value="24,000 INR"
+        value={formatCurrency(metrics.todayRevenue)}
         change={12}
-        icon={<IndianRupee className="h-5 w-5 text-gray-400 " />}
+        icon={<IndianRupee className="h-5 w-5 text-gray-400" />}
       />
       <MetricCard 
         title="Total Customers" 
         value={userCount} 
         change={19} 
-        icon={<Users className="h-5 w-5 text-gray-400 " />} 
+        icon={<Users className="h-5 w-5 text-gray-400" />} 
       />
       <MetricCard
         title="Total Items Ordered"
-        value="431"
+        value={metrics.totalItems.toString()}
         change={14}
-        icon={<ShoppingBag className="h-5 w-5 text-gray-400 " />}
+        icon={<ShoppingBag className="h-5 w-5 text-gray-400" />}
       />
       <MetricCard
         title="Total Revenue"
-        value="24,000 INR"
+        value={formatCurrency(metrics.totalRevenue)}
         change={12}
-        icon={<IndianRupee className="h-5 w-5 text-gray-400 " />}
+        icon={<IndianRupee className="h-5 w-5 text-gray-400" />}
       />
     </div>
   )
