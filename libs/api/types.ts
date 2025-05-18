@@ -74,9 +74,10 @@ export interface IDineInOrder {
     booking_id: string;
     user_id: string;
     table_id: string;
-    items: IOrderItem[];  // Replace dish_id and quantity with items array
+    items: IOrderItem[];
     is_served: boolean;
     order_status: string;
+    is_paid: boolean; // Add this line
     created_at: Date;
     updated_at: Date;
 }

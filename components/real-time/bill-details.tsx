@@ -394,17 +394,14 @@ export function BillDetails({ bill, onUpdateCapacityAction, table }: BillDetails
           <span className="font-medium">₹ {bill.grandTotal}</span>
         </div>
 
-        <div className="mt-4 grid grid-cols-2 gap-3">
+        <div className="mt-4 gap-3">
           <button 
             onClick={async () => {
               await handleComplete(bill.checkout_id!, bill.booking_id!)
             }}
-            className="py-2 border border-gray-300 cursor-pointer rounded-md text-gray-700 hover:bg-gray-50"
+            className="py-2 w-full border border-gray-300 cursor-pointer rounded-md text-gray-700 hover:bg-gray-50"
           >
             Mark as Complete
-          </button>
-          <button className="py-2 border border-gray-300 cursor-pointer rounded-md text-gray-700 hover:bg-gray-50">
-            Print Invoice
           </button>
         </div>
       </div>
