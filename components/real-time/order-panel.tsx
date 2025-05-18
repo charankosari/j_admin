@@ -193,13 +193,6 @@ const handleStatusChange = async (order: IFilterOrder) => {
                       Order #{order.order_id.substring(0, 8)}
                     </p>
                   </div>
-                  <button 
-                    className="ml-auto bg-orange-500 cursor-pointer text-white px-3 py-1.5 rounded-md flex items-center text-sm"
-                    onClick={() => handleStatusChange(order)}
-                    disabled={order.status === 'ready'}
-                  >
-                    {getButtonText(order.status)} <ChevronRight size={16} />
-                  </button>
                 </div>
 
                 <div className="space-y-3">

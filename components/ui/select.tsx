@@ -4,12 +4,17 @@ import { ChevronDownIcon } from '@radix-ui/react-icons'
 interface SelectProps {
   options: { label: string; value: string }[]
   defaultValue?: string
+  value?: string
   onValueChange?: (value: string) => void
 }
 
-export function CustomSelect({ options, defaultValue, onValueChange }: SelectProps) {
+export function CustomSelect({ options, defaultValue, value, onValueChange }: SelectProps) {
   return (
-    <Select.Root defaultValue={defaultValue} onValueChange={onValueChange}>
+    <Select.Root 
+      defaultValue={defaultValue}
+      value={value}
+      onValueChange={onValueChange}
+    >
       <Select.Trigger className="inline-flex items-center justify-between bg-white border border-gray-200 rounded-md px-3 py-1.5 text-sm text-gray-800 hover:border-orange-300 focus:border-orange-500 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500/25 gap-2">
         <Select.Value />
         <Select.Icon>

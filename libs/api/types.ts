@@ -121,3 +121,50 @@ export interface IReview {
     created_at: Date;
     updated_at: Date;
 }
+
+interface ProductSale {
+    id: string;
+    name: string;
+    count: number;
+  }
+  
+  interface CategorySale {
+    category: {
+      id: string;
+      name: string;
+    };
+    dishes: ProductSale[];
+  }
+  
+  interface PeakHourData {
+    [date: string]: {
+      [hour: string]: number;
+    };
+  }
+  
+  interface RevenueData {
+    [date: string]: number;
+  }
+  
+  export interface IAllStats {
+    success: boolean;
+    data: {
+      date: string;
+      dailyProfits: {
+        [date: string]: number;
+      };
+      totalProfit: number;
+      salesOfProducts: ProductSale[];
+      salesOfAllProducts: CategorySale[];
+      peakHours: {
+        sevenDays: PeakHourData;
+        thirtyDays: PeakHourData;
+        ninetyDays: PeakHourData;
+      };
+      revenueHistory: {
+        sevenDays: RevenueData;
+        thirtyDays: RevenueData;
+        ninetyDays: RevenueData;
+      };
+    };
+  }

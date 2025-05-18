@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react" // Add useEffect import
 import { Breadcrumb } from "@/components/breadcrumb"
 import { MetricCards } from "@/components/metric-cards"
 import { RevenueChart } from "@/components/revenue-chart"
@@ -9,6 +10,7 @@ import { MostSoldItems } from "@/components/most-sold-items"
 import { ProductCards } from "@/components/product-cards"
 import { useAuth } from "@/hooks/useAuth"
 import { CustomSelect } from "@/components/ui/select"
+import { APISDK } from "@/libs/api" // Add APISDK import
 
 const timeRangeOptions = [
   { label: "Last 7 Days", value: "7d" },
@@ -16,15 +18,52 @@ const timeRangeOptions = [
   { label: "Last 90 Days", value: "90d" },
 ]
 
-const categoryOptions = [
-  { label: "Boba", value: "boba" },
-  { label: "Desserts", value: "desserts" },
-  { label: "Pizzas", value: "pizzas" },
-  { label: "Sushi", value: "sushi" },
-]
-
 export default function Dashboard() {
   const { isAuthenticated, isLoading } = useAuth()
+  const [selectedCategory, setSelectedCategory] = useState("")
+  const [categoryOptions, setCategoryOptions] = useState<{ label: string; value: string }[]>([])
+  const [revenueTimeRange, setRevenueTimeRange] = useState("7d")
+  const [peakHoursTimeRange, setPeakHoursTimeRange] = useState("7d")
+  const [mostSoldTimeRange, setMostSoldTimeRange] = useState("7d")
+
+  useEffect(() => {
+    fetchCategoriesAndSetDefault()
+  }, [])
+
+  const fetchCategoriesAndSetDefault = async () => {
+    try {
+      const api = APISDK.getInstance()
+      const [categories, statsResponse] = await Promise.all([
+        api.getDishCategories(),
+        api.getAllStats()
+      ])
+      
+      const options = categories.map(category => ({
+        label: category.name,
+        value: category.id
+      }))
+
+      setCategoryOptions(options)
+
+      // Find the category with most sales
+      const categorySales = statsResponse.data.salesOfAllProducts
+        .map(category => ({
+          id: category.category.id,
+          totalSales: category.dishes.reduce((sum, dish) => sum + dish.count, 0)
+        }))
+        .sort((a, b) => b.totalSales - a.totalSales)
+
+      // Set the most sold category as default
+      if (categorySales.length > 0) {
+        setSelectedCategory(categorySales[0].id)
+      } else if (options.length > 0) {
+        setSelectedCategory(options[0].value)
+      }
+    } catch (error) {
+      console.error('Failed to fetch categories:', error)
+      setCategoryOptions([])
+    }
+  }
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -44,39 +83,54 @@ export default function Dashboard() {
           <div className="bg-white border rounded-lg p-4">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-sm text-gray-500">Over the days</h3>
-              <CustomSelect options={timeRangeOptions} defaultValue="7d" />
+              <CustomSelect 
+                options={timeRangeOptions} 
+                value={revenueTimeRange}
+                onValueChange={setRevenueTimeRange}
+              />
             </div>
-            <RevenueChart />
+            <RevenueChart selectedTimeRange={revenueTimeRange} />
           </div>
 
           <div className="bg-white border rounded-lg p-4">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-sm text-gray-500">Sales by Category or Products</h3>
-              <CustomSelect options={timeRangeOptions} defaultValue="7d" />
             </div>
             <SalesDonutChart />
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 ">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
           <div className="bg-white border rounded-lg p-4">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-sm text-gray-500">Peak Operating Hours</h3>
-              <CustomSelect options={timeRangeOptions} defaultValue="7d" />
+              <CustomSelect 
+                options={timeRangeOptions} 
+                value={peakHoursTimeRange}
+                onValueChange={setPeakHoursTimeRange}
+              />
             </div>
-            <PeakHoursChart />
+            <PeakHoursChart selectedTimeRange={peakHoursTimeRange} />
           </div>
 
           <div className="bg-white border rounded-lg p-4">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-sm text-gray-500">Most sold items by Category</h3>
               <div className="flex gap-2">
-                <CustomSelect options={timeRangeOptions} defaultValue="7d" />
-                <CustomSelect options={categoryOptions} defaultValue="boba" />
+                <CustomSelect 
+                  options={timeRangeOptions} 
+                  value={mostSoldTimeRange}
+                  onValueChange={setMostSoldTimeRange}
+                />
+                <CustomSelect 
+                  options={categoryOptions} 
+                  value={selectedCategory}
+                  onValueChange={setSelectedCategory}
+                />
               </div>
             </div>
-            <MostSoldItems />
-            <ProductCards />
+            <MostSoldItems selectedTimeRange={mostSoldTimeRange} selectedCategory={selectedCategory} />
+            <ProductCards selectedCategory={selectedCategory} />
           </div>
         </div>
       </main>

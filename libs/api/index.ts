@@ -1,4 +1,5 @@
 import { env } from '@/env';
+import { IAllStats } from './types';
 import type {
   IUser,
   IDishCategory,
@@ -1712,6 +1713,29 @@ public async deleteAssistance(assistanceId: string): Promise<{
 
     return await response.json();
   }
+
+  // getAllStats
+  public async getAllStats(): Promise<IAllStats> {
+    const response = await fetch(
+      `${APISDK.BASE_URL}/admin/allstats`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.accessToken}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(
+        `Failed to get all stats: ${response.status} ${response.statusText}`
+      );
+    }
+
+    return await response.json();
+  }
+
 };
 
 
