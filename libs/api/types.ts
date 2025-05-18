@@ -82,6 +82,12 @@ export interface IDineInOrder {
     updated_at: Date;
 }
 
+export interface IBanner {
+    id: string;
+    image: string;
+    name?: string;
+  }
+
 export interface IDineInTableBooking {
     id: string;
     table_id: string;
