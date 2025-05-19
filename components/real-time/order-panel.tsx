@@ -7,6 +7,7 @@ import { APISDK, IDineInOrder, IDineInTable, IDineInTableBooking, IDish } from "
 interface IFilterOrder {
   order_id: string;
   table_id: string;
+  updated_at: string;
   items: {
     dish_id: string;
     dish_name: string;
@@ -16,7 +17,6 @@ interface IFilterOrder {
   }[];
   total: number;
   status: "pending" | "preparing" | "served" | "ready";
-  // Remove isPaid property
 }
 
 export function OrderPanel(
@@ -35,19 +35,27 @@ export function OrderPanel(
   const [activeTab, setActiveTab] = useState("preparing")
   const [filteredOrders, setFilteredOrders] = useState<IFilterOrder[]>([])
   const [loadingOrderId, setLoadingOrderId] = useState<string | null>(null);
-  // Generate individual orders from the data
-  // Modify the genOrders to reverse the order
+
+  const formatDateTime = (dateString: string) => {
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat('en-US', {
+      day: '2-digit',
+      month: 'short',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    }).format(date);
+  };
+
   const genOrders = orders
-    .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
-    .map((order) => {
-    // Find table directly using order's table_id
+  .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+  .map((order) => {
     const table = tables.find((table) => table.table_number === order.table_id);
 
-    // Map each item in the order
     const orderItems = order.items.map(item => {
       const dish = dishes.find(d => d.id === item.dish_id);
       return {
-        dish_id: item.dish_id, // Ensure dish_id is included
+        dish_id: item.dish_id,
         dish_name: dish?.name ?? "Unknown Dish",
         quantity: item.quantity,
         total: (dish?.price || 0) * item.quantity,
@@ -55,7 +63,6 @@ export function OrderPanel(
       };
     });
 
-    // Calculate total for all items in the order
     const total = orderItems.reduce((sum: number, item) => sum + item.total, 0);
 
     return {
@@ -64,7 +71,7 @@ export function OrderPanel(
       items: orderItems,
       total,
       status: order.order_status as 'pending' | 'preparing' | 'served' | 'ready',
-      // Remove isPaid property
+      updated_at: order.updated_at.toString() // Convert Date to string
     };
   });
 
@@ -96,11 +103,11 @@ export function OrderPanel(
       setLoadingOrderId(null);
       return;
     }
-  
+
     try {
       const api = APISDK.getInstance(token);
       let nextStatus: 'pending' | 'preparing' | 'served' | 'ready';
-  
+
       switch (order.status) {
         case 'pending':
           nextStatus = 'preparing';
@@ -117,12 +124,12 @@ export function OrderPanel(
         default:
           nextStatus = 'ready';
       }
-  
+
       // Update local state
       setFilteredOrders(prev =>
         prev.map(o => o.order_id === order.order_id ? { ...o, status: nextStatus } : o)
       );
-  
+
       // Wait for parent component to fetch new data
       await new Promise(resolve => {
         const checkInterval = setInterval(() => {
@@ -132,14 +139,14 @@ export function OrderPanel(
             resolve(true);
           }
         }, 500); // Check every 500ms
-  
+
         // Set a timeout to prevent infinite loading
         setTimeout(() => {
           clearInterval(checkInterval);
           resolve(false);
         }, 10000); // Maximum 10 seconds wait
       });
-  
+
     } catch (error) {
       console.error("Failed to update order status:", error);
     } finally {
@@ -272,9 +279,14 @@ export function OrderPanel(
                     </div>
                     <div>
                       <h3 className="font-medium text-gray-800">Table - {order.table_id}</h3>
-                      <p className="text-sm text-blue-400">
-                        Order #{order.order_id.substring(0, 8)}
-                      </p>
+                      <div className="flex flex-col">
+                        <p className="text-sm text-blue-400">
+                          Order #{order.order_id.substring(0, 8)}
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          Last updated: {formatDateTime(order.updated_at)}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -314,8 +326,8 @@ export function OrderPanel(
                           onClick={() => handleStatusChange(order)}
                           disabled={loadingOrderId === order.order_id}
                           className={`flex-1 ${loadingOrderId === order.order_id
-                              ? 'bg-gray-400 cursor-not-allowed'
-                              : 'bg-orange-500 hover:bg-orange-600'
+                            ? 'bg-gray-400 cursor-not-allowed'
+                            : 'bg-orange-500 hover:bg-orange-600'
                             } text-white py-2 px-4 rounded transition duration-200`}
                         >
                           {loadingOrderId === order.order_id
