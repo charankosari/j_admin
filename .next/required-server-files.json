@@ -280,6 +280,16 @@
     "configFileName": "next.config.ts",
     "turbopack": {
       "root": "C:\\Users\\Charan Kosari\\Desktop\\jeevic\\jeevic-admin"
+    },
+    "_originalRewrites": {
+      "beforeFiles": [],
+      "afterFiles": [
+        {
+          "source": "/:path*",
+          "destination": "/"
+        }
+      ],
+      "fallback": []
     }
   },
   "appDir": "C:\\Users\\Charan Kosari\\Desktop\\jeevic\\jeevic-admin",

@@ -1,15 +1,15 @@
 {
   "/_not-found/page": "/_not-found",
   "/favicon.ico/route": "/favicon.ico",
-  "/login/page": "/login",
   "/coupon-codes/page": "/coupon-codes",
-  "/inventory/page": "/inventory",
   "/employees/page": "/employees",
-  "/page": "/",
+  "/inventory/page": "/inventory",
   "/operations/page": "/operations",
   "/promotional-mail/page": "/promotional-mail",
-  "/table-reservations/page": "/table-reservations",
+  "/promotions/page": "/promotions",
+  "/login/page": "/login",
   "/staff/page": "/staff",
+  "/page": "/",
   "/real-time/page": "/real-time",
-  "/promotions/page": "/promotions"
+  "/table-reservations/page": "/table-reservations"
 }
