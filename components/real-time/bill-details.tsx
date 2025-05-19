@@ -373,17 +373,6 @@ export function BillDetails({ bill, onUpdateCapacityAction, table }: BillDetails
                     Table Details
                   </button>
                   <button
-                    onClick={async () => {
-                      await handleMarkAsCleaned(table.id);
-                    }}
-                    className="flex items-center w-full px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100"
-                  >
-                    <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" />
-                    </svg>
-                    Mark as Cleaned
-                  </button>
-                  <button
                     onClick={handleDeleteTable}
                     className="flex items-center w-full px-4 py-2 text-sm text-red-600 cursor-pointer hover:bg-gray-100"
                   >
@@ -436,6 +425,32 @@ export function BillDetails({ bill, onUpdateCapacityAction, table }: BillDetails
 
         <div className="mt-4 flex flex-col gap-3">
           <button
+            onClick={handleForcedCheckout}
+            disabled={isForcedCheckout || !bill?.booking_id}
+            className={`py-3 w-full flex items-center justify-center rounded-md transition-colors duration-200 ${
+              isForcedCheckout || !bill?.booking_id
+                ? 'bg-gray-400 cursor-not-allowed text-white'
+                : 'bg-red-500 hover:bg-red-600 text-white cursor-pointer'
+            }`}
+          >
+            {isForcedCheckout ? (
+              <>
+                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Processing Checkout...
+              </>
+            ) : (
+              <>
+                <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                Force Checkout
+              </>
+            )}
+          </button>
+          <button
             onClick={async () => {
               await handleComplete(bill.checkout_id!, bill.booking_id!);
             }}
@@ -462,30 +477,15 @@ export function BillDetails({ bill, onUpdateCapacityAction, table }: BillDetails
             )}
           </button>
           <button
-            onClick={handleForcedCheckout}
-            disabled={isForcedCheckout || !bill?.booking_id}
-            className={`py-3 w-full flex items-center justify-center rounded-md transition-colors duration-200 ${
-              isForcedCheckout || !bill?.booking_id
-                ? 'bg-gray-400 cursor-not-allowed text-white'
-                : 'bg-red-500 hover:bg-red-600 text-white cursor-pointer'
-            }`}
+            onClick={async () => {
+              await handleMarkAsCleaned(table.id);
+            }}
+            className="py-3 w-full bg-blue-500 text-white rounded-md hover:bg-blue-600 flex items-center justify-center transition-colors duration-200"
           >
-            {isForcedCheckout ? (
-              <>
-                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                Processing Checkout...
-              </>
-            ) : (
-              <>
-                <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                </svg>
-                Force Checkout
-              </>
-            )}
+            <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+            Mark as Cleaned
           </button>
         </div>
       </div>
