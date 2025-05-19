@@ -38,12 +38,15 @@ export function SalesDonutChart() {
       const api = APISDK.getInstance()
       const response = await api.getAllStats()
       
-      // Transform the sales data using salesOfProducts
-      const salesData = response.data.salesOfProducts.map((item, index) => ({
-        name: item.name,
-        value: item.count,
-        color: COLORS[index % COLORS.length] // Cycle through colors if more categories than colors
-      }))
+      // Transform and sort the data by value to make it more readable
+      const salesData = response.data.salesOfProducts
+        .filter(item => item.count > 0) // Only show items with sales
+        .sort((a, b) => b.count - a.count) // Sort by count in descending order
+        .map((item, index) => ({
+          name: item.name,
+          value: Number(item.count), // Ensure count is a number
+          color: COLORS[index % COLORS.length]
+        }));
 
       setData(salesData)
     } catch (error) {
@@ -69,18 +72,23 @@ export function SalesDonutChart() {
             paddingAngle={2} 
             dataKey="value"
           >
-            {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={entry.color} />
+            {data.map((entry) => (
+              <Cell key={entry.name} fill={entry.color} />
             ))}
           </Pie>
         </PieChart>
       </ResponsiveContainer>
 
       <div className="absolute bottom-0 left-0 right-0 flex flex-wrap justify-center gap-x-4 gap-y-2">
-        {data.map((item, index) => (
-          <div key={index} className="flex items-center">
-            <span className="w-3 h-3 rounded-full mr-1" style={{ backgroundColor: item.color }}></span>
-            <span className="text-xs text-black">{item.name}</span>
+        {data.map((item) => (
+          <div key={item.name} className="flex items-center">
+            <span 
+              className="w-3 h-3 rounded-full mr-1" 
+              style={{ backgroundColor: item.color }}
+            />
+            <span className="text-xs text-black">
+              {item.name} ({item.value})
+            </span>
           </div>
         ))}
       </div>

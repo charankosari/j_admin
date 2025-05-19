@@ -24,9 +24,12 @@ export function MetricCards() {
         // Set user count
         setUserCount(usersResponse.data.total);
 
-        // Calculate total items sold
+        // Fix total items calculation by ensuring numeric values
         const totalItems = statsResponse.data.salesOfAllProducts.reduce((acc, category) => {
-          return acc + category.dishes.reduce((sum, dish) => sum + dish.count, 0);
+          const categoryTotal = category.dishes.reduce((sum, dish) => {
+            return sum + (Number(dish.count) || 0);
+          }, 0);
+          return acc + categoryTotal;
         }, 0);
 
         // Get today's date in the format DD-M-YYYY

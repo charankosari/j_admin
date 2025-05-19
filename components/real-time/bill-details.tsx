@@ -31,6 +31,7 @@ interface BillDetailsProps {
 export function BillDetails({ bill, onUpdateCapacityAction, table }: BillDetailsProps) {
   const [showMenu, setShowMenu] = useState(false);
   const [showTableDetails, setShowTableDetails] = useState(false);
+  const [isCompleting, setIsCompleting] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const tableDetailsRef = useRef<HTMLDivElement>(null);
@@ -68,25 +69,30 @@ export function BillDetails({ bill, onUpdateCapacityAction, table }: BillDetails
     checkout_id: string,
     booking_id: string,
   ) => {
+    setIsCompleting(true);
     const token = localStorage.getItem("access_token");
     if (!token) {
+      setIsCompleting(false);
       return;
     }
 
-    const api = APISDK.getInstance(token);
+    try {
+      const api = APISDK.getInstance(token);
 
-    await api.updateCheckout(checkout_id, {
-      is_checked_out: true,
-      payment_status: "Completed",
-      payment_date: new Date(),
-    });
-    console.log("updateCheckout request completed");
+      await api.updateCheckout(checkout_id, {
+        is_checked_out: true,
+        payment_status: "Completed",
+        payment_date: new Date(),
+      });
 
-    console.log("Sending markBookingAsCompleted request");
-    await api.markBookingAsCompleted(booking_id);
-    console.log("markBookingAsCompleted request completed");
-    
-    showPopup("Payment completed successfully", { type: "success" });
+      await api.markBookingAsCompleted(booking_id);
+      showPopup("Payment completed successfully", { type: "success" });
+    } catch (error) {
+      console.error("Failed to complete payment:", error);
+      showPopup("Failed to complete payment", { type: "error" });
+    } finally {
+      setIsCompleting(false);
+    }
   };
 
   const toggleMenu = () => {
@@ -398,15 +404,28 @@ export function BillDetails({ bill, onUpdateCapacityAction, table }: BillDetails
         </div>
 
         <div className="mt-4 gap-3">
-          <button 
-            onClick={async () => {
-              await handleComplete(bill.checkout_id!, bill.booking_id!)
-            }}
-            className="py-2 w-full border border-gray-300 cursor-pointer rounded-md text-gray-700 hover:bg-gray-50"
-          >
-            Mark as Complete
-          </button>
-        </div>
+      <button 
+        onClick={async () => {
+          await handleComplete(bill.checkout_id!, bill.booking_id!);
+        }}
+        disabled={isCompleting}
+        className={`py-2 w-full border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 flex items-center justify-center ${
+          isCompleting ? 'cursor-not-allowed opacity-70' : 'cursor-pointer'
+        }`}
+      >
+        {isCompleting ? (
+          <>
+            <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            Processing...
+          </>
+        ) : (
+          'Mark as Complete'
+        )}
+      </button>
+    </div>
       </div>
 
       {/* Table Details Modal */}
