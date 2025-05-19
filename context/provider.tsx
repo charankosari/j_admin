@@ -7,7 +7,7 @@ import { AuthContext } from './auth';
 export const AuthContextProvider = ({children}: {children: React.ReactNode}) => {
     const {isAuthenticated, isLoading, user, setIsAuthenticated, setUser, refreshAuth} = useAuth();
     const contextValue = useMemo(() => ({
-        user,
+        user:user??null,
         isLoading,
         isAuthenticated,
         setIsAuthenticated,
