@@ -36,12 +36,13 @@ export function BillDetails({ bill, onUpdateCapacityAction, table }: BillDetails
   const buttonRef = useRef<HTMLButtonElement>(null);
   const tableDetailsRef = useRef<HTMLDivElement>(null);
   const { showPopup } = usePopup();
+  const [isForcedCheckout, setIsForcedCheckout] = useState(false);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       // Handle menu click outside
       if (
-        menuRef.current && 
+        menuRef.current &&
         !menuRef.current.contains(event.target as Node) &&
         buttonRef.current &&
         !buttonRef.current.contains(event.target as Node)
@@ -51,7 +52,7 @@ export function BillDetails({ bill, onUpdateCapacityAction, table }: BillDetails
 
       // Handle table details modal click outside
       if (
-        tableDetailsRef.current && 
+        tableDetailsRef.current &&
         !tableDetailsRef.current.contains(event.target as Node)
       ) {
         setShowTableDetails(false);
@@ -95,6 +96,36 @@ export function BillDetails({ bill, onUpdateCapacityAction, table }: BillDetails
     }
   };
 
+  const handleForcedCheckout = async () => {
+    if (!bill?.booking_id) {
+      console.error("No booking ID found");
+      return;
+    }
+
+    setIsForcedCheckout(true);
+    try {
+      const token = localStorage.getItem("access_token");
+      if (!token) {
+        throw new Error("No access token found");
+      }
+
+      const api = APISDK.getInstance(token);
+      await api.createUserEndCheckout(bill.booking_id);
+
+      // Show success message
+      showPopup("Forced checkout completed successfully", {
+        type: "success",
+      });
+    } catch (error) {
+      console.error("Failed to force checkout:", error);
+      showPopup("Failed to complete forced checkout", {
+        type: "error",
+      });
+    } finally {
+      setIsForcedCheckout(false);
+    }
+  };
+
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
@@ -113,7 +144,7 @@ export function BillDetails({ bill, onUpdateCapacityAction, table }: BillDetails
     const api = APISDK.getInstance(token);
 
     try {
-    await api.markTableAsCleaned(table_id);
+      await api.markTableAsCleaned(table_id);
       showPopup("Table marked as cleaned", { type: "success" });
     } catch (error) {
       console.error("Error marking table as cleaned:", error);
@@ -136,10 +167,10 @@ export function BillDetails({ bill, onUpdateCapacityAction, table }: BillDetails
 
       const api = APISDK.getInstance(token);
       await api.deleteTable(table.id);
-      
+
       setShowMenu(false);
       showPopup("Table deleted successfully", { type: "success" });
-      
+
       // Optionally, you might want to trigger a refresh of the parent component
       // or navigate away from this component since the table no longer exists
     } catch (error) {
@@ -150,11 +181,11 @@ export function BillDetails({ bill, onUpdateCapacityAction, table }: BillDetails
   const handleCapacityChange = (newCapacity: number) => {
     onUpdateCapacityAction(newCapacity);
     setShowTableDetails(false);
-    
+
     showPopup(`Table capacity updated to ${newCapacity} seats`, { type: "success" });
   };
 
-  if(!table) {
+  if (!table) {
     return (
       <div className="bg-gray-100 border rounded-lg overflow-hidden relative">
         <div className="p-4">
@@ -189,14 +220,14 @@ export function BillDetails({ bill, onUpdateCapacityAction, table }: BillDetails
               </div>
             </div>
             <div className="relative">
-              <button 
+              <button
                 ref={buttonRef}
                 onClick={toggleMenu}
                 className="p-2 rounded-xl cursor-pointer bg-gray-200 hover:bg-gray-300"
               >
                 <MoreVertical size={20} className="text-black " />
               </button>
-              
+
               {showMenu && (
                 <div ref={menuRef} className="absolute right-0 mt-1 w-48 bg-white rounded-md shadow-lg z-10">
                   <div className="py-1 border rounded-md">
@@ -234,7 +265,7 @@ export function BillDetails({ bill, onUpdateCapacityAction, table }: BillDetails
               )}
             </div>
           </div>
-          
+
           <div className="flex justify-center items-center h-48 bg-white/60 rounded-xl">
             <p className="text-gray-500 text-center">No bill selected</p>
           </div>
@@ -253,7 +284,7 @@ export function BillDetails({ bill, onUpdateCapacityAction, table }: BillDetails
                     </svg>
                   </button>
                 </div>
-                
+
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700">Table Name</label>
@@ -261,7 +292,7 @@ export function BillDetails({ bill, onUpdateCapacityAction, table }: BillDetails
                       <span>{displayTableId}</span>
                     </div>
                   </div>
-                  
+
                   <div>
                     <label className="block text-sm font-medium text-gray-700">Table Capacity</label>
                     <div className="mt-2">
@@ -277,7 +308,7 @@ export function BillDetails({ bill, onUpdateCapacityAction, table }: BillDetails
                       </select>
                     </div>
                   </div>
-                  
+
                   <div>
                     <h4 className="block text-sm font-medium text-gray-700 mb-2">Table QR</h4>
                     <p className="text-xs text-gray-500 mb-2">QR where users can order items from their table</p>
@@ -321,14 +352,14 @@ export function BillDetails({ bill, onUpdateCapacityAction, table }: BillDetails
             </div>
           </div>
           <div className="relative">
-            <button 
+            <button
               ref={buttonRef}
               onClick={toggleMenu}
               className="p-2 rounded-xl cursor-pointer bg-gray-200 hover:bg-gray-300"
             >
               <MoreVertical size={20} className="text-black " />
             </button>
-            
+
             {showMenu && (
               <div ref={menuRef} className="absolute right-0 mt-1 w-48 bg-white rounded-md shadow-lg z-10">
                 <div className="py-1 border rounded-md">
@@ -342,16 +373,16 @@ export function BillDetails({ bill, onUpdateCapacityAction, table }: BillDetails
                     Table Details
                   </button>
                   <button
-                      onClick={async () => {
-                        await handleMarkAsCleaned(table.id);
-                      }}
-                      className="flex items-center w-full px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100"
-                    >
-                      <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" />
-                      </svg>
-                      Mark as Cleaned
-                    </button>
+                    onClick={async () => {
+                      await handleMarkAsCleaned(table.id);
+                    }}
+                    className="flex items-center w-full px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100"
+                  >
+                    <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" />
+                    </svg>
+                    Mark as Cleaned
+                  </button>
                   <button
                     onClick={handleDeleteTable}
                     className="flex items-center w-full px-4 py-2 text-sm text-red-600 cursor-pointer hover:bg-gray-100"
@@ -403,29 +434,60 @@ export function BillDetails({ bill, onUpdateCapacityAction, table }: BillDetails
           <span className="font-medium">₹ {bill.grandTotal}</span>
         </div>
 
-        <div className="mt-4 gap-3">
-      <button 
-        onClick={async () => {
-          await handleComplete(bill.checkout_id!, bill.booking_id!);
-        }}
-        disabled={isCompleting}
-        className={`py-2 w-full border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 flex items-center justify-center ${
-          isCompleting ? 'cursor-not-allowed opacity-70' : 'cursor-pointer'
-        }`}
-      >
-        {isCompleting ? (
-          <>
-            <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            Processing...
-          </>
-        ) : (
-          'Mark as Complete'
-        )}
-      </button>
-    </div>
+        <div className="mt-4 flex flex-col gap-3">
+          <button
+            onClick={async () => {
+              await handleComplete(bill.checkout_id!, bill.booking_id!);
+            }}
+            disabled={isCompleting}
+            className={`py-3 w-full bg-green-500 text-white rounded-md hover:bg-green-600 flex items-center justify-center transition-colors duration-200 ${
+              isCompleting ? 'cursor-not-allowed opacity-70 bg-green-400' : 'cursor-pointer'
+            }`}
+          >
+            {isCompleting ? (
+              <>
+                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Processing...
+              </>
+            ) : (
+              <>
+                <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Mark as completed
+              </>
+            )}
+          </button>
+          <button
+            onClick={handleForcedCheckout}
+            disabled={isForcedCheckout || !bill?.booking_id}
+            className={`py-3 w-full flex items-center justify-center rounded-md transition-colors duration-200 ${
+              isForcedCheckout || !bill?.booking_id
+                ? 'bg-gray-400 cursor-not-allowed text-white'
+                : 'bg-red-500 hover:bg-red-600 text-white cursor-pointer'
+            }`}
+          >
+            {isForcedCheckout ? (
+              <>
+                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Processing Checkout...
+              </>
+            ) : (
+              <>
+                <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                Force Checkout
+              </>
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Table Details Modal */}
@@ -441,7 +503,7 @@ export function BillDetails({ bill, onUpdateCapacityAction, table }: BillDetails
                   </svg>
                 </button>
               </div>
-              
+
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700">Table Name</label>
@@ -449,7 +511,7 @@ export function BillDetails({ bill, onUpdateCapacityAction, table }: BillDetails
                     <span>{bill.tableId}</span>
                   </div>
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700">Table Capacity</label>
                   <div className="mt-2">
@@ -465,7 +527,7 @@ export function BillDetails({ bill, onUpdateCapacityAction, table }: BillDetails
                     </select>
                   </div>
                 </div>
-                
+
                 <div>
                   <h4 className="block text-sm font-medium text-gray-700 mb-2">Table QR</h4>
                   <p className="text-xs text-gray-500 mb-2">QR where users can order items from their table</p>

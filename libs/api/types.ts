@@ -67,6 +67,7 @@ interface IOrderItem {
     dish_id: string;
     quantity: number;
     instructions?: string;
+    item_status?: "pending" | "preparing" | "served" | "ready";
 }
 
 export interface IDineInOrder {

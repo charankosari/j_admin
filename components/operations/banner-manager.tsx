@@ -69,7 +69,7 @@ export function BannerManager() {
 
   return (
     <div className="mt-6">
-      <h2 className="text-xl font-semibold mb-4">Banner Management</h2>
+      <h2 className="text-xl text-black mb-4">Banner Management</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {banners.map((banner) => (
           <div key={banner.id} className="border rounded-lg p-4">
@@ -88,10 +88,10 @@ export function BannerManager() {
       </div>
 
       {isAddModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex items-center justify-center z-50">
+        <div className="fixed inset-0  backdrop-blur-sm flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg w-96 shadow-xl">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-semibold">Add New Banner</h3>
+              <h3 className="text-lg text-black ">Add New Banner</h3>
               <button onClick={() => setIsAddModalOpen(false)} className="text-gray-500 hover:text-gray-700">
                 <X size={24} />
               </button>

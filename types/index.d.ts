@@ -63,6 +63,7 @@ interface IDineInTableStats {
       order_status: string
       dish_id: string
       total: number
+      item_status: "pending" | "preparing" | "served" | "ready";
   }[]
   total_amount: number
   booking_id?: string
