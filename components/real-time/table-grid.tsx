@@ -32,7 +32,6 @@ export default function TableGridSystem({
   const [tableStatus, setTableStatus] = useState<{
     [tableId: string]: TableStatus;
   }>({});
-
   useEffect(() => {
     const newBills: Record<string, Bill> = {};
     tableStates.forEach((stat) => {
@@ -40,6 +39,7 @@ export default function TableGridSystem({
         ...prev,
         [stat.table_number]: stat.status as TableStatus,
       }));
+
       newBills[stat.table_number] = {
         tableId: stat.table_number,
         items: stat.items.map((item) => ({
@@ -55,8 +55,10 @@ export default function TableGridSystem({
         booking_id: stat.booking_id ?? null,
       };
     });
+    
     setBills(newBills);
   }, [tableStates]);
+  console.log("table status",tableStates)
 
   const updateTableCapacity = (tableId: string, capacity: number) => {
     setTables(prevTables =>

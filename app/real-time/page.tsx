@@ -33,11 +33,41 @@ export default function RealTimePage() {
         api.getTableStats()
       ]);
 
+
       setTables(tables.data);
       setOrders(orders.data);
       setBookings(bookings.data);
       setDishes(dishes);
-      setTableStates(tableStats.data);
+
+      const updatedTableStats = tableStats.data.map((tableStat: IDineInTableStats) => {
+        const matchingBooking = bookings.data.find((booking: IDineInTableBooking) => 
+            booking.id === tableStat.booking_id
+        );
+
+        if (matchingBooking && matchingBooking.is_ready_to_bill) {
+            console.log("Changed TableStat:", { ...tableStat, status: "Ready to Bill" });
+            return {
+                ...tableStat,
+                status: "Ready to Bill"
+            };
+        }
+
+        // Check if the table needs to be marked as "To be Cleaned"
+        const table = tables.data.find((t: IDineInTable) => t.id === tableStat.table_number);
+        if (table && table.meta_data.status === 'Untouched' && table.meta_data.to_be_cleaned === true) {
+          console.log("Changed TableStat:", { ...tableStat, status: "To be Cleaned" });
+          return {
+              ...tableStat,
+              status: "To be Cleaned"
+          };
+      }
+  
+
+        console.log("Unchanged TableStat:", tableStat);
+        return tableStat;
+    });
+
+    setTableStates(updatedTableStats);
 
       setIsLoading(false);
     } catch (error) {
@@ -63,6 +93,12 @@ export default function RealTimePage() {
     }, 5000);
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    if (!isLoading) {
+      console.log("Updated Table States:", tableStates);
+    }
+  }, [tableStates, isLoading]);
 
   if (isLoading) {
     return <div>Loading...</div>;

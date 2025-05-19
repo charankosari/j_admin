@@ -94,6 +94,7 @@ export interface IDineInTableBooking {
     is_confirmed: boolean;
     is_cancelled: boolean;
     is_completed: boolean;
+    is_ready_to_bill:boolean;
     created_at: Date;
     updated_at: Date;
 }
@@ -104,8 +105,9 @@ export interface IDineInTable {
     is_available: boolean;
     capacity: number;
     meta_data: {
-        status: TableStatus;
-        qr_code: string;
+      status: TableStatus;
+      qr_code: string;
+      to_be_cleaned: boolean; 
     };
     created_at: Date;
     updated_at: Date;

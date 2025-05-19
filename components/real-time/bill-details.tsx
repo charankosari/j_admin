@@ -80,8 +80,11 @@ export function BillDetails({ bill, onUpdateCapacityAction, table }: BillDetails
       payment_status: "Completed",
       payment_date: new Date(),
     });
+    console.log("updateCheckout request completed");
 
+    console.log("Sending markBookingAsCompleted request");
     await api.markBookingAsCompleted(booking_id);
+    console.log("markBookingAsCompleted request completed");
     
     showPopup("Payment completed successfully", { type: "success" });
   };

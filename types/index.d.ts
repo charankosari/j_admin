@@ -54,6 +54,7 @@ interface IDineInTableStats {
   table_number: string
   status: string
   booked_at: string
+  
   items: {
       name: string
       quantity: number
