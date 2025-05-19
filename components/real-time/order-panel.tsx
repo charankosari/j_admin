@@ -8,6 +8,7 @@ interface IFilterOrder {
     order_id: string;
     table_id: string;
     items: {
+      dish_id: string;
         dish_name: string;
         quantity: number;
         total: number;
@@ -33,7 +34,6 @@ export function OrderPanel(
 ) {
   const [activeTab, setActiveTab] = useState("preparing")
   const [filteredOrders, setFilteredOrders] = useState<IFilterOrder[]>([])
-  console.log(orders)
   // Generate individual orders from the data
   // Modify the genOrders to reverse the order
   const genOrders = orders.map((order) => {
@@ -44,6 +44,7 @@ export function OrderPanel(
     const orderItems = order.items.map(item => {
       const dish = dishes.find(d => d.id === item.dish_id);
       return {
+        dish_id: item.dish_id, // Ensure dish_id is included
         dish_name: dish?.name ?? "Unknown Dish",
         quantity: item.quantity,
         total: (dish?.price || 0) * item.quantity,
@@ -53,7 +54,6 @@ export function OrderPanel(
 
     // Calculate total for all items in the order
     const total = orderItems.reduce((sum: number, item) => sum + item.total, 0);
-    console.log(table,orderItems,order,tables)
 
     return {
       order_id: order.id,
@@ -249,6 +249,7 @@ const handleStatusChange = async (order: IFilterOrder) => {
                       <div className="flex items-center justify-between mb-1">
                         <span className="text-gray-700">{item.dish_name}</span>
                         <span className="text-gray-500 text-sm">×{item.quantity}</span>
+                         <button onClick={() => handleRemoveItem(order, item.dish_id)} className="text-red-500 mx-1">Remove</button>
                       </div>
                       {item.instructions && (
                         <p className="text-sm text-gray-500 italic">

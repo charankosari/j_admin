@@ -1168,6 +1168,27 @@ export class APISDK {
 
     return await response.json();
   }
+  public async updateOrDeleteOrder(orderId: string, data: Partial<IDineInOrder>): Promise<{
+    success: boolean;
+    data: IDineInOrder;
+  }> {
+    const response = await fetch(`${APISDK.BASE_URL}/dine-in/orders/update/${orderId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error(
+        `Failed to update order: ${response.status} ${response.statusText}`
+      );
+    }
+
+    return await response.json();
+  }
 
   // deleteOrder
   public async deleteOrder(orderId: string): Promise<{
