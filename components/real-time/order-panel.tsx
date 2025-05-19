@@ -167,7 +167,33 @@ const handleStatusChange = async (order: IFilterOrder) => {
       console.error("Failed to cancel order:", error);
     }
   }
+  const handleRemoveItem = async (order: IFilterOrder, dish_id: string) => {
+    if (window.confirm("This will remove the item from the current order. Proceed?")) {
+      const updatedItems = order.items
+            .filter(item => item.dish_id !== dish_id)
+            .map(item => ({ dish_id: item.dish_id, quantity: item.quantity })); // Send only dish_id and quantity
+console.log(updatedItems)
+        const token = localStorage.getItem("access_token");
+        if (!token) {
+            console.error("No access token found in localStorage");
+            return;
+        }
 
+      if (!token) {
+        console.error("No access token found in localStorage");
+        return;
+      }
+
+      const api = APISDK.getInstance(token);
+
+      try {
+        await api.updateOrDeleteOrder(order.order_id, { items: updatedItems });
+        // setFilteredOrders(prev => prev.map(o => o.order_id === order.order_id ? { ...o, items: updatedItems } : o));
+      } catch (error) {
+        console.error("Failed to update order:", error);
+      }
+    }
+  };
   const handleReadyToBill = async (orderId: string) => {
     const token = localStorage.getItem("access_token");
     if (!token) {
