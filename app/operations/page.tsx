@@ -8,7 +8,7 @@ import ProductGridWithModal from "@/components/operations/product-grid"
 import { PlusCircle } from "lucide-react"
 import { NewCategoryModal } from "../../components/operations/new-category-modal"
 import { APISDK, IDish, IDishCategory } from "@/libs/api"
-
+import { BannerManager } from "@/components/operations/banner-manager"
 // Define the interface for category data used in tabs
 interface ICategoryData {
   id: string;
@@ -193,6 +193,7 @@ export default function OperationsPage() {
             onDishDeleted={handleDishDeleted}
           />
         </div>
+        <BannerManager />
 
         {showNewCategoryModal && (
           <NewCategoryModal 

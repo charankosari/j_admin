@@ -9,7 +9,8 @@ import type {
   IDineInTableBooking,
   IDineInTable,
   IReview,
-  IAssistance
+  IAssistance,
+  IBanner
 } from './types';
 import { TableStatus } from '@/components/real-time/table-grid';
 
@@ -1749,6 +1750,54 @@ public async deleteAssistance(assistanceId: string): Promise<{
     }
 
     return await response.json();
+  }
+  // Create banner
+  public async createBanner(formData: FormData): Promise<IBanner> {
+    const response = await fetch(`${APISDK.BASE_URL}/banner/create`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+      body: formData,
+    });
+  
+    if (!response.ok) {
+      throw new Error(`Failed to create banner: ${response.status} ${response.statusText}`);
+    }
+  
+    return await response.json();
+  }
+
+  // Get all banners
+  public async getBanners(): Promise<IBanner[]> {
+    const response = await fetch(`${APISDK.BASE_URL}/banner`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to get banners: ${response.status} ${response.statusText}`);
+    }
+
+    return await response.json();
+  }
+
+  // Delete a banner
+  public async deleteBanner(bannerId: string): Promise<void> {
+    const response = await fetch(`${APISDK.BASE_URL}/banner/${bannerId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to delete banner: ${response.status} ${response.statusText}`);
+    }
   }
 
 };
