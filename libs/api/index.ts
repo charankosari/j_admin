@@ -1799,7 +1799,98 @@ public async deleteAssistance(assistanceId: string): Promise<{
       throw new Error(`Failed to delete banner: ${response.status} ${response.statusText}`);
     }
   }
+  public async createEmployee(employeeData: {
+    first_name: string;
+    last_name: string;
+    email: string;
+    country_code: string;
+    phone_number: string;
+    profile_picture: string;
+    role: string;
+  }): Promise<{ success: boolean; message: string; data?: any }> {
+    const response = await fetch(`${APISDK.BASE_URL}/admin/staff`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+      body: JSON.stringify(employeeData),
+    });
 
+    if (!response.ok) {
+      throw new Error(`Failed to create employee: ${response.status} ${response.statusText}`);
+    }
+
+    return await response.json();
+  }
+  public async getEmployees(): Promise<{ success: boolean; data: any[] }> {
+    const response = await fetch(`${APISDK.BASE_URL}/admin/staff`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to get employees: ${response.status} ${response.statusText}`);
+    }
+
+    return await response.json();
+  }
+  public async getEmployeeById(staffId: string): Promise<{ success: boolean; data: any }> {
+    const response = await fetch(`${APISDK.BASE_URL}/admin/staff/${staffId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to get employee: ${response.status} ${response.statusText}`);
+    }
+
+    return await response.json();
+  }
+  public async updateEmployee(staffId: string, employeeData: Partial<{
+    first_name: string;
+    last_name: string;
+    profile_picture: string;
+    role: string;
+    phone_number: string;
+    email: string;
+  }>): Promise<{ success: boolean; message: string; data?: any }> {
+    const response = await fetch(`${APISDK.BASE_URL}/admin/staff/${staffId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+      body: JSON.stringify(employeeData),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to update employee: ${response.status} ${response.statusText}`);
+    }
+
+    return await response.json();
+  }
+  public async deleteEmployee(staffId: string): Promise<{ success: boolean; message: string }> {
+    const response = await fetch(`${APISDK.BASE_URL}/admin/staff/${staffId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to delete employee: ${response.status} ${response.statusText}`);
+    }
+
+    return await response.json();
+  }
 };
 
 

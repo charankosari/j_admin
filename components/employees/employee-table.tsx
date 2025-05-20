@@ -1,65 +1,54 @@
 "use client"
+import { useState } from "react"
 import { Eye, Edit, Trash2, ChevronLeft, ChevronRight } from "lucide-react"
 
-export function EmployeeTable() {
-  const employees = [
-    {
-      id: "#321415d",
-      name: "Ram Prakash",
-      department: "Cafe Admin",
-      mobile: "7799411997",
-      email: "ramprakash.123@gmail.com",
-      image: "https://i.pinimg.com/736x/62/7d/7a/627d7ac2d198b462f5a558ac49ecfc9f.jpg?height=40&width=40&text=RP",
-    },
-    {
-      id: "#321415d",
-      name: "Ram Prakash",
-      department: "Cafe Admin",
-      mobile: "7799411997",
-      email: "ramprakash.123@gmail.com",
-      image: "https://i.pinimg.com/736x/62/7d/7a/627d7ac2d198b462f5a558ac49ecfc9f.jpg?height=40&width=40&text=RP",
-    },
-    {
-      id: "#321415d",
-      name: "Ram Prakash",
-      department: "Cafe Admin",
-      mobile: "7799411997",
-      email: "ramprakash.123@gmail.com",
-      image: "https://i.pinimg.com/736x/62/7d/7a/627d7ac2d198b462f5a558ac49ecfc9f.jpg?height=40&width=40&text=RP",
-    },
-    {
-      id: "#321415d",
-      name: "Ram Prakash",
-      department: "Cafe Admin",
-      mobile: "7799411997",
-      email: "ramprakash.123@gmail.com",
-      image: "https://i.pinimg.com/736x/62/7d/7a/627d7ac2d198b462f5a558ac49ecfc9f.jpg?height=40&width=40&text=RP",
-    },
-    {
-      id: "#321415d",
-      name: "Ram Prakash",
-      department: "Cafe Admin",
-      mobile: "7799411997",
-      email: "ramprakash.123@gmail.com",
-      image: "https://i.pinimg.com/736x/62/7d/7a/627d7ac2d198b462f5a558ac49ecfc9f.jpg?height=40&width=40&text=RP",
-    },
-    {
-      id: "#321415d",
-      name: "Ram Prakash",
-      department: "Cafe Admin",
-      mobile: "7799411997",
-      email: "ramprakash.123@gmail.com",
-      image: "https://i.pinimg.com/736x/62/7d/7a/627d7ac2d198b462f5a558ac49ecfc9f.jpg?height=40&width=40&text=RP",
-    },
-    {
-      id: "#321415d",
-      name: "Ram Prakash",
-      department: "Cafe Admin",
-      mobile: "7799411997",
-      email: "ramprakash.123@gmail.com",
-      image: "https://i.pinimg.com/736x/62/7d/7a/627d7ac2d198b462f5a558ac49ecfc9f.jpg?height=40&width=40&text=RP",
-    },
-  ]
+interface Employee {
+  id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  country_code: string;
+  phone_number: string;
+  role: string;
+  profile_picture: string;
+  updated_at: string;
+  created_at: string;
+  employeeid: string;
+}
+
+interface EmployeeTableProps {
+  employees: Employee[];
+  onUpdate: (employeeData: any, file: any) => Promise<void>;
+  onDelete: (employeeId: string) => Promise<void>;
+}
+
+export function EmployeeTable({ employees, onUpdate,onDelete }: EmployeeTableProps) {
+  const [currentPage, setCurrentPage] = useState(1);
+  const employeesPerPage = 10;
+
+  const indexOfLastEmployee = currentPage * employeesPerPage;
+  const indexOfFirstEmployee = indexOfLastEmployee - employeesPerPage;
+  const currentEmployees = employees.slice(indexOfFirstEmployee, indexOfLastEmployee);
+
+  const totalPages = Math.ceil(employees.length / employeesPerPage);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+  const handleDelete=(employeeId:string)=>{
+    const confirmDelete=window.confirm("Are you sure you want to delete this employee?");
+    if(confirmDelete){
+      onDelete(employeeId)
+    }
+  }
 
   return (
     <div className="bg-white border rounded-md overflow-hidden">
@@ -80,37 +69,40 @@ export function EmployeeTable() {
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {employees.map((employee, index) => (
+          {currentEmployees.map((employee, index) => (
             <tr key={index} className="hover:bg-gray-50">
               <td className="px-6 py-4 whitespace-nowrap">
                 <div className="flex items-center">
                   <div className="h-10 w-10 flex-shrink-0 mr-3">
                     <img
                       className="h-10 w-10 rounded-full object-cover"
-                      src={employee.image || "https://i.pinimg.com/736x/62/7d/7a/627d7ac2d198b462f5a558ac49ecfc9f.jpg"}
-                      alt={employee.name}
+                      src={employee.profile_picture || "https://i.pinimg.com/736x/62/7d/7a/627d7ac2d198b462f5a558ac49ecfc9f.jpg"}
+                      alt={`${employee.first_name} ${employee.last_name}`}
                     />
                   </div>
                   <div>
-                    <div className="text-sm font-medium text-gray-900">{employee.name}</div>
+                    <div className="text-sm font-medium text-gray-900">{`${employee.first_name} ${employee.last_name}`}</div>
                     <div className="text-xs px-2 py-0.5 bg-orange-100 text-orange-700 rounded inline-block">
-                      {employee.department}
+                      {employee.role}
                     </div>
                   </div>
                 </div>
               </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{employee.id}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{employee.mobile}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{employee.employeeid}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{employee.phone_number}</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{employee.email}</td>
               <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                 <div className="flex space-x-2">
                   <button className="p-1.5 bg-gray-100 rounded-md text-gray-600 hover:bg-gray-200">
                     <Eye size={16} />
                   </button>
-                  <button className="p-1.5 bg-orange-100 rounded-md text-orange-600 hover:bg-orange-200">
+                  <button
+                    className="p-1.5 bg-orange-100 rounded-md text-orange-600 hover:bg-orange-200"
+                    onClick={() => onUpdate(employee, null)} // Example usage of onUpdate
+                  >
                     <Edit size={16} />
                   </button>
-                  <button className="p-1.5 bg-red-100 rounded-md text-red-600 hover:bg-red-200">
+                  <button className="p-1.5 bg-red-100 rounded-md text-red-600 hover:bg-red-200"  onClick={() => handleDelete(employee.id)} >
                     <Trash2 size={16} />
                   </button>
                 </div>
@@ -121,14 +113,24 @@ export function EmployeeTable() {
       </table>
 
       <div className="px-6 py-3 flex items-center justify-between border-t">
-        <div className="text-sm text-gray-700">Showing 10 of 46 Results</div>
+        <div className="text-sm text-gray-700">
+          Showing {indexOfFirstEmployee + 1} to {Math.min(indexOfLastEmployee, employees.length)} of {employees.length} Results
+        </div>
         <div className="flex items-center">
-          <span className="text-sm text-gray-700 mr-3">Page 1 of 5</span>
+          <span className="text-sm text-gray-700 mr-3">Page {currentPage} of {totalPages}</span>
           <div className="flex">
-            <button className="px-2 py-1 border rounded-l-md bg-gray-100 text-gray-600">
+            <button
+              className="px-2 py-1 border rounded-l-md bg-gray-100 text-gray-600"
+              onClick={handlePreviousPage}
+              disabled={currentPage === 1}
+            >
               <ChevronLeft className="h-4 w-4" />
             </button>
-            <button className="px-2 py-1 border-t border-b border-r rounded-r-md bg-gray-100 text-gray-600">
+            <button
+              className="px-2 py-1 border-t border-b border-r rounded-r-md bg-gray-100 text-gray-600"
+              onClick={handleNextPage}
+              disabled={currentPage === totalPages}
+            >
               <ChevronRight className="h-4 w-4" />
             </button>
           </div>

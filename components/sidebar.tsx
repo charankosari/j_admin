@@ -5,18 +5,17 @@ import { usePathname } from "next/navigation"
 import { useState } from "react"
 import {
   LayoutGrid,
-  // Package,
-  // Tag,
+  Package,
+  Tag,
   Clock,
   Settings,
-  // Mail,
-  // MessageSquare,
-  // Users,
-  // CalendarDays,
-  // Ticket,
+  Mail,
+  MessageSquare,
+  Users,
+  CalendarDays,
+  Ticket,
   ChevronLeft,
   ChevronRight,
-  // Users
 } from "lucide-react"
 import { LogoutButton } from "./auth/logout-button"
 import { useAuth } from "@/hooks/useAuth"
@@ -65,7 +64,7 @@ export function Sidebar() {
       </div>
 
       <div className="flex-1 overflow-auto">
-        {/* <div className="py-4">
+        <div className="py-4">
           {!collapsed && (
             <div className="px-4 py-2">
               <p className="text-xs text-gray-400 font-medium">CONVENIENCE</p>
@@ -74,7 +73,7 @@ export function Sidebar() {
           <NavItem href="/oveview" icon={<LayoutGrid size={18} />} label="Overview" collapsed={collapsed} />
           <NavItem href="/inventory" icon={<Package size={18} />} label="Inventory" collapsed={collapsed} />
           <NavItem href="/promotions" icon={<Tag size={18} />} label="Promotions & Sales" collapsed={collapsed} />
-        </div> */}
+        </div>
 
         <div className="py-4">
           {!collapsed && (
@@ -88,7 +87,7 @@ export function Sidebar() {
           <NavItem href="/operations" icon={<Settings size={18} />} label="Operations" collapsed={collapsed} />
         </div>
 
-        {/* <div className="py-4">
+        <div className="py-4">
           {!collapsed && (
             <div className="px-4 py-2">
               <p className="text-xs text-gray-400 font-medium">MARKETING</p>
@@ -106,13 +105,13 @@ export function Sidebar() {
             </div>
           )}
           <NavItem href="/staff" icon={<Users size={18} />} label="Staff Management" collapsed={collapsed} />
-        </div> */}
-        {/* <div className="py-4">
+        </div>
+        <div className="py-4">
           <div className="px-4 py-2">
             <p className="text-xs text-gray-400 font-medium">Employee Management</p>
           </div>
           <NavItem href="/employees" icon={<Users size={18} />} label="Employee Management" collapsed={collapsed} />
-        </div> */}
+        </div>
       </div>
 
       {/* Only show user info and logout button when user is authenticated */}
