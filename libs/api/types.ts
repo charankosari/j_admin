@@ -68,6 +68,8 @@ interface IOrderItem {
     quantity: number;
     instructions?: string;
     item_status?: "pending" | "preparing" | "served" | "ready";
+    status?: string;
+
 }
 
 export interface IDineInOrder {

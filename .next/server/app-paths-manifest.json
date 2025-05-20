@@ -1,15 +1,5 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/coupon-codes/page": "app/coupon-codes/page.js",
-  "/employees/page": "app/employees/page.js",
-  "/inventory/page": "app/inventory/page.js",
-  "/operations/page": "app/operations/page.js",
-  "/promotional-mail/page": "app/promotional-mail/page.js",
-  "/promotions/page": "app/promotions/page.js",
-  "/login/page": "app/login/page.js",
-  "/staff/page": "app/staff/page.js",
   "/page": "app/page.js",
-  "/real-time/page": "app/real-time/page.js",
-  "/table-reservations/page": "app/table-reservations/page.js"
+  "/real-time/page": "app/real-time/page.js"
 }

@@ -42,7 +42,7 @@ export function OrderPanel(
     const fetchTableStats = async () => {
       const token = localStorage.getItem("access_token");
       if (!token) return;
-      
+
       try {
         const api = APISDK.getInstance(token);
         const response = await api.getTableStats();
@@ -51,7 +51,7 @@ export function OrderPanel(
         console.error("Failed to fetch table stats:", error);
       }
     };
-  
+
     fetchTableStats();
   }, [orders]);
 
@@ -67,37 +67,40 @@ export function OrderPanel(
   };
 
   const genOrders = orders
-  .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
-  .map((order) => {
-    const table = tables.find((table) => table.table_number === order.table_id);
-    const tableData = tableStats.find(stat => stat.table_number === order.table_id);
+    .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+    .map((order) => {
+      const table = tables.find((table) => table.table_number === order.table_id);
+      const tableData = tableStats.find(stat => stat.table_number === order.table_id);
 
-    const orderItems = order.items.map(item => {
-      const dish = dishes.find(d => d.id === item.dish_id);
-      // Find the corresponding item status from tableStats
-      const statItem = tableData?.items.find(i => i.dish_id === item.dish_id);
-      
+      const orderItems = order.items.map((item, itemIndex) => {
+        const dish = dishes.find(d => d.id === item.dish_id);
+        // Find the corresponding item status from tableStats
+        const itemStatus = order.order_status === 'ready'
+          ? item.status
+          : (tableData?.items[itemIndex]?.item_status || 'pending');
+
+        return {
+          dish_id: item.dish_id,
+          item_index: itemIndex,
+          dish_name: dish?.name ?? "Unknown Dish",
+          quantity: item.quantity,
+          total: (dish?.price || 0) * item.quantity,
+          instructions: item.instructions,
+          item_status: itemStatus as "pending" | "preparing" | "served" | "ready" 
+        };
+      });
+
+      const total = orderItems.reduce((sum: number, item) => sum + item.total, 0);
+
       return {
-        dish_id: item.dish_id,
-        dish_name: dish?.name ?? "Unknown Dish",
-        quantity: item.quantity,
-        total: (dish?.price || 0) * item.quantity,
-        instructions: item.instructions,
-        item_status: (statItem?.item_status || "pending") as "pending" | "preparing" | "served" | "ready"
+        order_id: order.id,
+        table_id: table?.table_number ?? "Unknown",
+        items: orderItems,
+        total,
+        status: order.order_status as 'pending' | 'preparing' | 'served' | 'ready',
+        updated_at: order.updated_at.toString()
       };
     });
-
-    const total = orderItems.reduce((sum: number, item) => sum + item.total, 0);
-
-    return {
-      order_id: order.id,
-      table_id: table?.table_number ?? "Unknown",
-      items: orderItems,
-      total,
-      status: order.order_status as 'pending' | 'preparing' | 'served' | 'ready',
-      updated_at: order.updated_at.toString()
-    };
-  });
   // Calculate counts for each tab
   const tabCounts = {
     pending: genOrders.filter(order => order.status === 'pending').length,
@@ -197,18 +200,19 @@ export function OrderPanel(
     }
   }
 
-  const handleRemoveItem = async (order: IFilterOrder, dish_id: string) => {
+  const handleRemoveItem = async (order: IFilterOrder, dish_id: string, itemIndex: number) => {
     if (window.confirm("This will remove the item from the current order. Proceed?")) {
+      // Keep all items except the one at the specified index
       const updatedItems = order.items
-        .filter(item => item.dish_id !== dish_id)
-        .map(item => ({ dish_id: item.dish_id, quantity: item.quantity })); // Send only dish_id and quantity
-      console.log(updatedItems)
-      const token = localStorage.getItem("access_token");
-      if (!token) {
-        console.error("No access token found in localStorage");
-        return;
-      }
+        .filter((_, index) => index !== itemIndex)
+        .map(item => ({
+          dish_id: item.dish_id,
+          quantity: item.quantity,
+          status: item.item_status,
+          instructions: item.instructions
+        }));
 
+      const token = localStorage.getItem("access_token");
       if (!token) {
         console.error("No access token found in localStorage");
         return;
@@ -218,7 +222,6 @@ export function OrderPanel(
 
       try {
         await api.updateOrDeleteOrder(order.order_id, { items: updatedItems });
-        // setFilteredOrders(prev => prev.map(o => o.order_id === order.order_id ? { ...o, items: updatedItems } : o));
       } catch (error) {
         console.error("Failed to update order:", error);
       }
@@ -292,13 +295,14 @@ export function OrderPanel(
                           <span className={`text-xs px-2 py-1 rounded-full ${item.item_status === 'pending' ? 'bg-gray-100 text-gray-600' :
                               item.item_status === 'preparing' ? 'bg-orange-100 text-orange-600' :
                                 item.item_status === 'served' ? 'bg-green-100 text-green-600' :
-                                  'bg-blue-100 text-blue-600'
+                                  item.item_status === 'ready' ? 'bg-blue-100 text-blue-600' :
+                                    'bg-gray-100 text-gray-600' // for unknown status
                             }`}>
                             {getStatusDisplay(item.item_status)}
                           </span>
                           {order.status === 'pending' && item.item_status === 'pending' && (
                             <button
-                              onClick={() => handleRemoveItem(order, item.dish_id)}
+                              onClick={() => handleRemoveItem(order, item.dish_id, index)}
                               className="text-red-500 mx-1"
                             >
                               Remove

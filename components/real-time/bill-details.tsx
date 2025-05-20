@@ -37,7 +37,7 @@ export function BillDetails({ bill, onUpdateCapacityAction, table }: BillDetails
   const tableDetailsRef = useRef<HTMLDivElement>(null);
   const { showPopup } = usePopup();
   const [isForcedCheckout, setIsForcedCheckout] = useState(false);
-
+console.log('billname',bill, table);
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       // Handle menu click outside
@@ -128,6 +128,31 @@ export function BillDetails({ bill, onUpdateCapacityAction, table }: BillDetails
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
+  };
+
+  const handleDeleteBooking = async () => {
+    if (!bill?.booking_id) {
+      showPopup("No booking found to delete", { type: "error" });
+      return;
+    }
+  
+    if (window.confirm("Are you sure you want to delete this booking? This action cannot be undone.")) {
+      try {
+        const token = localStorage.getItem("access_token");
+        if (!token) {
+          throw new Error("No access token found");
+        }
+  
+        const api = APISDK.getInstance(token);
+        await api.deleteBooking(bill.booking_id);
+        
+        showPopup("Booking deleted successfully", { type: "success" });
+        setShowMenu(false);
+      } catch (error) {
+        console.error("Failed to delete booking:", error);
+        showPopup("Failed to delete booking", { type: "error" });
+      }
+    }
   };
 
   const handleTableDetails = () => {
@@ -240,17 +265,17 @@ export function BillDetails({ bill, onUpdateCapacityAction, table }: BillDetails
                       </svg>
                       Table Details
                     </button>
-                    <button
-                      onClick={async () => {
-                        await handleMarkAsCleaned(table.id);
-                      }}
-                      className="flex items-center w-full px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100"
-                    >
-                      <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" />
-                      </svg>
-                      Mark as Cleaned
-                    </button>
+                    {bill && (
+                      <button
+                        onClick={handleDeleteBooking}
+                        className="flex items-center w-full px-4 py-2 text-sm text-orange-600 cursor-pointer hover:bg-gray-100"
+                      >
+                        <svg className="w-4 h-4 mr-2 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                        Delete Booking
+                      </button>
+                    )}
                     <button
                       onClick={handleDeleteTable}
                       className="flex items-center w-full px-4 py-2 text-sm text-red-600 cursor-pointer hover:bg-gray-100"
@@ -427,11 +452,10 @@ export function BillDetails({ bill, onUpdateCapacityAction, table }: BillDetails
           <button
             onClick={handleForcedCheckout}
             disabled={isForcedCheckout || !bill?.booking_id}
-            className={`py-3 w-full flex items-center justify-center rounded-md transition-colors duration-200 ${
-              isForcedCheckout || !bill?.booking_id
+            className={`py-3 w-full flex items-center justify-center rounded-md transition-colors duration-200 ${isForcedCheckout || !bill?.booking_id
                 ? 'bg-gray-400 cursor-not-allowed text-white'
                 : 'bg-red-500 hover:bg-red-600 text-white cursor-pointer'
-            }`}
+              }`}
           >
             {isForcedCheckout ? (
               <>
@@ -455,9 +479,8 @@ export function BillDetails({ bill, onUpdateCapacityAction, table }: BillDetails
               await handleComplete(bill.checkout_id!, bill.booking_id!);
             }}
             disabled={isCompleting}
-            className={`py-3 w-full bg-green-500 text-white rounded-md hover:bg-green-600 flex items-center justify-center transition-colors duration-200 ${
-              isCompleting ? 'cursor-not-allowed opacity-70 bg-green-400' : 'cursor-pointer'
-            }`}
+            className={`py-3 w-full bg-green-500 text-white rounded-md hover:bg-green-600 flex items-center justify-center transition-colors duration-200 ${isCompleting ? 'cursor-not-allowed opacity-70 bg-green-400' : 'cursor-pointer'
+              }`}
           >
             {isCompleting ? (
               <>
