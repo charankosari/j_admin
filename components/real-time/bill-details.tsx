@@ -398,6 +398,15 @@ console.log('billname',bill, table);
                     Table Details
                   </button>
                   <button
+                        onClick={handleDeleteBooking}
+                        className="flex items-center w-full px-4 py-2 text-sm text-orange-600 cursor-pointer hover:bg-gray-100"
+                      >
+                        <svg className="w-4 h-4 mr-2 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                        Delete Booking
+                      </button>
+                  <button
                     onClick={handleDeleteTable}
                     className="flex items-center w-full px-4 py-2 text-sm text-red-600 cursor-pointer hover:bg-gray-100"
                   >

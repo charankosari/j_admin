@@ -906,6 +906,37 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                    onClick: handleDeleteBooking,
+                                                    className: "flex items-center w-full px-4 py-2 text-sm text-orange-600 cursor-pointer hover:bg-gray-100",
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                                                            className: "w-4 h-4 mr-2 text-orange-600",
+                                                            fill: "none",
+                                                            viewBox: "0 0 24 24",
+                                                            stroke: "currentColor",
+                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                                                strokeLinecap: "round",
+                                                                strokeLinejoin: "round",
+                                                                strokeWidth: 2,
+                                                                d: "M6 18L18 6M6 6l12 12"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/components/real-time/bill-details.tsx",
+                                                                lineNumber: 405,
+                                                                columnNumber: 27
+                                                            }, this)
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/components/real-time/bill-details.tsx",
+                                                            lineNumber: 404,
+                                                            columnNumber: 25
+                                                        }, this),
+                                                        "Delete Booking"
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/components/real-time/bill-details.tsx",
+                                                    lineNumber: 400,
+                                                    columnNumber: 19
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                     onClick: handleDeleteTable,
                                                     className: "flex items-center w-full px-4 py-2 text-sm text-red-600 cursor-pointer hover:bg-gray-100",
                                                     children: [
@@ -921,19 +952,19 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                                                 d: "M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/real-time/bill-details.tsx",
-                                                                lineNumber: 405,
+                                                                lineNumber: 414,
                                                                 columnNumber: 23
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/real-time/bill-details.tsx",
-                                                            lineNumber: 404,
+                                                            lineNumber: 413,
                                                             columnNumber: 21
                                                         }, this),
                                                         "Delete Table"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/components/real-time/bill-details.tsx",
-                                                    lineNumber: 400,
+                                                    lineNumber: 409,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
@@ -972,7 +1003,7 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                                 children: item.name
                                             }, void 0, false, {
                                                 fileName: "[project]/components/real-time/bill-details.tsx",
-                                                lineNumber: 419,
+                                                lineNumber: 428,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -983,13 +1014,13 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/real-time/bill-details.tsx",
-                                                lineNumber: 420,
+                                                lineNumber: 429,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/real-time/bill-details.tsx",
-                                        lineNumber: 418,
+                                        lineNumber: 427,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1000,18 +1031,18 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/real-time/bill-details.tsx",
-                                        lineNumber: 422,
+                                        lineNumber: 431,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, index, true, {
                                 fileName: "[project]/components/real-time/bill-details.tsx",
-                                lineNumber: 417,
+                                lineNumber: 426,
                                 columnNumber: 13
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/components/real-time/bill-details.tsx",
-                        lineNumber: 415,
+                        lineNumber: 424,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1025,7 +1056,7 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                         children: "Total"
                                     }, void 0, false, {
                                         fileName: "[project]/components/real-time/bill-details.tsx",
-                                        lineNumber: 429,
+                                        lineNumber: 438,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1033,13 +1064,13 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                         children: bill.subtotal
                                     }, void 0, false, {
                                         fileName: "[project]/components/real-time/bill-details.tsx",
-                                        lineNumber: 430,
+                                        lineNumber: 439,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/real-time/bill-details.tsx",
-                                lineNumber: 428,
+                                lineNumber: 437,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1057,13 +1088,13 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/real-time/bill-details.tsx",
-                                                lineNumber: 434,
+                                                lineNumber: 443,
                                                 columnNumber: 24
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/real-time/bill-details.tsx",
-                                        lineNumber: 433,
+                                        lineNumber: 442,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1074,13 +1105,13 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/real-time/bill-details.tsx",
-                                        lineNumber: 436,
+                                        lineNumber: 445,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/real-time/bill-details.tsx",
-                                lineNumber: 432,
+                                lineNumber: 441,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1098,13 +1129,13 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/real-time/bill-details.tsx",
-                                                lineNumber: 440,
+                                                lineNumber: 449,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/real-time/bill-details.tsx",
-                                        lineNumber: 439,
+                                        lineNumber: 448,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1115,19 +1146,19 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/real-time/bill-details.tsx",
-                                        lineNumber: 442,
+                                        lineNumber: 451,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/real-time/bill-details.tsx",
-                                lineNumber: 438,
+                                lineNumber: 447,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/real-time/bill-details.tsx",
-                        lineNumber: 427,
+                        lineNumber: 436,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1138,7 +1169,7 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                 children: "Grand Total"
                             }, void 0, false, {
                                 fileName: "[project]/components/real-time/bill-details.tsx",
-                                lineNumber: 447,
+                                lineNumber: 456,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1149,13 +1180,13 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/real-time/bill-details.tsx",
-                                lineNumber: 448,
+                                lineNumber: 457,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/real-time/bill-details.tsx",
-                        lineNumber: 446,
+                        lineNumber: 455,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1182,7 +1213,7 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                                     strokeWidth: "4"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/real-time/bill-details.tsx",
-                                                    lineNumber: 463,
+                                                    lineNumber: 472,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -1191,13 +1222,13 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                                     d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/real-time/bill-details.tsx",
-                                                    lineNumber: 464,
+                                                    lineNumber: 473,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/real-time/bill-details.tsx",
-                                            lineNumber: 462,
+                                            lineNumber: 471,
                                             columnNumber: 17
                                         }, this),
                                         "Processing Checkout..."
@@ -1216,12 +1247,12 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                                 d: "M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/real-time/bill-details.tsx",
-                                                lineNumber: 471,
+                                                lineNumber: 480,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/components/real-time/bill-details.tsx",
-                                            lineNumber: 470,
+                                            lineNumber: 479,
                                             columnNumber: 17
                                         }, this),
                                         "Force Checkout"
@@ -1229,7 +1260,7 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                 }, void 0, true)
                             }, void 0, false, {
                                 fileName: "[project]/components/real-time/bill-details.tsx",
-                                lineNumber: 452,
+                                lineNumber: 461,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1255,7 +1286,7 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                                     strokeWidth: "4"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/real-time/bill-details.tsx",
-                                                    lineNumber: 488,
+                                                    lineNumber: 497,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -1264,13 +1295,13 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                                     d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/real-time/bill-details.tsx",
-                                                    lineNumber: 489,
+                                                    lineNumber: 498,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/real-time/bill-details.tsx",
-                                            lineNumber: 487,
+                                            lineNumber: 496,
                                             columnNumber: 17
                                         }, this),
                                         "Processing..."
@@ -1289,12 +1320,12 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                                 d: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/real-time/bill-details.tsx",
-                                                lineNumber: 496,
+                                                lineNumber: 505,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/components/real-time/bill-details.tsx",
-                                            lineNumber: 495,
+                                            lineNumber: 504,
                                             columnNumber: 17
                                         }, this),
                                         "Mark as completed"
@@ -1302,7 +1333,7 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                 }, void 0, true)
                             }, void 0, false, {
                                 fileName: "[project]/components/real-time/bill-details.tsx",
-                                lineNumber: 477,
+                                lineNumber: 486,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1323,25 +1354,25 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                             d: "M5 13l4 4L19 7"
                                         }, void 0, false, {
                                             fileName: "[project]/components/real-time/bill-details.tsx",
-                                            lineNumber: 509,
+                                            lineNumber: 518,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/components/real-time/bill-details.tsx",
-                                        lineNumber: 508,
+                                        lineNumber: 517,
                                         columnNumber: 13
                                     }, this),
                                     "Mark as Cleaned"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/real-time/bill-details.tsx",
-                                lineNumber: 502,
+                                lineNumber: 511,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/real-time/bill-details.tsx",
-                        lineNumber: 451,
+                        lineNumber: 460,
                         columnNumber: 9
                     }, this)
                 ]
@@ -1366,7 +1397,7 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                         children: "Table Details"
                                     }, void 0, false, {
                                         fileName: "[project]/components/real-time/bill-details.tsx",
-                                        lineNumber: 522,
+                                        lineNumber: 531,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1384,23 +1415,23 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                                 d: "M6 18L18 6M6 6l12 12"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/real-time/bill-details.tsx",
-                                                lineNumber: 525,
+                                                lineNumber: 534,
                                                 columnNumber: 21
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/components/real-time/bill-details.tsx",
-                                            lineNumber: 524,
+                                            lineNumber: 533,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/components/real-time/bill-details.tsx",
-                                        lineNumber: 523,
+                                        lineNumber: 532,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/real-time/bill-details.tsx",
-                                lineNumber: 521,
+                                lineNumber: 530,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1413,7 +1444,7 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                                 children: "Table Name"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/real-time/bill-details.tsx",
-                                                lineNumber: 532,
+                                                lineNumber: 541,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1422,18 +1453,18 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                                     children: bill.tableId
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/real-time/bill-details.tsx",
-                                                    lineNumber: 534,
+                                                    lineNumber: 543,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/components/real-time/bill-details.tsx",
-                                                lineNumber: 533,
+                                                lineNumber: 542,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/real-time/bill-details.tsx",
-                                        lineNumber: 531,
+                                        lineNumber: 540,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1443,7 +1474,7 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                                 children: "Table Capacity"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/real-time/bill-details.tsx",
-                                                lineNumber: 539,
+                                                lineNumber: 548,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1458,7 +1489,7 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                                             children: "1 Seat"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/real-time/bill-details.tsx",
-                                                            lineNumber: 546,
+                                                            lineNumber: 555,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1466,7 +1497,7 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                                             children: "2 Seats"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/real-time/bill-details.tsx",
-                                                            lineNumber: 547,
+                                                            lineNumber: 556,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1474,7 +1505,7 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                                             children: "3 Seats"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/real-time/bill-details.tsx",
-                                                            lineNumber: 548,
+                                                            lineNumber: 557,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1482,24 +1513,24 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                                             children: "4 Seats"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/real-time/bill-details.tsx",
-                                                            lineNumber: 549,
+                                                            lineNumber: 558,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/components/real-time/bill-details.tsx",
-                                                    lineNumber: 541,
+                                                    lineNumber: 550,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/components/real-time/bill-details.tsx",
-                                                lineNumber: 540,
+                                                lineNumber: 549,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/real-time/bill-details.tsx",
-                                        lineNumber: 538,
+                                        lineNumber: 547,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1509,7 +1540,7 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                                 children: "Table QR"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/real-time/bill-details.tsx",
-                                                lineNumber: 555,
+                                                lineNumber: 564,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1517,7 +1548,7 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                                 children: "QR where users can order items from their table"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/real-time/bill-details.tsx",
-                                                lineNumber: 556,
+                                                lineNumber: 565,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1528,12 +1559,12 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                                     className: "border"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/real-time/bill-details.tsx",
-                                                    lineNumber: 558,
+                                                    lineNumber: 567,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/components/real-time/bill-details.tsx",
-                                                lineNumber: 557,
+                                                lineNumber: 566,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1551,12 +1582,12 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                                             d: "M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/real-time/bill-details.tsx",
-                                                            lineNumber: 562,
+                                                            lineNumber: 571,
                                                             columnNumber: 23
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/real-time/bill-details.tsx",
-                                                        lineNumber: 561,
+                                                        lineNumber: 570,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1564,41 +1595,41 @@ function BillDetails({ bill, onUpdateCapacityAction, table }) {
                                                         children: "Download QR"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/real-time/bill-details.tsx",
-                                                        lineNumber: 564,
+                                                        lineNumber: 573,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/real-time/bill-details.tsx",
-                                                lineNumber: 560,
+                                                lineNumber: 569,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/real-time/bill-details.tsx",
-                                        lineNumber: 554,
+                                        lineNumber: 563,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/real-time/bill-details.tsx",
-                                lineNumber: 530,
+                                lineNumber: 539,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/real-time/bill-details.tsx",
-                        lineNumber: 520,
+                        lineNumber: 529,
                         columnNumber: 13
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/components/real-time/bill-details.tsx",
-                    lineNumber: 519,
+                    lineNumber: 528,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/components/real-time/bill-details.tsx",
-                lineNumber: 518,
+                lineNumber: 527,
                 columnNumber: 9
             }, this)
         ]
