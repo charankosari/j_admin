@@ -1,10 +1,14 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { X } from "lucide-react"
-import { APISDK } from "@/libs/api" // Assuming APISDK is correctly imported
+import { X, Upload } from "lucide-react"
+import { APISDK } from "@/libs/api"
 
-// Define the props interface for the component
+interface Category {
+  id: string;
+  name: string;
+}
+
 interface NewSubCategoryModalProps {
   onClose: () => void;
   reload: () => void;
@@ -12,16 +16,19 @@ interface NewSubCategoryModalProps {
 
 export function NewSubCategoryModal({ onClose, reload }: NewSubCategoryModalProps) {
   const [subCategoryName, setSubCategoryName] = useState<string>("")
-  const [categories, setCategories] = useState<string[]>([])
+  const [categories, setCategories] = useState<Category[]>([])
   const [selectedCategory, setSelectedCategory] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
+  const [categoryImage, setCategoryImage] = useState<File | null>(null)
+  const [imageUrls, setImageUrls] = useState<string[]>([])
+  const [previewImage, setPreviewImage] = useState<string>("")
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const api = APISDK.getInstance()
         const fetchedCategories = await api.getAllCategories()
-        setCategories(fetchedCategories.map(category => category.name))
+        setCategories(fetchedCategories)
       } catch (error) {
         console.error("Failed to fetch categories:", error)
       }
@@ -39,7 +46,14 @@ export function NewSubCategoryModal({ onClose, reload }: NewSubCategoryModalProp
     setLoading(true)
     try {
       const api = APISDK.getInstance()
-      await api.createNewSubCategory(subCategoryName, selectedCategory)
+      
+      let uploadedUrls: string[] = []
+      if (categoryImage) {
+        const uploadResponse = await api.uploadFile(categoryImage)
+        uploadedUrls = [...imageUrls, uploadResponse.url]
+      }
+
+      await api.createNewSubCategory(subCategoryName, selectedCategory, uploadedUrls)
       reload()
       alert("Subcategory added successfully!")
       onClose()
@@ -70,13 +84,14 @@ export function NewSubCategoryModal({ onClose, reload }: NewSubCategoryModalProp
                 className="w-full border rounded-md px-3 py-2 text-gray-800"
               >
                 <option value="" disabled>Select a category</option>
-                {categories.map((name, index) => (
-                  <option key={index} value={name}>
-                    {name}
+                {categories.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
                   </option>
                 ))}
               </select>
             </div>
+
             <div>
               <label className="block text-sm text-gray-600 mb-1">Sub Category Name</label>
               <input
@@ -86,6 +101,35 @@ export function NewSubCategoryModal({ onClose, reload }: NewSubCategoryModalProp
                 placeholder="Enter subcategory name"
                 className="w-full border rounded-md px-3 py-2 text-gray-800"
               />
+            </div>
+
+            <div className="border-2 border-dashed rounded-md p-4 flex flex-col items-center justify-center">
+              <input
+                type="file"
+                accept="image/png, image/jpeg, image/jpg"
+                onChange={(e) => {
+                  const file = e.target.files?.[0] || null;
+                  setCategoryImage(file);
+                  if (file) {
+                    setPreviewImage(URL.createObjectURL(file));
+                  }
+                }}
+                className="hidden"
+                id="categoryImageInput"
+              />
+              <label htmlFor="categoryImageInput" className="cursor-pointer">
+                <div className="flex flex-col items-center">
+                  {previewImage ? (
+                    <img src={previewImage} alt="Preview" className="h-30 w-auto mb-2" />
+                  ) : (
+                    <Upload className="h-10 w-10 text-gray-400 mb-2" />
+                  )}
+                  <p className="text-sm text-gray-600 mb-1">
+                    Drag and Drop an image here or <span className="text-blue-500">Select file</span>
+                  </p>
+                  <p className="text-xs text-gray-500">Formats Supported: PNG, JPG, JPEG</p>
+                </div>
+              </label>
             </div>
 
             <div className="mt-8 flex space-x-3">

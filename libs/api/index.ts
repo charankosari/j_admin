@@ -1967,14 +1967,14 @@ public async deleteAssistance(assistanceId: string): Promise<{
     return await response.json();
   }
   //sub categories
-  public async createNewSubCategory(name: string, categoryId: string): Promise<string> {
+  public async createNewSubCategory(name: string, categoryId: string,image_url:string[]): Promise<string> {
     const response = await fetch(`${APISDK.BASE_URL}/subcategory`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${this.accessToken}`,
       },
-      body: JSON.stringify({ name, category_id: categoryId }),
+      body: JSON.stringify({ name, category_id: categoryId,image_url }),
     });
 
     if (!response.ok) {

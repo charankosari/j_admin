@@ -1822,7 +1822,7 @@ class APISDK {
         return await response.json();
     }
     //sub categories
-    async createNewSubCategory(name, categoryId) {
+    async createNewSubCategory(name, categoryId, image_url) {
         const response = await fetch(`${APISDK.BASE_URL}/subcategory`, {
             method: 'POST',
             headers: {
@@ -1831,7 +1831,8 @@ class APISDK {
             },
             body: JSON.stringify({
                 name,
-                category_id: categoryId
+                category_id: categoryId,
+                image_url
             })
         });
         if (!response.ok) {
