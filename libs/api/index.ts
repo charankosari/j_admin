@@ -1999,14 +1999,14 @@ public async deleteAssistance(assistanceId: string): Promise<{
 
     return await response.json();
   }
-  public async updateSubCategory(subCategoryId: string, name: string, categoryId: string): Promise<void> {
+  public async updateSubCategory(subCategoryId: string, name: string, categoryId: string,image_url:string[]): Promise<void> {
     const response = await fetch(`${APISDK.BASE_URL}/subcategory/${subCategoryId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${this.accessToken}`,
       },
-      body: JSON.stringify({ name, category_id: categoryId }),
+      body: JSON.stringify({ name, category_id: categoryId,image_url }),
     });
 
     if (!response.ok) {

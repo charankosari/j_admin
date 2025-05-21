@@ -192,6 +192,7 @@ interface ProductSale {
     id: string;
     name: string;
     category_id: string;
+    image_url: string[];
     created_at: Date;
     updated_at: Date;
   }
