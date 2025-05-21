@@ -6,6 +6,18 @@ import { NewProductModal } from "./new-product-modal"
 import { NewSubCategoryModal } from "./new-subcategory-model"
 import { NewCategoryModal } from "./new-category-modal"
 import { APISDK } from "@/libs/api" // Assuming APISDK is correctly imported
+import { IProduct } from "@/libs/api"
+
+// Define interfaces for category and subcategory
+interface Category {
+  id: string;
+  name: string;
+}
+
+interface SubCategory {
+  id: string;
+  name: string;
+}
 
 export function ProductsTable() {
   const [searchTerm, setSearchTerm] = useState("")
@@ -13,15 +25,22 @@ export function ProductsTable() {
   const [showNewProductModal, setShowNewProductModal] = useState(false)
   const [showNewCategoryModal, setShowNewCategoryModal] = useState(false)
   const [showNewSubCategoryModal, setShowNewSubCategoryModal] = useState(false)
-  const [categories, setCategories] = useState<string[]>([])
-  const [subCategories, setSubCategories] = useState<string[]>([])
-
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
+  const [products, setProducts] = useState<IProduct[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const getPaginatedProducts = () => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return filteredProducts.slice(startIndex, endIndex);
+  };
   // Fetch categories and subcategories
   const fetchCategories = async () => {
     try {
       const api = APISDK.getInstance()
       const fetchedCategories = await api.getAllCategories()
-      setCategories(fetchedCategories.map(category => category.name))
+      setCategories(fetchedCategories.map(category => ({ id: category.id, name: category.name })));
     } catch (error) {
       console.error("Failed to fetch categories:", error)
     }
@@ -31,162 +50,105 @@ export function ProductsTable() {
     try {
       const api = APISDK.getInstance()
       const fetchedSubCategories = await api.getAllSubCategories()
-      setSubCategories(fetchedSubCategories.map(subCategory => subCategory.name))
+      setSubCategories(fetchedSubCategories.map(subCategory => ({ id: subCategory.id, name: subCategory.name })));
     } catch (error) {
       console.error("Failed to fetch subcategories:", error)
     }
   }
-  useEffect(() => {
-    fetchCategories()
-    fetchSubCategories()
-  }, [])
-
-
-  // Initial products data
-  const initialProducts = [
-    {
-      id: 1,
-      name: "Bluetooth Earphones-IP...",
-      category: "Electronics",
-      price: 2000,
-      quantity: 40,
-      rating: 4.6,
-      reviews: 32,
-      visible: true,
-      image: "https://i.pinimg.com/474x/15/20/b2/1520b25e509ef0c742551f7aa06a6356.jpg?height=60&width=60&text=Earphones",
-    },
-    {
-      id: 2,
-      name: "N607 Rechargeable Coo...",
-      category: "Electronics",
-      price: 2000,
-      quantity: 40,
-      rating: 4.6,
-      reviews: 32,
-      visible: true,
-      image: "https://i.pinimg.com/474x/15/20/b2/1520b25e509ef0c742551f7aa06a6356.jpg?height=60&width=60&text=N607",
-    },
-    {
-      id: 3,
-      name: "Remax fast Compatible ...",
-      category: "Electronics",
-      price: 2000,
-      quantity: 40,
-      rating: 4.6,
-      reviews: 32,
-      visible: true,
-      image: "https://i.pinimg.com/474x/15/20/b2/1520b25e509ef0c742551f7aa06a6356.jpg?height=60&width=60&text=Remax",
-    },
-    {
-      id: 4,
-      name: "Remax CozyPods W7N ...",
-      category: "Electronics",
-      price: 2000,
-      quantity: 40,
-      rating: 4.6,
-      reviews: 32,
-      visible: true,
-      image: "https://i.pinimg.com/474x/15/20/b2/1520b25e509ef0c742551f7aa06a6356.jpg?height=60&width=60&text=CozyPods",
-    },
-    {
-      id: 5,
-      name: "Remax CozyPods w10N...",
-      category: "Electronics",
-      price: 2000,
-      quantity: 40,
-      rating: 4.6,
-      reviews: 32,
-      visible: true,
-      image: "https://i.pinimg.com/474x/15/20/b2/1520b25e509ef0c742551f7aa06a6356.jpg?height=60&width=60&text=w10N",
-    },
-    {
-      id: 6,
-      name: "Remax Fast Charging W...",
-      category: "Electronics",
-      price: 2000,
-      quantity: 40,
-      rating: 4.6,
-      reviews: 32,
-      visible: true,
-      image: "https://i.pinimg.com/474x/15/20/b2/1520b25e509ef0c742551f7aa06a6356.jpg?height=60&width=60&text=Charging",
-    },
-    {
-      id: 7,
-      name: "Remax RP-U107 Mecha...",
-      category: "Electronics",
-      price: 2000,
-      quantity: 40,
-      rating: 4.6,
-      reviews: 32,
-      visible: true,
-      image: "https://i.pinimg.com/474x/15/20/b2/1520b25e509ef0c742551f7aa06a6356.jpg?height=60&width=60&text=RP-U107",
-    },
-    {
-      id: 8,
-      name: "Xundd multifunctionalM...",
-      category: "Electronics",
-      price: 2000,
-      quantity: 40,
-      rating: 4.6,
-      reviews: 32,
-      visible: true,
-      image: "https://i.pinimg.com/474x/15/20/b2/1520b25e509ef0c742551f7aa06a6356.jpg?height=60&width=60&text=Xundd",
-    },
-    {
-      id: 9,
-      name: "Xundd Wireless Car Ch...",
-      category: "Electronics",
-      price: 2000,
-      quantity: 40,
-      rating: 4.6,
-      reviews: 32,
-      visible: true,
-      image: "https://i.pinimg.com/474x/15/20/b2/1520b25e509ef0c742551f7aa06a6356.jpg?height=60&width=60&text=Wireless",
-    },
-    {
-      id: 10,
-      name: "Xundd XDCH-055 67W...",
-      category: "Electronics",
-      price: 2000,
-      quantity: 40,
-      rating: 4.6,
-      reviews: 32,
-      visible: true,
-      image: "https://i.pinimg.com/474x/15/20/b2/1520b25e509ef0c742551f7aa06a6356.jpg?height=60&width=60&text=XDCH-055",
-    },
-  ]
   
-  const [products, setProducts] = useState(initialProducts)
+  // Fetch products
+  const fetchProducts = async () => {
+    try {
+      const api = APISDK.getInstance();
+      let allProducts: IProduct[] = [];
+      
+      // First fetch all categories if not already loaded
+      if (categories.length === 0) {
+        await fetchCategories();
+      }
+      
+      // Fetch products for each category
+      for (const category of categories) {
+        const categoryProducts = await api.getProductByCategoryId(category.id);
+        if (categoryProducts && Array.isArray(categoryProducts)) {
+          allProducts = [...allProducts, ...categoryProducts];
+        } else if (categoryProducts) {
+          allProducts.push(categoryProducts);
+        }
+      }
+      
+      setProducts(allProducts);
+    } catch (error) {
+      console.error("Failed to fetch products:", error);
+    }
+  }
+  const handleVisibilityToggle = async (productId: string) => {
+    try {
+      const api = APISDK.getInstance();
+      const product = products.find(p => p.id === productId);
+      setProducts(currentProducts =>
+        currentProducts.map(product =>
+          product.id === productId
+            ? { ...product, is_active: !product.is_active }
+            : product
+        )
+      );
+      if (product) {
+        // Make the API call to update the product
+        await api.updateProduct(productId, {
+          is_active: !product.is_active
+        });
+
+        // Update local state after successful API call
+      
+      }
+    } catch (error) {
+      console.error("Failed to update product visibility:", error);
+      // Optionally add error handling UI feedback here
+    }
+  }
+  useEffect(() => {
+    fetchCategories();
+    fetchSubCategories();
+  }, []);
+  useEffect(() => {
+    if (categories.length > 0 && subCategories.length > 0) {
+      fetchProducts();
+    }
+  }, [categories, subCategories]);
+
+  // Helper functions to get category and subcategory names by ID
+  const getCategoryNameById = (categoryId: string): string => {
+    const category = categories.find(cat => cat.id === categoryId);
+    return category ? category.name : "Unknown Category";
+  }
+  
+  const getSubCategoryNameById = (subCategoryId: string): string => {
+    const subCategory = subCategories.find(subCat => subCat.id === subCategoryId);
+    return subCategory ? subCategory.name : "Unknown Subcategory";
+  }
 
   const tabs = [
     { id: "All", label: "All", count: products.length },
     ...categories.map(category => ({
-      id: category,
-      label: category,
-      count: products.filter(product => product.category === category).length
+      id: category.id,
+      label: category.name,
+      count: products.filter(product => product.category_id === category.id).length
     }))
   ]
 
   const filteredProducts = activeTab === "All"
     ? products
-    : products.filter(product => product.category === activeTab)
+    : products.filter(product => product.category_id === activeTab)
 
-  const handleVisibilityToggle = (productId: number) => {
-    setProducts(currentProducts =>
-      currentProducts.map(product =>
-        product.id === productId
-          ? { ...product, visible: !product.visible }
-          : product
-      )
-    )
-  }
+  
 
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h2 className="text-lg font-medium text-gray-800">All Reservations</h2>
-          <p className="text-sm text-gray-500">Lorem ipsum dolor sit amet, consectetur</p>
+          <h2 className="text-lg font-medium text-gray-800">All Products</h2>
+          <p className="text-sm text-gray-500">Manage your inventory products</p>
         </div>
         <div className="flex gap-3">
           <button
@@ -256,7 +218,7 @@ export function ProductsTable() {
                 Quantity
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Ratings & Reviews
+                Category
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Actions
@@ -264,20 +226,20 @@ export function ProductsTable() {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {filteredProducts.map((product) => (
+            {getPaginatedProducts().map((product) => (
               <tr key={product.id} className="hover:bg-gray-50">
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center">
                     <div className="h-10 w-10 flex-shrink-0 mr-3">
                       <img
                         className="h-10 w-10 rounded-md object-cover"
-                        src={product.image || "https://i.pinimg.com/474x/15/20/b2/1520b25e509ef0c742551f7aa06a6356.jpg"}
+                        src={product.image_url?.[0] || "https://i.pinimg.com/474x/15/20/b2/1520b25e509ef0c742551f7aa06a6356.jpg"}
                         alt={product.name}
                       />
                     </div>
                     <div>
                       <div className="text-sm font-medium text-gray-900">{product.name}</div>
-                      <div className="text-sm text-gray-500">#{product.category}</div>
+                      <div className="text-sm text-gray-500">#{product.id.substring(0, 8)}</div>
                     </div>
                   </div>
                 </td>
@@ -285,16 +247,11 @@ export function ProductsTable() {
                   <div className="text-sm text-gray-900">₹ {product.price.toLocaleString()}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">{product.quantity} Uts.</div>
+                  <div className="text-sm text-gray-900">{product.availability_count} Uts.</div>
                 </td>
-                <td className="px-6 py-4  whitespace-nowrap">
-                  <div className="flex space-x-2  items-center">
-                    <div className="bg-gray-200 flex gap-1 p-1 rounded-3xl pl-2">
-                      <StarIcon className="h-4 w-4  text-yellow-400 mr-1" />
-                      <span className="text-sm text-gray-900 mr-2">{product.rating}/5</span>
-                    </div>
-                    <span className="text-sm text-gray-500">{product.reviews} Reviews</span>
-                  </div>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm text-gray-900">{getCategoryNameById(product.category_id)}</div>
+                  <div className="text-sm text-gray-500">{getSubCategoryNameById(product.subcategory_id)}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   <div className="flex items-center">
@@ -304,7 +261,7 @@ export function ProductsTable() {
                         <input
                           type="checkbox"
                           className="sr-only peer"
-                          checked={product.visible}
+                          checked={product.is_active}
                           onChange={() => handleVisibilityToggle(product.id)}
                         />
                         <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 
@@ -327,16 +284,17 @@ export function ProductsTable() {
         </table>
 
         <div className="px-6 py-3 flex items-center justify-between border-t">
-          <div className="text-sm text-gray-700">Showing 10 of 46 Results</div>
+          <div className="text-sm text-gray-700">Showing {Math.min(currentPage * itemsPerPage, filteredProducts.length)} of {filteredProducts.length} </div>
           <div className="flex items-center">
-            <span className="text-sm text-gray-700 mr-3">Page 1 of 5</span>
+            <span className="text-sm text-gray-700 mr-3"> Page {currentPage} of {Math.ceil(filteredProducts.length / itemsPerPage)}</span>
             <div className="flex">
               <button className="px-2 py-1 border rounded-l-md bg-gray-100 text-gray-600">
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
-              <button className="px-2 py-1 border-t border-b border-r rounded-r-md bg-gray-100 text-gray-600">
+              <button className="px-2 py-1 border-t border-b border-r rounded-r-md bg-gray-100 text-gray-600"  onClick={() => setCurrentPage(prev => Math.min(Math.ceil(filteredProducts.length / itemsPerPage), prev + 1))}
+          disabled={currentPage === Math.ceil(filteredProducts.length / itemsPerPage)}>
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>

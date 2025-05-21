@@ -1976,8 +1976,34 @@ class APISDK {
         }
         return await response.json();
     }
+    async getProductByCategoryId(category_id) {
+        const response = await fetch(`${APISDK.BASE_URL}/product/c/${category_id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${this.accessToken}`
+            }
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to get product: ${response.status} ${response.statusText}`);
+        }
+        return await response.json();
+    }
+    async getProductBySubCategoryId(subcategory_id) {
+        const response = await fetch(`${APISDK.BASE_URL}/product/s/${subcategory_id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${this.accessToken}`
+            }
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to get product: ${response.status} ${response.statusText}`);
+        }
+        return await response.json();
+    }
     async getProductById(product_id) {
-        const response = await fetch(`${APISDK.BASE_URL}/product/${product_id}`, {
+        const response = await fetch(`${APISDK.BASE_URL}/product/i/${product_id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

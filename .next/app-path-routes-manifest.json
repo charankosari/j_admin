@@ -2,14 +2,13 @@
   "/_not-found/page": "/_not-found",
   "/favicon.ico/route": "/favicon.ico",
   "/coupon-codes/page": "/coupon-codes",
-  "/employees/page": "/employees",
   "/inventory/page": "/inventory",
-  "/operations/page": "/operations",
-  "/promotional-mail/page": "/promotional-mail",
   "/promotions/page": "/promotions",
-  "/login/page": "/login",
-  "/staff/page": "/staff",
+  "/promotional-mail/page": "/promotional-mail",
+  "/operations/page": "/operations",
   "/page": "/",
-  "/real-time/page": "/real-time",
-  "/table-reservations/page": "/table-reservations"
+  "/staff/page": "/staff",
+  "/login/page": "/login",
+  "/table-reservations/page": "/table-reservations",
+  "/real-time/page": "/real-time"
 }

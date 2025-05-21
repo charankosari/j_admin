@@ -1,4 +1,4 @@
-// File: C:\Users\Charan Kosari\Desktop\jeevic\jeevic-admin\app\promotional-mail\page.tsx
+// File: C:\Users\Charan Kosari\Desktop\jeevic_admin\app\promotional-mail\page.tsx
 import * as entry from '../../../../app/promotional-mail/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

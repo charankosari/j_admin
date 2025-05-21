@@ -96,7 +96,7 @@
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "C:\\Users\\Charan Kosari\\Desktop\\jeevic\\jeevic-admin",
+    "outputFileTracingRoot": "C:\\Users\\Charan Kosari\\Desktop\\jeevic_admin",
     "experimental": {
       "nodeMiddleware": false,
       "cacheLife": {
@@ -279,7 +279,7 @@
     "bundlePagesRouterDependencies": false,
     "configFileName": "next.config.ts",
     "turbopack": {
-      "root": "C:\\Users\\Charan Kosari\\Desktop\\jeevic\\jeevic-admin"
+      "root": "C:\\Users\\Charan Kosari\\Desktop\\jeevic_admin"
     },
     "_originalRewrites": {
       "beforeFiles": [],
@@ -292,7 +292,7 @@
       "fallback": []
     }
   },
-  "appDir": "C:\\Users\\Charan Kosari\\Desktop\\jeevic\\jeevic-admin",
+  "appDir": "C:\\Users\\Charan Kosari\\Desktop\\jeevic_admin",
   "relativeAppDir": "",
   "files": [
     ".next\\routes-manifest.json",

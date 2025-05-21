@@ -30,7 +30,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/login": {
+    "/table-reservations": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -43,32 +43,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/login",
-      "dataRoute": "/login.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/employees": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "Next-Action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/employees",
-      "dataRoute": "/employees.rsc",
+      "srcRoute": "/table-reservations",
+      "dataRoute": "/table-reservations.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -126,54 +102,6 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/promotional-mail": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "Next-Action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/promotional-mail",
-      "dataRoute": "/promotional-mail.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/operations": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "Next-Action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/operations",
-      "dataRoute": "/operations.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
     "/real-time": {
       "experimentalBypassFor": [
         {
@@ -198,7 +126,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/staff": {
+    "/": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -211,8 +139,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/staff",
-      "dataRoute": "/staff.rsc",
+      "srcRoute": "/",
+      "dataRoute": "/index.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -222,7 +150,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/table-reservations": {
+    "/login": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -235,8 +163,32 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/table-reservations",
-      "dataRoute": "/table-reservations.rsc",
+      "srcRoute": "/login",
+      "dataRoute": "/login.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/promotional-mail": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "Next-Action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/promotional-mail",
+      "dataRoute": "/promotional-mail.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -270,7 +222,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/": {
+    "/staff": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -283,8 +235,32 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/",
-      "dataRoute": "/index.rsc",
+      "srcRoute": "/staff",
+      "dataRoute": "/staff.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/operations": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "Next-Action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/operations",
+      "dataRoute": "/operations.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -298,8 +274,8 @@
   "dynamicRoutes": {},
   "notFoundRoutes": [],
   "preview": {
-    "previewModeId": "282f46910840c8feff6f73b8bb7be365",
-    "previewModeSigningKey": "345ca3b33b305245b37ea9a6441e5df7ab2b53241759ed429279f0efb0e6d71e",
-    "previewModeEncryptionKey": "4c35f0fc8c6e64570d29562fd903b3c14ebb1c184c77aa64726abb67c017dfab"
+    "previewModeId": "c6c5273074cf6427df88f44ea662998a",
+    "previewModeSigningKey": "50163a170daef301eeb24cd971257249fcea7bea1e972fa5d24ed25e63f347f0",
+    "previewModeEncryptionKey": "67bea3dcf937feb81955188a74b023bcdd9dae6a120697b8a5e3f2d85c830ad1"
   }
 }

@@ -6,8 +6,8 @@ import { APISDK } from "@/libs/api"
 // Define interface for component props
 // Update the type definition for meta_data
 interface MetaData {
-  "3d_image_urls": string;
-  variants: string;
+  "3d_image_urls": string[];
+  variants: string[];
   colors: { colorName: string; colorCode: string; }[];
   slashed_price: string;
   discount: string;
@@ -15,8 +15,8 @@ interface MetaData {
 // Update the NewProductModalProps to include the new MetaData type
 interface NewProductModalProps {
   onClose: () => void;
-  categories: string[];
-  subCategories: string[];
+  categories: Category[];  // Changed from string[] to Category[]
+  subCategories: SubCategory[];  // Changed from string[] to SubCategory[]
   meta_data?: MetaData; // Optional if needed
 }
 
@@ -25,7 +25,15 @@ interface ProductVariant {
   name: string;
   color: string;
 }
+interface Category {
+  id: string;
+  name: string;
+}
 
+interface SubCategory {
+  id: string;
+  name: string;
+}
 import { XCircle } from "lucide-react"; // Import the delete icon
 
 export function NewProductModal({ onClose, categories, subCategories }: NewProductModalProps) {
@@ -39,14 +47,14 @@ export function NewProductModal({ onClose, categories, subCategories }: NewProdu
   const [productVisibility, setProductVisibility] = useState<boolean>(true)
   const [showVariants, setShowVariants] = useState<boolean>(false)
   const [variants, setVariants] = useState<ProductVariant[]>([])
-  const [metaData, setMetaData] = useState<Record<string, string>>({})
+  // const [metaData, setMetaData] = useState<MetaData>({})
   const [imageUrls, setImageUrls] = useState<string[]>([])
   const [threeDImageUrls, setThreeDImageUrls] = useState<string[]>([])
   const [showImages, setShowImages] = useState<boolean>(false); // State to control image visibility
   const [variantNames, setVariantNames] = useState<string[]>([]);
   const [variantColors, setVariantColors] = useState<string[]>([]);
   const [colorNames, setColorNames] = useState<string[]>([]); // New state for color names
-
+console.log(categories,subCategories)
   const [discount,setDiscount]=useState<string>("")
   const handleAddVariant = (): void => {
     setVariants([...variants, { name: "", color: "" }])
@@ -66,30 +74,31 @@ export function NewProductModal({ onClose, categories, subCategories }: NewProdu
       setShowImages(true);
     }
   };
-
+  const formattedColors = variantColors.map((color, index) => ({
+    [colorNames[index] || `Color ${index + 1}`]: color
+  }));
+  const metaData = {
+    "3d_image_urls": JSON.stringify(threeDImageUrls),
+    variants: JSON.stringify(variantNames),
+        colors: JSON.stringify(variantColors.map((color, index) => ({
+          [colorNames[index] || `Color ${index + 1}`]: color
+        }))),
+    slashed_price: slashedPrice,
+    discount: discount
+  };
   const handleAddProduct = async () => {
     try {
       const api = APISDK.getInstance();
-      const metaData: Record<string, string> = {
-        "3d_image_urls": threeDImageUrls.join(','),
-        variants: variantNames.join(','),
-        colors: JSON.stringify(variantColors.map((color, index) => ({
-          colorName: colorNames[index] || `Color ${index + 1}`,
-          colorCode: color
-        }))), // Convert array of objects to JSON string
-        slashed_price: slashedPrice,
-        discount: discount
-      };
+   
       
       const productData = {
         name: productName,
         description: productDescription,
         price: parseFloat(productPrice.replace(/,/g, '')),
-       
         image_url: imageUrls,
         category_id: productCategory,
         subcategory_id: subCategory,
-        meta_data: metaData, // Use the object directly
+        meta_data: metaData, 
         is_active: productVisibility,
         availability_count: parseInt(stockQty, 10),
       };
@@ -219,9 +228,9 @@ export function NewProductModal({ onClose, categories, subCategories }: NewProdu
                     className="w-full border rounded-md px-3 py-2 text-gray-800 appearance-none"
                   >
                     <option value="">Select Category</option>
-                    {categories.map((category, index) => (
-                      <option key={index} value={category}>
-                        {category}
+                    {categories.map((category) => (
+                      <option key={category.id} value={category.id}>
+                        {category.name}
                       </option>
                     ))}
                   </select>
@@ -239,9 +248,9 @@ export function NewProductModal({ onClose, categories, subCategories }: NewProdu
                     className="w-full border rounded-md px-3 py-2 text-gray-800 appearance-none"
                   >
                     <option value="">Select Sub-Category</option>
-                    {subCategories.map((subCategory, index) => (
-                      <option key={index} value={subCategory}>
-                        {subCategory}
+                    {subCategories.map((subCat) => (
+                      <option key={subCat.id} value={subCat.id}>
+                        {subCat.name}
                       </option>
                     ))}
                   </select>

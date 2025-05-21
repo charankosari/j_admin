@@ -2164,8 +2164,42 @@ public async deleteAssistance(assistanceId: string): Promise<{
   
     return await response.json();
   }
+  
+  public async getProductByCategoryId(category_id: string): Promise<IProduct | null> {
+    const response = await fetch(`${APISDK.BASE_URL}/product/c/${category_id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+  
+    if (!response.ok) {
+      throw new Error(`Failed to get product: ${response.status} ${response.statusText}`);
+    }
+  
+    return await response.json();
+  }
+  
+  public async getProductBySubCategoryId(subcategory_id: string): Promise<IProduct | null> {
+    const response = await fetch(`${APISDK.BASE_URL}/product/s/${subcategory_id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+  
+    if (!response.ok) {
+      throw new Error(`Failed to get product: ${response.status} ${response.statusText}`);
+    }
+  
+    return await response.json();
+  }
+  
+
   public async getProductById(product_id: string): Promise<IProduct | null> {
-    const response = await fetch(`${APISDK.BASE_URL}/product/${product_id}`, {
+    const response = await fetch(`${APISDK.BASE_URL}/product/i/${product_id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

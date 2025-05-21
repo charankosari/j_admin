@@ -932,10 +932,6 @@
     width: calc(var(--spacing) * 28);
   }
 
-  .w-30 {
-    width: calc(var(--spacing) * 30);
-  }
-
   .w-48 {
     width: calc(var(--spacing) * 48);
   }
@@ -1145,10 +1141,6 @@
 
   .flex-col {
     flex-direction: column;
-  }
-
-  .flex-row {
-    flex-direction: row;
   }
 
   .flex-wrap {
