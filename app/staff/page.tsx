@@ -45,11 +45,11 @@ export default function EmployeesPage() {
       const updatedEmployeeData = { ...employeeData};
 
       // Create or update the employee
-      if (employeeData.id) {
-        await api.updateEmployee(employeeData.id, updatedEmployeeData);
-      } else {
-        await api.createEmployee(updatedEmployeeData);
-      }
+      // if (employeeData.id) {
+      //   await api.updateEmployee(employeeData.id, updatedEmployeeData);
+      // } else {
+      //   await api.createEmployee(updatedEmployeeData);
+      // }
       fetchEmployees();
       // Handle success (e.g., refresh the employee list, close modal)
       console.log("Employee created/updated successfully");
@@ -109,6 +109,17 @@ export default function EmployeesPage() {
       {showNewEmployeeModal && (
         <NewEmployeeModal
           onClose={() => setShowNewEmployeeModal(false)}
+          isUpdate={false}
+          initialData={{
+            id: "",
+            first_name: "",
+            last_name: "",
+            email: "",
+            country_code: "+91",
+            phone_number: "",
+            role: "",
+            profile_picture: "",
+          }}
           onSubmit={handleCreateOrUpdateEmployee} // Pass the handler to the modal
         />
       )}

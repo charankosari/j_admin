@@ -1,7 +1,7 @@
 "use client"
 import { useState } from "react"
 import { Eye, Edit, Trash2, ChevronLeft, ChevronRight } from "lucide-react"
-
+import { NewEmployeeModal } from "@/components/employees/new-employee-modal" 
 interface Employee {
   id: string;
   first_name: string;
@@ -18,14 +18,15 @@ interface Employee {
 
 interface EmployeeTableProps {
   employees: Employee[];
-  onUpdate: (employeeData: any, file: any) => Promise<void>;
+  onUpdate: (employeeData: any) => Promise<void>;
   onDelete: (employeeId: string) => Promise<void>;
 }
 
 export function EmployeeTable({ employees, onUpdate,onDelete }: EmployeeTableProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const employeesPerPage = 10;
-
+  const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
+  const [showModal, setShowModal] = useState(false);
   const indexOfLastEmployee = currentPage * employeesPerPage;
   const indexOfFirstEmployee = indexOfLastEmployee - employeesPerPage;
   const currentEmployees = employees.slice(indexOfFirstEmployee, indexOfLastEmployee);
@@ -49,7 +50,10 @@ export function EmployeeTable({ employees, onUpdate,onDelete }: EmployeeTablePro
       onDelete(employeeId)
     }
   }
-
+  const handleEdit = (employee: Employee) => {
+    setSelectedEmployee(employee); // Set the selected employee
+    setShowModal(true); // Show the modal
+  };
   return (
     <div className="bg-white border rounded-md overflow-hidden">
       <table className="min-w-full divide-y divide-gray-200">
@@ -98,7 +102,7 @@ export function EmployeeTable({ employees, onUpdate,onDelete }: EmployeeTablePro
                   </button>
                   <button
                     className="p-1.5 bg-orange-100 rounded-md text-orange-600 hover:bg-orange-200"
-                    onClick={() => onUpdate(employee, null)} // Example usage of onUpdate
+                    onClick={() => handleEdit(employee)}// Example usage of onUpdate
                   >
                     <Edit size={16} />
                   </button>
@@ -136,6 +140,14 @@ export function EmployeeTable({ employees, onUpdate,onDelete }: EmployeeTablePro
           </div>
         </div>
       </div>
+      {showModal && selectedEmployee && (
+        <NewEmployeeModal
+          onClose={() => setShowModal(false)}
+          onSubmit={onUpdate}
+          isUpdate={!!selectedEmployee}
+          initialData={selectedEmployee} // Pass existing data to the modal
+        />
+      )}
     </div>
   )
 }

@@ -6,6 +6,8 @@ import { APISDK } from "@/libs/api/index"
 interface NewEmployeeModalProps {
   onClose: () => void;
   onSubmit: (employeeData: any) => Promise<void>;
+  initialData: any;
+  isUpdate:boolean;
 }
 
 interface EmployeeData {
@@ -20,21 +22,21 @@ interface EmployeeData {
   updated_at: Date;
 }
 
-export const NewEmployeeModal: React.FC<NewEmployeeModalProps> = ({ onClose, onSubmit }) => {
+export const NewEmployeeModal: React.FC<NewEmployeeModalProps> = ({ onClose, onSubmit,initialData,isUpdate }) => {
   const [employeeData, setEmployeeData] = useState<EmployeeData>({
-    first_name: '',
-    last_name: '',
-    email: '',
-    country_code: '+91',
-    phone_number: '',
-    role: 'cafe_admin', // Ensure this is initialized correctly
-    profile_picture: '',
-    created_at: new Date(),
-    updated_at: new Date(),
+    first_name: initialData?.first_name || '',
+    last_name: initialData?.last_name || '',
+    email: initialData?.email || '',
+    country_code: initialData?.country_code || '+91',
+    phone_number: initialData?.phone_number || '',
+    role: initialData?.role || 'cafe_admin',
+    profile_picture: initialData?.profile_picture || '',
+    created_at: initialData?.created_at || new Date(),
+    updated_at: initialData?.updated_at || new Date(),
   });
   // const [file, setFile] = useState<File | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [profileImage, setProfileImage] = useState("https://jeevic-prod.s3.ap-south-1.amazonaws.com/jv-uploads/1747773837875-Profile_avatar_placeholder_large.png");
+  const [profileImage, setProfileImage] = useState(initialData?.profile_picture||"https://jeevic-prod.s3.ap-south-1.amazonaws.com/jv-uploads/1747773837875-Profile_avatar_placeholder_large.png");
   const [showDeleteImage, setShowDeleteImage] = useState(true);
   const modalRef = useRef<HTMLDivElement>(null);
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,13 +85,16 @@ export const NewEmployeeModal: React.FC<NewEmployeeModalProps> = ({ onClose, onS
     e.preventDefault();
     const api = APISDK.getInstance();
 
-  
-
     try {
-      await onSubmit({ ...employeeData, profile_picture: profileImage });
+      if (isUpdate) {
+        await api.updateEmployee(initialData.id, { ...employeeData, profile_picture: profileImage });
+      } else {
+        await api.createEmployee({ ...employeeData, profile_picture: profileImage });
+      }
+      onSubmit(employeeData);
       onClose();
     } catch (error) {
-      console.error('Failed to create employee:', error);
+      console.error(`Failed to ${isUpdate ? 'update' : 'create'} employee:`, error);
     }
   };
 
@@ -183,7 +188,7 @@ export const NewEmployeeModal: React.FC<NewEmployeeModalProps> = ({ onClose, onS
             </div>
 
             <button type="submit" className="w-full mt-6 py-3 bg-orange-500 text-white rounded-md hover:bg-orange-600">
-              Create Employee
+             {isUpdate?"Update employee":"Create employee"}
             </button>
           </form>
         </div>
