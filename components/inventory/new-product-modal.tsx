@@ -2,60 +2,137 @@
 
 import { useState } from "react"
 import { X, Upload, ChevronDown, ChevronUp } from "lucide-react"
-
+import { APISDK } from "@/libs/api" 
 // Define interface for component props
+// Update the type definition for meta_data
+interface MetaData {
+  "3d_image_urls": string;
+  variants: string;
+  colors: { colorName: string; colorCode: string; }[];
+  slashed_price: string;
+  discount: string;
+}
+// Update the NewProductModalProps to include the new MetaData type
 interface NewProductModalProps {
   onClose: () => void;
+  categories: string[];
+  subCategories: string[];
+  meta_data?: MetaData; // Optional if needed
 }
 
 // Define interface for product variant
 interface ProductVariant {
   name: string;
-  description: string;
-  price: string;
-  slashedPrice: string;
+  color: string;
 }
 
-export function NewProductModal({ onClose }: NewProductModalProps) {
-  const [productName, setProductName] = useState<string>("Macbook Air M4 - 16GB RAM/512 GB SSD")
-  const [productDescription, setProductDescription] = useState<string>(
-    "The MacBook M4 features Apple's latest M4 chip with a 10-core CPU and 12-core GPU, delivering next-gen performance, enhanced thermal efficiency, ProMotion display support, and unmatched battery life for demanding workflows.",
-  )
-  const [productPrice, setProductPrice] = useState<string>("01,20,000")
-  const [slashedPrice, setSlashedPrice] = useState<string>("01,42,000")
-  const [stockQty, setStockQty] = useState<string>("20")
-  const [productCategory, setProductCategory] = useState<string>("Electronics")
-  const [subCategory, setSubCategory] = useState<string>("Sub-Category")
+import { XCircle } from "lucide-react"; // Import the delete icon
+
+export function NewProductModal({ onClose, categories, subCategories }: NewProductModalProps) {
+  const [productName, setProductName] = useState<string>("")
+  const [productDescription, setProductDescription] = useState<string>("")
+  const [productPrice, setProductPrice] = useState<string>("")
+  const [slashedPrice, setSlashedPrice] = useState<string>("")
+  const [stockQty, setStockQty] = useState<string>("")
+  const [productCategory, setProductCategory] = useState<string>("")
+  const [subCategory, setSubCategory] = useState<string>("")
   const [productVisibility, setProductVisibility] = useState<boolean>(true)
   const [showVariants, setShowVariants] = useState<boolean>(false)
-  const [variants, setVariants] = useState<ProductVariant[]>([
-    {
-      name: "Macbook Air M4 - 24 RAM/512 GB SSD",
-      description:
-        "The MacBook M4 features Apple's latest M4 chip with a 10-core CPU and 12-core GPU, delivering next-gen performance, enhanced thermal efficiency, ProMotion display support, and unmatched battery life for demanding workflows.",
-      price: "01,20,000",
-      slashedPrice: "01,42,000",
-    },
-  ])
+  const [variants, setVariants] = useState<ProductVariant[]>([])
+  const [metaData, setMetaData] = useState<Record<string, string>>({})
+  const [imageUrls, setImageUrls] = useState<string[]>([])
+  const [threeDImageUrls, setThreeDImageUrls] = useState<string[]>([])
+  const [showImages, setShowImages] = useState<boolean>(false); // State to control image visibility
+  const [variantNames, setVariantNames] = useState<string[]>([]);
+  const [variantColors, setVariantColors] = useState<string[]>([]);
+  const [colorNames, setColorNames] = useState<string[]>([]); // New state for color names
 
-  const productImages: string[] = [
-    "https://i.pinimg.com/474x/15/20/b2/1520b25e509ef0c742551f7aa06a6356.jpg?height=60&width=60&text=MacBook+1",
-    "https://i.pinimg.com/474x/15/20/b2/1520b25e509ef0c742551f7aa06a6356.jpg?height=60&width=60&text=MacBook+2",
-    "https://i.pinimg.com/474x/15/20/b2/1520b25e509ef0c742551f7aa06a6356.jpg?height=60&width=60&text=MacBook+3",
-    "https://i.pinimg.com/474x/15/20/b2/1520b25e509ef0c742551f7aa06a6356.jpg?height=60&width=60&text=MacBook+4",
-  ]
-
+  const [discount,setDiscount]=useState<string>("")
   const handleAddVariant = (): void => {
-    setVariants([
-      ...variants,
-      {
-        name: "",
-        description: "",
-        price: "",
-        slashedPrice: "",
-      },
-    ])
+    setVariants([...variants, { name: "", color: "" }])
   }
+
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files) {
+      const api = APISDK.getInstance();
+      const uploadedUrls = await Promise.all(
+        Array.from(files).map(async (file) => {
+          const response = await api.uploadFile(file); // Use the upload function from APISDK
+          return response.url; // Assuming the response contains the URL
+        })
+      );
+      setImageUrls([...imageUrls, ...uploadedUrls]);
+      setShowImages(true);
+    }
+  };
+
+  const handleAddProduct = async () => {
+    try {
+      const api = APISDK.getInstance();
+      const metaData: Record<string, string> = {
+        "3d_image_urls": threeDImageUrls.join(','),
+        variants: variantNames.join(','),
+        colors: JSON.stringify(variantColors.map((color, index) => ({
+          colorName: colorNames[index] || `Color ${index + 1}`,
+          colorCode: color
+        }))), // Convert array of objects to JSON string
+        slashed_price: slashedPrice,
+        discount: discount
+      };
+      
+      const productData = {
+        name: productName,
+        description: productDescription,
+        price: parseFloat(productPrice.replace(/,/g, '')),
+       
+        image_url: imageUrls,
+        category_id: productCategory,
+        subcategory_id: subCategory,
+        meta_data: metaData, // Use the object directly
+        is_active: productVisibility,
+        availability_count: parseInt(stockQty, 10),
+      };
+      console.log('Product Data:', productData);
+      await api.createProduct(productData);
+      alert("Product added successfully!");
+      onClose();
+    } catch (error) {
+      console.error("Failed to add product:", error);
+      alert("Failed to add product.");
+    }
+  };
+
+  const handleRemoveImage = (index: number) => {
+    const updatedImageUrls = imageUrls.filter((_, i) => i !== index);
+    setImageUrls(updatedImageUrls);
+  };
+
+  const handleAddVariantName = () => {
+    setVariantNames([...variantNames, ""]);
+  };
+
+  const handleAddVariantColor = () => {
+    setVariantColors([...variantColors, "#000000"]); // Default color
+  };
+
+  const handleVariantNameChange = (index: number, value: string) => {
+    const newVariantNames = [...variantNames];
+    newVariantNames[index] = value;
+    setVariantNames(newVariantNames);
+  };
+
+  const handleVariantColorChange = (index: number, value: string, type: 'color' | 'name') => {
+    const newVariantColors = [...variantColors];
+    if (type === 'color') {
+      newVariantColors[index] = value;
+      setVariantColors(newVariantColors);
+    } else {
+      const newColorNames = [...colorNames];
+      newColorNames[index] = value;
+      setColorNames(newColorNames);
+    }
+  };
 
   return (
     <div className="fixed inset-0 bg-black/50 bg-opacity-50 flex items-center justify-center z-50 overflow-y-auto">
@@ -93,46 +170,43 @@ export function NewProductModal({ onClose }: NewProductModalProps) {
               <p className="text-sm text-gray-500 mb-2">Lorem Dolor Sit Amet, Lorem Ipsum</p>
 
               <div className="border-2 border-dashed rounded-md p-8 mb-4 flex flex-col items-center justify-center">
-                <Upload className="h-10 w-10 text-gray-400 mb-2" />
-                <p className="text-sm text-gray-600 mb-1">
-                  Drag and Drop the Images here or <span className="text-blue-500">Select file</span>
-                </p>
-                <p className="text-xs text-gray-500">Formats Supported: PNG, JPG, JPEG, MP4 and MOV</p>
+                <input
+                  type="file"
+                  accept="image/png, image/jpeg, image/jpg"
+                  multiple
+                  onChange={handleImageUpload}
+                  className="hidden"
+                  id="productImageInput"
+                />
+                <label htmlFor="productImageInput" className="cursor-pointer flex flex-col items-center justify-center">
+                  <Upload className="h-10 w-10 text-gray-400 mb-2" />
+                  <p className="text-sm text-gray-600 mb-1">
+                    Drag and Drop the Images here or <span className="text-blue-500">Select file</span>
+                  </p>
+                  <p className="text-xs text-gray-500">Formats Supported: PNG, JPG, JPEG, MP4 and MOV</p>
+                </label>
               </div>
 
-              <div className="flex space-x-2 mb-1">
-                {productImages.map((image, index) => (
-                  <div key={index} className="w-16 h-16 border rounded-md overflow-hidden">
-                    <img
-                      src={image || "https://i.pinimg.com/474x/15/20/b2/1520b25e509ef0c742551f7aa06a6356.jpg"}
-                      alt={`Product ${index + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                ))}
-              </div>
+              {showImages && (
+                <div className="flex space-x-2 mb-1">
+                  {imageUrls.map((image, index) => (
+                    <div key={index} className="relative w-16 h-16 border rounded-md overflow-hidden">
+                      <img
+                        src={image || "https://i.pinimg.com/474x/15/20/b2/1520b25e509ef0c742551f7aa06a6356.jpg"}
+                        alt={`Product ${index + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                      <button
+                        onClick={() => handleRemoveImage(index)}
+                        className="absolute top-0 right-0 bg-white rounded-full"
+                      >
+                        <XCircle className="h-4 w-4 text-red-500" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
               <p className="text-xs text-gray-500">First Image will be the cover</p>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm text-gray-600 mb-1">Product Price(₹)</label>
-                <input
-                  type="text"
-                  value={productPrice}
-                  onChange={(e) => setProductPrice(e.target.value)}
-                  className="w-full border rounded-md px-3 py-2 text-gray-800"
-                />
-              </div>
-              <div>
-                <label className="block text-sm text-gray-600 mb-1">Slashed Price(Optional)</label>
-                <input
-                  type="text"
-                  value={slashedPrice}
-                  onChange={(e) => setSlashedPrice(e.target.value)}
-                  className="w-full border rounded-md px-3 py-2 text-gray-800"
-                />
-              </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
@@ -144,11 +218,12 @@ export function NewProductModal({ onClose }: NewProductModalProps) {
                     onChange={(e) => setProductCategory(e.target.value)}
                     className="w-full border rounded-md px-3 py-2 text-gray-800 appearance-none"
                   >
-                    <option>Electronics</option>
-                    <option>Chocolates</option>
-                    <option>Ramen</option>
-                    <option>Snacks</option>
-                    <option>Drinks</option>
+                    <option value="">Select Category</option>
+                    {categories.map((category, index) => (
+                      <option key={index} value={category}>
+                        {category}
+                      </option>
+                    ))}
                   </select>
                   <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                     <ChevronDown className="h-4 w-4 text-gray-500" />
@@ -163,10 +238,12 @@ export function NewProductModal({ onClose }: NewProductModalProps) {
                     onChange={(e) => setSubCategory(e.target.value)}
                     className="w-full border rounded-md px-3 py-2 text-gray-800 appearance-none"
                   >
-                    <option>Sub-Category</option>
-                    <option>Laptops</option>
-                    <option>Phones</option>
-                    <option>Accessories</option>
+                    <option value="">Select Sub-Category</option>
+                    {subCategories.map((subCategory, index) => (
+                      <option key={index} value={subCategory}>
+                        {subCategory}
+                      </option>
+                    ))}
                   </select>
                   <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                     <ChevronDown className="h-4 w-4 text-gray-500" />
@@ -199,116 +276,82 @@ export function NewProductModal({ onClose }: NewProductModalProps) {
                 </div>
               </div>
             </div>
+            <div>
+      <label className="block text-sm text-gray-600 mb-1">Price</label>
+      <input
+        type="text"
+        value={productPrice}
+        onChange={(e) => setProductPrice(e.target.value)}
+        className="w-full border rounded-md px-3 py-2 text-gray-800"
+      />
+    </div>
+    <div>
+      <label className="block text-sm text-gray-600 mb-1">Slashed Price</label>
+      <input
+        type="text"
+        value={slashedPrice}
+        onChange={(e) => setSlashedPrice(e.target.value)}
+        className="w-full border rounded-md px-3 py-2 text-gray-800"
+      />
+    </div>
+    <div>
+      <label className="block text-sm text-gray-600 mb-1">discount</label>
+      <input
+        type="text"
+        value={discount}
+        onChange={(e) => setDiscount(e.target.value)}
+        className="w-full border rounded-md px-3 py-2 text-gray-800"
+      />
+    </div>
+            <div>
+              <h3 className="text-lg font-medium text-gray-800 mb-2">Product Variants (optional)</h3>
+              <div className="flex flex-wrap space-x-4">
+                {variantNames.map((name, index) => (
+                  <div key={index} className="flex flex-col items-center mb-4">
+                    <input
+                      type="text"
+                      value={name}
+                      onChange={(e) => handleVariantNameChange(index, e.target.value)}
+                      className="w-full border rounded-md px-3 py-2 text-gray-800"
+                      placeholder={`Variant Name ${index + 1}`}
+                    />
+                  </div>
+                ))}
+              </div>
+              <button onClick={handleAddVariantName} className="text-blue-500 mt-2">
+                Add Variant
+              </button>
+            </div>
 
             <div>
-              <button
-                className="flex items-center text-gray-800 font-medium"
-                onClick={() => setShowVariants(!showVariants)}
-              >
-                Variants(If any) {showVariants ? <ChevronUp className="ml-2" /> : <ChevronDown className="ml-2" />}
+              <h3 className="text-lg font-medium text-gray-800 mb-2">Colors (optional)</h3>
+              <div className="flex flex-wrap space-x-4">
+                {variantColors.map((color, index) => (
+                  <div key={index} className="flex flex-col items-center mb-4">
+                    <input
+                      type="color"
+                      value={color}
+                      onChange={(e) => handleVariantColorChange(index, e.target.value, 'color')}
+                      className="w-16 h-16 border rounded-md"
+                    />
+                    <input
+                      type="text"
+                      value={colorNames[index] || ''}
+                      onChange={(e) => handleVariantColorChange(index, e.target.value, 'name')}
+                      placeholder={`Color Description ${index + 1}`}
+                      className="mt-2 text-center border rounded-md px-2 py-1 text-gray-800"
+                    />
+                  </div>
+                ))}
+              </div>
+              <button onClick={handleAddVariantColor} className="text-blue-500 mt-2">
+                Add Color
               </button>
-
-              {showVariants && (
-                <div className="mt-4 space-y-6">
-                  {variants.map((variant, index) => (
-                    <div key={index} className="border-t pt-4 space-y-4">
-                      <div>
-                        <label className="block text-sm text-gray-600 mb-1">Variant Name</label>
-                        <input
-                          type="text"
-                          value={variant.name}
-                          onChange={(e) => {
-                            const newVariants = [...variants]
-                            newVariants[index].name = e.target.value
-                            setVariants(newVariants)
-                          }}
-                          className="w-full border rounded-md px-3 py-2 text-gray-800"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm text-gray-600 mb-1">Variant Description</label>
-                        <textarea
-                          value={variant.description}
-                          onChange={(e) => {
-                            const newVariants = [...variants]
-                            newVariants[index].description = e.target.value
-                            setVariants(newVariants)
-                          }}
-                          className="w-full border rounded-md px-3 py-2 text-gray-800 min-h-[100px]"
-                        />
-                      </div>
-
-                      <div>
-                        <h3 className="text-lg font-medium text-gray-800 mb-2">Product Images</h3>
-                        <p className="text-sm text-gray-500 mb-2">Lorem Dolor Sit Amet, Lorem Ipsum</p>
-
-                        <div className="border-2 border-dashed rounded-md p-8 mb-4 flex flex-col items-center justify-center">
-                          <Upload className="h-10 w-10 text-gray-400 mb-2" />
-                          <p className="text-sm text-gray-600 mb-1">
-                            Drag and Drop the Images here or <span className="text-blue-500">Select file</span>
-                          </p>
-                          <p className="text-xs text-gray-500">Formats Supported: PNG, JPG, JPEG, MP4 and MOV</p>
-                        </div>
-
-                        <div className="flex space-x-2 mb-1">
-                          {productImages.map((image, imgIndex) => (
-                            <div key={imgIndex} className="w-16 h-16 border rounded-md overflow-hidden">
-                              <img
-                                src={image || "https://i.pinimg.com/474x/15/20/b2/1520b25e509ef0c742551f7aa06a6356.jpg"}
-                                alt={`Product ${imgIndex + 1}`}
-                                className="w-full h-full object-cover"
-                              />
-                            </div>
-                          ))}
-                        </div>
-                        <p className="text-xs text-gray-500">First Image will be the cover</p>
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-4">
-                        <div>
-                          <label className="block text-sm text-gray-600 mb-1">Product Price(₹)</label>
-                          <input
-                            type="text"
-                            value={variant.price}
-                            onChange={(e) => {
-                              const newVariants = [...variants]
-                              newVariants[index].price = e.target.value
-                              setVariants(newVariants)
-                            }}
-                            className="w-full border rounded-md px-3 py-2 text-gray-800"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-sm text-gray-600 mb-1">Slashed Price(Optional)</label>
-                          <input
-                            type="text"
-                            value={variant.slashedPrice}
-                            onChange={(e) => {
-                              const newVariants = [...variants]
-                              newVariants[index].slashedPrice = e.target.value
-                              setVariants(newVariants)
-                            }}
-                            className="w-full border rounded-md px-3 py-2 text-gray-800"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-
-                  <button
-                    className="w-full py-3 border border-gray-300 rounded-md text-gray-800 hover:bg-gray-50 flex items-center justify-center"
-                    onClick={handleAddVariant}
-                  >
-                    Add Another Variant
-                  </button>
-                </div>
-              )}
             </div>
           </div>
 
           <div className="mt-8">
-            <button className="w-full py-3 bg-orange-500 text-white rounded-md hover:bg-orange-600" onClick={onClose}>
+            <button className="w-full py-3 bg-orange-500 text-white rounded-md hover:bg-orange-600" onClick={handleAddProduct}>
               Add Product
             </button>
           </div>

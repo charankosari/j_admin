@@ -195,3 +195,17 @@ interface ProductSale {
     created_at: Date;
     updated_at: Date;
   }
+  export interface IProduct {
+    id: string;
+      name: string;
+      description: string;
+      price: number;
+      image_url: string[];
+      category_id: string;
+      subcategory_id: string;
+      meta_data: Record<string, string>;
+      is_active: boolean;
+      availability_count: number;
+      created_at: Date;
+      updated_at: Date;
+  }

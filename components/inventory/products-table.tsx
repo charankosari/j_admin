@@ -346,7 +346,7 @@ export function ProductsTable() {
         </div>
       </div>
 
-      {showNewProductModal && <NewProductModal onClose={() => setShowNewProductModal(false)} />}
+      {showNewProductModal && <NewProductModal onClose={() => setShowNewProductModal(false)} categories={categories} subCategories={subCategories}/>}
       {showNewCategoryModal && <NewCategoryModal onClose={() => setShowNewCategoryModal(false)} reload={fetchCategories}/>}
       {showNewSubCategoryModal && <NewSubCategoryModal onClose={() => setShowNewSubCategoryModal(false)} reload={fetchSubCategories}/>}
     </div>

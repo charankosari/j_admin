@@ -11,7 +11,7 @@ import type {
   IReview,
   IAssistance,
   IBanner,
-  ICategory,ISubCategory
+  ICategory,ISubCategory,IProduct
 } from './types';
 import { TableStatus } from '@/components/real-time/table-grid';
 
@@ -2054,6 +2054,173 @@ public async deleteAssistance(assistanceId: string): Promise<{
       throw new Error(`Failed to get subcategories by category id: ${response.status} ${response.statusText}`);
     }
 
+    return await response.json();
+  }
+  // product functions
+  public async createProduct({
+    name,
+    description,
+    price,
+    image_url,
+    category_id,
+    subcategory_id,
+    meta_data,
+    is_active,
+    availability_count,
+  }: {
+    name: string;
+    description: string;
+    price: number;
+    image_url: string[];
+    category_id: string;
+    subcategory_id: string;
+    meta_data: Record<string, string>;
+    is_active: boolean;
+    availability_count: number;
+  }): Promise<string> {
+    const response = await fetch(`${APISDK.BASE_URL}/product`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+      body: JSON.stringify({
+        name,
+        description,
+        price,
+        image_url,
+        category_id,
+        subcategory_id,
+        meta_data,
+        is_active,
+        availability_count,
+      }),
+    });
+  
+    if (!response.ok) {
+      throw new Error(`Failed to create product: ${response.status} ${response.statusText}`);
+    }
+  
+    const data = await response.json();
+    return data.id;
+  }
+  public async updateProduct(product_id: string, data: Record<string, any>): Promise<void> {
+    const response = await fetch(`${APISDK.BASE_URL}/product/${product_id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+      body: JSON.stringify(data),
+    });
+  
+    if (!response.ok) {
+      throw new Error(`Failed to update product: ${response.status} ${response.statusText}`);
+    }
+  }
+  public async deleteProduct(product_id: string): Promise<void> {
+    const response = await fetch(`${APISDK.BASE_URL}/product/${product_id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+  
+    if (!response.ok) {
+      throw new Error(`Failed to delete product: ${response.status} ${response.statusText}`);
+    }
+  }
+  public async getProductsByCategory({
+    category_id,
+    subcategory_id,
+  }: {
+    category_id?: string;
+    subcategory_id?: string;
+  }, {
+    limit,
+    page
+  }: {
+    page: number,
+    limit: number,
+  }): Promise<IProduct[]> {
+    const query = new URLSearchParams();
+    if (category_id) query.append('category_id', category_id);
+    if (subcategory_id) query.append('subcategory_id', subcategory_id);
+    query.append('limit', limit.toString());
+    query.append('page', page.toString());
+  
+    const response = await fetch(`${APISDK.BASE_URL}/product?${query.toString()}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+  
+    if (!response.ok) {
+      throw new Error(`Failed to get products: ${response.status} ${response.statusText}`);
+    }
+  
+    return await response.json();
+  }
+  public async getProductById(product_id: string): Promise<IProduct | null> {
+    const response = await fetch(`${APISDK.BASE_URL}/product/${product_id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+  
+    if (!response.ok) {
+      throw new Error(`Failed to get product: ${response.status} ${response.statusText}`);
+    }
+  
+    return await response.json();
+  }
+  
+  public async getProductCount({
+    category_id,
+    subcategory_id,
+  }: {
+    category_id?: string;
+    subcategory_id?: string;
+  }): Promise<number> {
+    const query = new URLSearchParams();
+    if (category_id) query.append('category_id', category_id);
+    if (subcategory_id) query.append('subcategory_id', subcategory_id);
+  
+    const response = await fetch(`${APISDK.BASE_URL}/product/count?${query.toString()}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+  
+    if (!response.ok) {
+      throw new Error(`Failed to get product count: ${response.status} ${response.statusText}`);
+    }
+  
+    const data = await response.json();
+    return data.count;
+  }
+  
+  public async getProductsByIds(product_ids: string[]): Promise<IProduct[]> {
+    const response = await fetch(`${APISDK.BASE_URL}/product/ids`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+      body: JSON.stringify({ ids: product_ids }),
+    });
+  
+    if (!response.ok) {
+      throw new Error(`Failed to get products by ids: ${response.status} ${response.statusText}`);
+    }
+  
     return await response.json();
   }
 };

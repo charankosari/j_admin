@@ -1907,6 +1907,121 @@ class APISDK {
         }
         return await response.json();
     }
+    // product functions
+    async createProduct({ name, description, price, image_url, category_id, subcategory_id, meta_data, is_active, availability_count }) {
+        const response = await fetch(`${APISDK.BASE_URL}/product`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${this.accessToken}`
+            },
+            body: JSON.stringify({
+                name,
+                description,
+                price,
+                image_url,
+                category_id,
+                subcategory_id,
+                meta_data,
+                is_active,
+                availability_count
+            })
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to create product: ${response.status} ${response.statusText}`);
+        }
+        const data = await response.json();
+        return data.id;
+    }
+    async updateProduct(product_id, data) {
+        const response = await fetch(`${APISDK.BASE_URL}/product/${product_id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${this.accessToken}`
+            },
+            body: JSON.stringify(data)
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to update product: ${response.status} ${response.statusText}`);
+        }
+    }
+    async deleteProduct(product_id) {
+        const response = await fetch(`${APISDK.BASE_URL}/product/${product_id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${this.accessToken}`
+            }
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to delete product: ${response.status} ${response.statusText}`);
+        }
+    }
+    async getProductsByCategory({ category_id, subcategory_id }, { limit, page }) {
+        const query = new URLSearchParams();
+        if (category_id) query.append('category_id', category_id);
+        if (subcategory_id) query.append('subcategory_id', subcategory_id);
+        query.append('limit', limit.toString());
+        query.append('page', page.toString());
+        const response = await fetch(`${APISDK.BASE_URL}/product?${query.toString()}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${this.accessToken}`
+            }
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to get products: ${response.status} ${response.statusText}`);
+        }
+        return await response.json();
+    }
+    async getProductById(product_id) {
+        const response = await fetch(`${APISDK.BASE_URL}/product/${product_id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${this.accessToken}`
+            }
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to get product: ${response.status} ${response.statusText}`);
+        }
+        return await response.json();
+    }
+    async getProductCount({ category_id, subcategory_id }) {
+        const query = new URLSearchParams();
+        if (category_id) query.append('category_id', category_id);
+        if (subcategory_id) query.append('subcategory_id', subcategory_id);
+        const response = await fetch(`${APISDK.BASE_URL}/product/count?${query.toString()}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${this.accessToken}`
+            }
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to get product count: ${response.status} ${response.statusText}`);
+        }
+        const data = await response.json();
+        return data.count;
+    }
+    async getProductsByIds(product_ids) {
+        const response = await fetch(`${APISDK.BASE_URL}/product/ids`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${this.accessToken}`
+            },
+            body: JSON.stringify({
+                ids: product_ids
+            })
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to get products by ids: ${response.status} ${response.statusText}`);
+        }
+        return await response.json();
+    }
 }
 ;
 }}),
