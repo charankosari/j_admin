@@ -36,20 +36,7 @@ export default function EmployeesPage() {
   };
   const handleCreateOrUpdateEmployee = async (employeeData:any) => {
     try {
-      const api = APISDK.getInstance();
-
-      // Upload the image and get the URL
     
-
-      // Add the image URL to the employee data
-      const updatedEmployeeData = { ...employeeData};
-
-      // Create or update the employee
-      // if (employeeData.id) {
-      //   await api.updateEmployee(employeeData.id, updatedEmployeeData);
-      // } else {
-      //   await api.createEmployee(updatedEmployeeData);
-      // }
       fetchEmployees();
       // Handle success (e.g., refresh the employee list, close modal)
       console.log("Employee created/updated successfully");
@@ -75,7 +62,7 @@ export default function EmployeesPage() {
     <>
       <Breadcrumb items={["Employee", "Overview"]} />
       <main className="flex-1 p-6">
-        <EmployeeMetrics />
+        {/* <EmployeeMetrics /> */}
 
         <div className="mt-8 border rounded-lg p-2">
           <div className="mb-4">
@@ -102,7 +89,7 @@ export default function EmployeesPage() {
             </button>
           </div>
 
-          <EmployeeTable  employees={employees} onUpdate={handleCreateOrUpdateEmployee} onDelete={DeleteEmployee}/>
+          <EmployeeTable  employees={employees} onUpdate={handleCreateOrUpdateEmployee} onDelete={DeleteEmployee} search={searchTerm}/>
         </div>
       </main>
 

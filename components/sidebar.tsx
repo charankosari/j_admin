@@ -101,17 +101,17 @@ export function Sidebar() {
         <div className="py-4">
           {!collapsed && (
             <div className="px-4 py-2">
-              <p className="text-xs text-gray-400 font-medium">OTHERS</p>
+              <p className="text-xs text-gray-400 font-medium">Staff managemenr</p>
             </div>
           )}
           <NavItem href="/staff" icon={<Users size={18} />} label="Staff Management" collapsed={collapsed} />
         </div>
-        <div className="py-4">
+        {/* <div className="py-4">
           <div className="px-4 py-2">
             <p className="text-xs text-gray-400 font-medium">Employee Management</p>
           </div>
           <NavItem href="/employees" icon={<Users size={18} />} label="Employee Management" collapsed={collapsed} />
-        </div>
+        </div> */}
       </div>
 
       {/* Only show user info and logout button when user is authenticated */}

@@ -1,16 +1,47 @@
 "use client"
 
-import { useState } from "react"
-import { Search,  MoreVertical, PlusCircle, StarIcon } from "lucide-react"
+import { useState, useEffect } from "react"
+import { Search, MoreVertical, PlusCircle, StarIcon } from "lucide-react"
 import { NewProductModal } from "./new-product-modal"
+import { NewSubCategoryModal } from "./new-subcategory-model"
 import { NewCategoryModal } from "./new-category-modal"
+import { APISDK } from "@/libs/api" // Assuming APISDK is correctly imported
 
 export function ProductsTable() {
   const [searchTerm, setSearchTerm] = useState("")
   const [activeTab, setActiveTab] = useState("All")
   const [showNewProductModal, setShowNewProductModal] = useState(false)
   const [showNewCategoryModal, setShowNewCategoryModal] = useState(false)
-  
+  const [showNewSubCategoryModal, setShowNewSubCategoryModal] = useState(false)
+  const [categories, setCategories] = useState<string[]>([])
+  const [subCategories, setSubCategories] = useState<string[]>([])
+
+  // Fetch categories and subcategories
+  const fetchCategories = async () => {
+    try {
+      const api = APISDK.getInstance()
+      const fetchedCategories = await api.getAllCategories()
+      setCategories(fetchedCategories.map(category => category.name))
+    } catch (error) {
+      console.error("Failed to fetch categories:", error)
+    }
+  }
+
+  const fetchSubCategories = async () => {
+    try {
+      const api = APISDK.getInstance()
+      const fetchedSubCategories = await api.getAllSubCategories()
+      setSubCategories(fetchedSubCategories.map(subCategory => subCategory.name))
+    } catch (error) {
+      console.error("Failed to fetch subcategories:", error)
+    }
+  }
+  useEffect(() => {
+    fetchCategories()
+    fetchSubCategories()
+  }, [])
+
+
   // Initial products data
   const initialProducts = [
     {
@@ -128,22 +159,22 @@ export function ProductsTable() {
   const [products, setProducts] = useState(initialProducts)
 
   const tabs = [
-    { id: "All", label: "All", count: 75 },
-    { id: "Electronics", label: "Electronics", count: 46 },
-    { id: "Chocolates", label: "Chocolates", count: 42 },
-    { id: "Ramen", label: "Ramen", count: 37 },
-    { id: "Snacks", label: "Snacks", count: 26 },
-    { id: "Drinks", label: "Drinks", count: 43 },
+    { id: "All", label: "All", count: products.length },
+    ...categories.map(category => ({
+      id: category,
+      label: category,
+      count: products.filter(product => product.category === category).length
+    }))
   ]
 
-  const filteredProducts = activeTab === "All" 
-    ? products 
-    : products.filter((product) => product.category === activeTab)
+  const filteredProducts = activeTab === "All"
+    ? products
+    : products.filter(product => product.category === activeTab)
 
   const handleVisibilityToggle = (productId: number) => {
     setProducts(currentProducts =>
       currentProducts.map(product =>
-        product.id === productId 
+        product.id === productId
           ? { ...product, visible: !product.visible }
           : product
       )
@@ -158,9 +189,9 @@ export function ProductsTable() {
           <p className="text-sm text-gray-500">Lorem ipsum dolor sit amet, consectetur</p>
         </div>
         <div className="flex gap-3">
-        <button
+          <button
             onClick={() => setShowNewProductModal(true)}
-            className="px-4 py-2 bg-orange-500 text-white rounded-md flex gap-2 hover:bg-orange-600"
+            className="px-4 py-2 border rounded-md text-gray-800 flex gap-2 hover:bg-gray-50"
           >
             <PlusCircle />
             New Product
@@ -171,6 +202,13 @@ export function ProductsTable() {
           >
             <PlusCircle />
             New Category
+          </button>
+          <button
+            onClick={() => setShowNewSubCategoryModal(true)}
+            className="px-4 py-2 border rounded-md text-gray-800 flex gap-2 hover:bg-gray-50"
+          >
+            <PlusCircle />
+            New sub category
           </button>
         </div>
       </div>
@@ -309,8 +347,8 @@ export function ProductsTable() {
       </div>
 
       {showNewProductModal && <NewProductModal onClose={() => setShowNewProductModal(false)} />}
-
-      {showNewCategoryModal && <NewCategoryModal onClose={() => setShowNewCategoryModal(false)} />}
+      {showNewCategoryModal && <NewCategoryModal onClose={() => setShowNewCategoryModal(false)} reload={fetchCategories}/>}
+      {showNewSubCategoryModal && <NewSubCategoryModal onClose={() => setShowNewSubCategoryModal(false)} reload={fetchSubCategories}/>}
     </div>
   )
 }

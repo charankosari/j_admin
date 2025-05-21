@@ -20,18 +20,26 @@ interface EmployeeTableProps {
   employees: Employee[];
   onUpdate: (employeeData: any) => Promise<void>;
   onDelete: (employeeId: string) => Promise<void>;
+  search:string;
 }
 
-export function EmployeeTable({ employees, onUpdate,onDelete }: EmployeeTableProps) {
+export function EmployeeTable({ employees, onUpdate,onDelete,search }: EmployeeTableProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const employeesPerPage = 10;
   const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
   const [showModal, setShowModal] = useState(false);
+  const filteredEmployees = employees.filter((employee) =>
+    employee.first_name.toLowerCase().includes(search.toLowerCase()) ||
+    employee.last_name.toLowerCase().includes(search.toLowerCase()) ||
+    employee.email.toLowerCase().includes(search.toLowerCase()) ||
+    employee.phone_number.includes(search) ||
+    employee.employeeid.includes(search)
+  );
   const indexOfLastEmployee = currentPage * employeesPerPage;
   const indexOfFirstEmployee = indexOfLastEmployee - employeesPerPage;
-  const currentEmployees = employees.slice(indexOfFirstEmployee, indexOfLastEmployee);
+  const currentEmployees = filteredEmployees.slice(indexOfFirstEmployee, indexOfLastEmployee);
 
-  const totalPages = Math.ceil(employees.length / employeesPerPage);
+  const totalPages = Math.ceil(filteredEmployees.length / employeesPerPage);
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -54,6 +62,7 @@ export function EmployeeTable({ employees, onUpdate,onDelete }: EmployeeTablePro
     setSelectedEmployee(employee); // Set the selected employee
     setShowModal(true); // Show the modal
   };
+
   return (
     <div className="bg-white border rounded-md overflow-hidden">
       <table className="min-w-full divide-y divide-gray-200">
@@ -97,9 +106,7 @@ export function EmployeeTable({ employees, onUpdate,onDelete }: EmployeeTablePro
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{employee.email}</td>
               <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                 <div className="flex space-x-2">
-                  <button className="p-1.5 bg-gray-100 rounded-md text-gray-600 hover:bg-gray-200">
-                    <Eye size={16} />
-                  </button>
+               
                   <button
                     className="p-1.5 bg-orange-100 rounded-md text-orange-600 hover:bg-orange-200"
                     onClick={() => handleEdit(employee)}// Example usage of onUpdate
@@ -118,7 +125,7 @@ export function EmployeeTable({ employees, onUpdate,onDelete }: EmployeeTablePro
 
       <div className="px-6 py-3 flex items-center justify-between border-t">
         <div className="text-sm text-gray-700">
-          Showing {indexOfFirstEmployee + 1} to {Math.min(indexOfLastEmployee, employees.length)} of {employees.length} Results
+          Showing {indexOfFirstEmployee + 1} to {Math.min(indexOfLastEmployee, currentEmployees.length)} of {currentEmployees.length} Results
         </div>
         <div className="flex items-center">
           <span className="text-sm text-gray-700 mr-3">Page {currentPage} of {totalPages}</span>

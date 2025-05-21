@@ -43,11 +43,11 @@ export const useAuth = () => {
                 const api = APISDK.getInstance(cleanToken);
                 const userData = await api.getUser();
                 
-                if (userData) {
+                if (userData && ['admin', 'cafe_admin', 'ecommerce_admin'].includes(userData.role)) {
                     setUser(userData);
                     setIsAuthenticated(true);
                 } else {
-                    throw new Error('Invalid user data received');
+                    throw new Error('User does not have the required role');
                 }
             } catch (error) {
                 console.error('Failed to fetch user:', error);

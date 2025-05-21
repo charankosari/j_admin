@@ -10,7 +10,8 @@ import type {
   IDineInTable,
   IReview,
   IAssistance,
-  IBanner
+  IBanner,
+  ICategory,ISubCategory
 } from './types';
 import { TableStatus } from '@/components/real-time/table-grid';
 
@@ -1887,6 +1888,170 @@ public async deleteAssistance(assistanceId: string): Promise<{
 
     if (!response.ok) {
       throw new Error(`Failed to delete employee: ${response.status} ${response.statusText}`);
+    }
+
+    return await response.json();
+  }
+  public async createNewCategory(name: string, imageUrl: string[]): Promise<string> {
+    const response = await fetch(`${APISDK.BASE_URL}/category`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+      body: JSON.stringify({ name, image_url: imageUrl }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to create category: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data.id;
+  }
+  public async getAllCategories(): Promise<ICategory[]> {
+    const response = await fetch(`${APISDK.BASE_URL}/category`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to get categories: ${response.status} ${response.statusText}`);
+    }
+
+    return await response.json();
+  }
+  public async updateCategory(categoryId: string, name: string, imageUrl: string[]): Promise<void> {
+    const response = await fetch(`${APISDK.BASE_URL}/category/${categoryId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+      body: JSON.stringify({ name, image_url: imageUrl }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to update category: ${response.status} ${response.statusText}`);
+    }
+  }
+  public async deleteCategory(categoryId: string): Promise<void> {
+    const response = await fetch(`${APISDK.BASE_URL}/category/${categoryId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to delete category: ${response.status} ${response.statusText}`);
+    }
+  }
+  public async getCategoryById(categoryId: string): Promise<ICategory> {
+    const response = await fetch(`${APISDK.BASE_URL}/category/${categoryId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to get category by id: ${response.status} ${response.statusText}`);
+    }
+
+    return await response.json();
+  }
+  //sub categories
+  public async createNewSubCategory(name: string, categoryId: string): Promise<string> {
+    const response = await fetch(`${APISDK.BASE_URL}/subcategory`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+      body: JSON.stringify({ name, category_id: categoryId }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to create subcategory: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data.id;
+  }
+  public async getAllSubCategories(): Promise<ISubCategory[]> {
+    const response = await fetch(`${APISDK.BASE_URL}/subcategory`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to get subcategories: ${response.status} ${response.statusText}`);
+    }
+
+    return await response.json();
+  }
+  public async updateSubCategory(subCategoryId: string, name: string, categoryId: string): Promise<void> {
+    const response = await fetch(`${APISDK.BASE_URL}/subcategory/${subCategoryId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+      body: JSON.stringify({ name, category_id: categoryId }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to update subcategory: ${response.status} ${response.statusText}`);
+    }
+  }
+  public async deleteSubCategory(subCategoryId: string): Promise<void> {
+    const response = await fetch(`${APISDK.BASE_URL}/subcategory/${subCategoryId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to delete subcategory: ${response.status} ${response.statusText}`);
+    }
+  }
+  public async getSubCategoryById(subCategoryId: string): Promise<ISubCategory> {
+    const response = await fetch(`${APISDK.BASE_URL}/subcategory/${subCategoryId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to get subcategory by id: ${response.status} ${response.statusText}`);
+    }
+
+    return await response.json();
+  }
+  public async getSubCategoriesByCategoryId(categoryId: string): Promise<ISubCategory[]> {
+    const response = await fetch(`${APISDK.BASE_URL}/subcategory/c/${categoryId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to get subcategories by category id: ${response.status} ${response.statusText}`);
     }
 
     return await response.json();

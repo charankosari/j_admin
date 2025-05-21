@@ -181,3 +181,17 @@ interface ProductSale {
       };
     };
   }
+  export interface ICategory{
+   	id: string;
+    name: string;
+    image_url: string[];
+    created_at: Date;
+    updated_at: Date;
+  }
+  export interface ISubCategory{
+    id: string;
+    name: string;
+    category_id: string;
+    created_at: Date;
+    updated_at: Date;
+  }
