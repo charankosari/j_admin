@@ -2257,6 +2257,52 @@ public async deleteAssistance(assistanceId: string): Promise<{
   
     return await response.json();
   }
+  public async getReviewsByProductId(product_id: string): Promise<IReview[]> {
+    const response = await fetch(`${APISDK.BASE_URL}/review/p/${product_id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+  
+    if (!response.ok) {
+      throw new Error(`Failed to get products by ids: ${response.status} ${response.statusText}`);
+    }
+  
+    return await response.json();
+  }
+  public async deleteReviewById(review_id: string): Promise<void> {
+    const response = await fetch(`${APISDK.BASE_URL}/review/${review_id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+  
+    if (!response.ok) {
+      throw new Error(`Failed to get products by ids: ${response.status} ${response.statusText}`);
+    }
+  
+    return await response.json();
+  }
+  public async averageRatingsByProductId(product_id: string): Promise<void> {
+    const response = await fetch(`${APISDK.BASE_URL}/review/avg/p/${product_id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+  
+    if (!response.ok) {
+      throw new Error(`Failed to get products by ids: ${response.status} ${response.statusText}`);
+    }
+  
+    return await response.json();
+  }
+
 };
 
 

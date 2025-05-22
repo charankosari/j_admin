@@ -7,7 +7,7 @@ import { NewSubCategoryModal } from "./new-subcategory-model"
 import { NewCategoryModal } from "./new-category-modal"
 import { APISDK } from "@/libs/api" // Assuming APISDK is correctly imported
 import { IProduct } from "@/libs/api"
-
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 // Define interfaces for category and subcategory
 interface Category {
   id: string;
@@ -141,7 +141,37 @@ export function ProductsTable() {
     ? products
     : products.filter(product => product.category_id === activeTab)
 
-  
+  const [activeProduct, setActiveProduct] = useState<string | null>(null);
+
+    // Add new state for edit mode
+    const [editingProduct, setEditingProduct] = useState<IProduct | null>(null);
+    
+    // Update the handleEditProduct function
+    const handleEditProduct = (product: IProduct) => {
+      setEditingProduct(product);
+      setShowNewProductModal(true);
+      setActiveProduct(null);
+    };
+
+    const handleViewProduct = (product: IProduct) => {
+      // Implement view functionality
+      console.log('View product:', product);
+      setActiveProduct(null);
+    };
+
+    const handleDeleteProduct = async (productId: string) => {
+      if (window.confirm('Are you sure you want to delete this product?')) {
+        try {
+          const api = APISDK.getInstance();
+          await api.deleteProduct(productId);
+          await fetchProducts(); // Refresh the products list
+          setActiveProduct(null);
+        } catch (error) {
+          console.error('Failed to delete product:', error);
+          alert('Failed to delete product');
+        }
+      }
+    };
 
   return (
     <div>
@@ -206,7 +236,7 @@ export function ProductsTable() {
         </div>
       </div>
 
-      <div className="bg-white border rounded-md overflow-hidden">
+      <div className="bg-white border rounded-md ">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
@@ -225,7 +255,7 @@ export function ProductsTable() {
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="bg-white divide-y divide-gray-200 ">
             {getPaginatedProducts().map((product) => (
               <tr key={product.id} className="hover:bg-gray-50">
                 <td className="px-6 py-4 whitespace-nowrap">
@@ -273,9 +303,46 @@ export function ProductsTable() {
                         </div>
                       </label>
                     </div>
-                    <button className="text-gray-400 hover:text-gray-500">
-                      <MoreVertical className="h-5 w-5" />
-                    </button>
+                    <div className="relative">
+                    <Menu as="div" className="relative Z-100" >
+                      <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50">   
+                        <MoreVertical className="h-5 w-5" />
+                      </MenuButton>
+                      
+                      <MenuItems
+                        className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none"
+                      >
+                        <div className="py-1">
+                          <MenuItem>
+                            {({ active }) => (
+                              <button
+                                onClick={() => handleEditProduct(product)}
+                                className={`${
+                                  active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
+                                } block w-full px-4 py-2 text-left text-sm`}
+                              >
+                                Edit Product
+                              </button>
+                            )}
+                          </MenuItem>
+                          <MenuItem>
+                            {({ active }) => (
+                              <button
+                                onClick={() => handleDeleteProduct(product.id)}
+                                className={`${
+                                  active ? 'bg-gray-100 text-red-600' : 'text-red-600'
+                                } block w-full px-4 py-2 text-left text-sm`}
+                              >
+                                Delete Product
+                              </button>
+                            )}
+                          </MenuItem>
+                        </div>
+                      </MenuItems>
+                    </Menu>
+                      
+                 
+                    </div>
                   </div>
                 </td>
               </tr>
@@ -304,7 +371,7 @@ export function ProductsTable() {
         </div>
       </div>
 
-      {showNewProductModal && <NewProductModal onClose={() => setShowNewProductModal(false)} categories={categories} subCategories={subCategories}/>}
+      {showNewProductModal && <NewProductModal onClose={() =>{ setEditingProduct(null), setShowNewProductModal(false)}} categories={categories} subCategories={subCategories} reload={fetchProducts} editProduct={editingProduct}/>}
       {showNewCategoryModal && <NewCategoryModal onClose={() => setShowNewCategoryModal(false)} reload={fetchCategories}/>}
       {showNewSubCategoryModal && <NewSubCategoryModal onClose={() => setShowNewSubCategoryModal(false)} reload={fetchSubCategories}/>}
     </div>

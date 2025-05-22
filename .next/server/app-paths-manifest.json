@@ -1,12 +1,9 @@
 {
-  "/categories/page": "app/categories/page.js",
   "/category/page": "app/category/page.js",
-  "/coupon-codes/page": "app/coupon-codes/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
   "/inventory/page": "app/inventory/page.js",
   "/page": "app/page.js",
   "/promotional-mail/page": "app/promotional-mail/page.js",
-  "/promotions/page": "app/promotions/page.js",
-  "/subcategory/page": "app/subcategory/page.js",
-  "/table-reservations/page": "app/table-reservations/page.js"
+  "/reviews/page": "app/reviews/page.js",
+  "/subcategory/page": "app/subcategory/page.js"
 }

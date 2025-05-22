@@ -17,7 +17,8 @@ import {
   ChevronLeft,
   ChevronRight,
   Boxes,
-  Box
+  Box,
+  Star
 } from "lucide-react"
 import { LogoutButton } from "./auth/logout-button"
 import { useAuth } from "@/hooks/useAuth"
@@ -77,6 +78,7 @@ export function Sidebar() {
           <NavItem href="/promotions" icon={<Tag size={18} />} label="Promotions & Sales" collapsed={collapsed} />
           <NavItem href="/category" icon={<Boxes size={18} />} label="category" collapsed={collapsed} />
           <NavItem href="/subcategory" icon={<Box size={18} />} label="subcategory" collapsed={collapsed} />
+          <NavItem href="/reviews" icon={<Star size={18} />} label="reviews" collapsed={collapsed} />
         </div>
 
         <div className="py-4">

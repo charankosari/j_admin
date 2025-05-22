@@ -1,8 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import { useState,useEffect } from "react"
 import { X, Upload, ChevronDown, ChevronUp } from "lucide-react"
 import { APISDK } from "@/libs/api" 
+import { IProduct } from "@/libs/api"
 // Define interface for component props
 // Update the type definition for meta_data
 interface MetaData {
@@ -18,6 +19,8 @@ interface NewProductModalProps {
   categories: Category[];  // Changed from string[] to Category[]
   subCategories: SubCategory[];  // Changed from string[] to SubCategory[]
   meta_data?: MetaData; // Optional if needed
+  reload:()=>void;
+  editProduct?: IProduct | null;
 }
 
 // Define interface for product variant
@@ -36,29 +39,83 @@ interface SubCategory {
 }
 import { XCircle } from "lucide-react"; // Import the delete icon
 
-export function NewProductModal({ onClose, categories, subCategories }: NewProductModalProps) {
-  const [productName, setProductName] = useState<string>("")
-  const [productDescription, setProductDescription] = useState<string>("")
-  const [productPrice, setProductPrice] = useState<string>("")
-  const [slashedPrice, setSlashedPrice] = useState<string>("")
-  const [stockQty, setStockQty] = useState<string>("")
-  const [productCategory, setProductCategory] = useState<string>("")
-  const [subCategory, setSubCategory] = useState<string>("")
-  const [productVisibility, setProductVisibility] = useState<boolean>(true)
-  const [showVariants, setShowVariants] = useState<boolean>(false)
-  const [variants, setVariants] = useState<ProductVariant[]>([])
-  // const [metaData, setMetaData] = useState<MetaData>({})
-  const [imageUrls, setImageUrls] = useState<string[]>([])
-  const [threeDImageUrls, setThreeDImageUrls] = useState<string[]>([])
-  const [showImages, setShowImages] = useState<boolean>(false); // State to control image visibility
-  const [variantNames, setVariantNames] = useState<string[]>([]);
-  const [variantColors, setVariantColors] = useState<string[]>([]);
-  const [colorNames, setColorNames] = useState<string[]>([]); // New state for color names
+export function NewProductModal({ onClose, categories, subCategories,reload,editProduct }: NewProductModalProps) {
+  const [productName, setProductName] = useState<string>(editProduct?.name || "")
+  const [productDescription, setProductDescription] = useState<string>(editProduct?.description || "")
+  const [productPrice, setProductPrice] = useState<string>(editProduct?.price ? editProduct.price.toString() : "")
+  const [slashedPrice, setSlashedPrice] = useState<string>(
+    editProduct?.meta_data?.slashed_price || ""
+  )
+  const [stockQty, setStockQty] = useState<string>(
+    editProduct?.availability_count !== undefined ? editProduct.availability_count.toString() : ""
+  )
+  const [productCategory, setProductCategory] = useState<string>(editProduct?.category_id || "")
+  const [subCategory, setSubCategory] = useState<string>(editProduct?.subcategory_id || "")
+  const [productVisibility, setProductVisibility] = useState<boolean>(
+    editProduct?.is_active ?? true
+  )
+  const [imageUrls, setImageUrls] = useState<string[]>(editProduct?.image_url || [])
+  const [showImages, setShowImages] = useState<boolean>((editProduct?.image_url?.length ?? 0) > 0)
+  const [threeDImageUrls, setThreeDImageUrls] = useState<string[]>(
+    editProduct?.meta_data?.["3d_image_urls"]
+      ? JSON.parse(editProduct.meta_data["3d_image_urls"])
+      : []
+  )
+  const [variantNames, setVariantNames] = useState<string[]>(
+    editProduct?.meta_data?.variants
+      ? JSON.parse(editProduct.meta_data.variants)
+      : []
+  )
+  const [variantColors, setVariantColors] = useState<string[]>(
+    editProduct?.meta_data?.colors
+      ? JSON.parse(editProduct.meta_data.colors).map((c: any) => Object.values(c)[0])
+      : []
+  )
+  const [colorNames, setColorNames] = useState<string[]>(
+    editProduct?.meta_data?.colors
+      ? JSON.parse(editProduct.meta_data.colors).map((c: any) => Object.keys(c)[0])
+      : []
+  )
+  const [discount, setDiscount] = useState<string>(
+    editProduct?.meta_data?.discount || ""
+  )
 console.log(categories,subCategories)
-  const [discount,setDiscount]=useState<string>("")
-  const handleAddVariant = (): void => {
-    setVariants([...variants, { name: "", color: "" }])
+useEffect(() => {
+  if (editProduct) {
+    setProductName(editProduct.name || "")
+    setProductDescription(editProduct.description || "")
+    setProductPrice(editProduct.price ? editProduct.price.toString() : "")
+    setSlashedPrice(editProduct.meta_data?.slashed_price || "")
+    setStockQty(editProduct.availability_count !== undefined ? editProduct.availability_count.toString() : "")
+    setProductCategory(editProduct.category_id || "")
+    setSubCategory(editProduct.subcategory_id || "")
+    setProductVisibility(editProduct.is_active ?? true)
+    setImageUrls(editProduct.image_url || [])
+    setShowImages((editProduct.image_url?.length ?? 0) > 0)
+    setThreeDImageUrls(
+      editProduct.meta_data?.["3d_image_urls"]
+        ? JSON.parse(editProduct.meta_data["3d_image_urls"])
+        : []
+    )
+    setVariantNames(
+      editProduct.meta_data?.variants
+        ? JSON.parse(editProduct.meta_data.variants)
+        : []
+    )
+    setVariantColors(
+      editProduct.meta_data?.colors
+        ? JSON.parse(editProduct.meta_data.colors).map((c: any) => Object.values(c)[0])
+        : []
+    )
+    setColorNames(
+      editProduct.meta_data?.colors
+        ? JSON.parse(editProduct.meta_data.colors).map((c: any) => Object.keys(c)[0])
+        : []
+    )
+    setDiscount(editProduct.meta_data?.discount || "")
   }
+}, [editProduct])
+
 
   const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -104,6 +161,7 @@ console.log(categories,subCategories)
       };
       console.log('Product Data:', productData);
       await api.createProduct(productData);
+      reload();
       alert("Product added successfully!");
       onClose();
     } catch (error) {
@@ -140,6 +198,35 @@ console.log(categories,subCategories)
       const newColorNames = [...colorNames];
       newColorNames[index] = value;
       setColorNames(newColorNames);
+    }
+  };
+  
+  const handleAddOrUpdateProduct = async () => {
+    try {
+      const api = APISDK.getInstance();
+      const productData = {
+        name: productName,
+        description: productDescription,
+        price: parseFloat(productPrice.replace(/,/g, '')),
+        image_url: imageUrls,
+        category_id: productCategory,
+        subcategory_id: subCategory,
+        meta_data: metaData,
+        is_active: productVisibility,
+        availability_count: parseInt(stockQty, 10),
+      };
+      if (editProduct) {
+        await api.updateProduct(editProduct.id, productData);
+        alert("Product updated successfully!");
+      } else {
+        await api.createProduct(productData);
+        alert("Product added successfully!");
+      }
+      reload();
+      onClose();
+    } catch (error) {
+      console.error("Failed to save product:", error);
+      alert("Failed to save product.");
     }
   };
 
@@ -359,11 +446,14 @@ console.log(categories,subCategories)
             </div>
           </div>
 
-          <div className="mt-8">
-            <button className="w-full py-3 bg-orange-500 text-white rounded-md hover:bg-orange-600" onClick={handleAddProduct}>
-              Add Product
-            </button>
-          </div>
+<div className="mt-8">
+  <button
+    className="w-full py-3 bg-orange-500 text-white rounded-md hover:bg-orange-600"
+    onClick={editProduct ? handleAddOrUpdateProduct : handleAddProduct}
+  >
+    {editProduct ? "Update Product" : "Add Product"}
+  </button>
+</div>
         </div>
       </div>
     </div>
