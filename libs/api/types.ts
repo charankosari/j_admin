@@ -221,3 +221,19 @@ interface ProductSale {
       created_at: Date;
       updated_at: Date;
   }
+  export interface ISale {
+    id: string;
+      name: string;
+      image_url: string[];
+      description: string;
+      start_date: Date;
+      end_date: Date;
+      discount_percentage: number;
+      sale_type: 'product' | 'category' | 'subcategory';
+      product_ids: string[];
+      category_ids: string[];
+      subcategory_ids: string[];
+      meta_data: Record<string, string>;
+      created_at: Date;
+      updated_at: Date;
+  }

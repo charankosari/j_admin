@@ -2188,6 +2188,98 @@ class APISDK {
             throw new Error(`Failed to delete coupon: ${response.status} ${response.statusText}`);
         }
     }
+    // sales 
+    async getSales() {
+        const response = await fetch(`${APISDK.BASE_URL}/sales`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${this.accessToken}`
+            }
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to get sales: ${response.status} ${response.statusText}`);
+        }
+        return await response.json();
+    }
+    async getSale(saleId) {
+        const response = await fetch(`${APISDK.BASE_URL}/sales/${saleId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${this.accessToken}`
+            }
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to get sale: ${response.status} ${response.statusText}`);
+        }
+        return await response.json();
+    }
+    async getSaleProducts(saleType, saleId) {
+        const response = await fetch(`${APISDK.BASE_URL}/sales/${saleType}/${saleId}/products`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${this.accessToken}`
+            }
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to get sale products: ${response.status} ${response.statusText}`);
+        }
+        return await response.json();
+    }
+    async getCurrentSalesOverProduct(productId) {
+        const response = await fetch(`${APISDK.BASE_URL}/sales/over/${productId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${this.accessToken}`
+            }
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to get current sales over product: ${response.status} ${response.statusText}`);
+        }
+        return await response.json();
+    }
+    async createSale(saleData) {
+        const response = await fetch(`${APISDK.BASE_URL}/sales`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${this.accessToken}`
+            },
+            body: JSON.stringify(saleData)
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to create sale: ${response.status} ${response.statusText}`);
+        }
+        return await response.json();
+    }
+    async updateSale(saleId, saleData) {
+        const response = await fetch(`${APISDK.BASE_URL}/sales/${saleId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${this.accessToken}`
+            },
+            body: JSON.stringify(saleData)
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to update sale: ${response.status} ${response.statusText}`);
+        }
+    }
+    async deleteSale(saleId) {
+        const response = await fetch(`${APISDK.BASE_URL}/sales/${saleId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${this.accessToken}`
+            }
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to delete sale: ${response.status} ${response.statusText}`);
+        }
+    }
 }
 ;
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
