@@ -1,18 +1,18 @@
 "use client"
 
-import { useState } from "react"
-import { Calendar, ChevronDown, X } from "lucide-react"
+import { useState, useEffect } from "react"
+import { X } from "lucide-react"
 import { ICoupon, APISDK } from "@/libs/api"
 
-// Define prop types for the modal component
-interface NewCouponModalProps {
-  onClose: () => void;
+interface EditCouponModalProps {
+  coupon: ICoupon
+  onClose: () => void
+  onUpdated: () => Promise<void>
 }
 
-// Define types for discount options
-type DiscountType = "percentage" | "amount";
+type DiscountType = "percentage" | "flat"
 
-export function NewCouponModal({ onClose }: NewCouponModalProps) {
+export function EditCouponModal({ coupon, onClose, onUpdated }: EditCouponModalProps) {
   const [couponCode, setCouponCode] = useState<string>("")
   const [oneTimeUse, setOneTimeUse] = useState<boolean>(true)
   const [totalUses, setTotalUses] = useState<string>("")
@@ -20,11 +20,22 @@ export function NewCouponModal({ onClose }: NewCouponModalProps) {
   const [discountType, setDiscountType] = useState<DiscountType>("percentage")
   const [discountAmount, setDiscountAmount] = useState<string>("")
   const [minimumCartValue, setMinimumCartValue] = useState<string>("")
+  const [terms, setTerms] = useState<string[]>([])
 
-  const [terms, setTerms] = useState<string[]>([
-    "20% off up to ₹999 on orders above ₹4000.",
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-  ])
+  useEffect(() => {
+    setCouponCode(coupon.code)
+    setOneTimeUse(coupon.is_one_time)
+    setTotalUses(coupon.no_of_uses === Number.MAX_SAFE_INTEGER ? "unlimited" : coupon.no_of_uses.toString())
+    setExpiryDate(coupon.expires_on ? new Date(coupon.expires_on).toISOString().split("T")[0] : "")
+    setDiscountType(coupon.meta_data.discountType as DiscountType)
+    setDiscountAmount(coupon.meta_data.discountAmount || "")
+    setMinimumCartValue(coupon.meta_data.minimumCartValue || "")
+    try {
+      setTerms(JSON.parse(coupon.meta_data.terms || "[]"))
+    } catch {
+      setTerms([])
+    }
+  }, [coupon])
 
   const handleTermChange = (index: number, value: string) => {
     setTerms(prev => prev.map((term, i) => (i === index ? value : term)))
@@ -40,8 +51,7 @@ export function NewCouponModal({ onClose }: NewCouponModalProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Prepare coupon data
-    const couponData: Omit<ICoupon, "id" | "created_at" | "updated_at"> = {
+    const couponData = {
       code: couponCode,
       is_one_time: oneTimeUse,
       expires_on: new Date(expiryDate),
@@ -53,17 +63,17 @@ export function NewCouponModal({ onClose }: NewCouponModalProps) {
         terms: JSON.stringify(terms)
       }
     }
-
-   await APISDK.getInstance().createCoupon(couponData)
+    await APISDK.getInstance().updateCoupon(coupon.id, couponData)
+    await onUpdated()
     onClose()
   }
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 overlow-auto scrollbar-thin scrollbar-thumb-orange-400 scrollbar-track-gray-200">
-      <div className="bg-white rounded-lg w-full max-w-md max-h-[90vh] overflow-y-auto scrollbar-thin scrollbar-thumb-orange-400 scrollbar-track-gray-200">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 overflow-auto">
+      <div className="bg-white rounded-lg w-full max-w-md max-h-[90vh] overflow-y-auto">
         <div className="p-6">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-lg font-medium text-gray-800">Coupon Code</h2>
+            <h2 className="text-lg font-medium text-gray-800">Edit Coupon</h2>
             <button
               onClick={onClose}
               className="text-gray-400 hover:text-gray-600 transition-colors"
@@ -72,7 +82,6 @@ export function NewCouponModal({ onClose }: NewCouponModalProps) {
               <X size={20} />
             </button>
           </div>
-
           <form onSubmit={handleSubmit}>
             <div className="space-y-6">
               <div>
@@ -85,7 +94,6 @@ export function NewCouponModal({ onClose }: NewCouponModalProps) {
                 />
                 <p className="text-xs text-gray-500 mt-1">Coupon ID will be generated automatically</p>
               </div>
-
               <div className="flex items-center justify-between">
                 <span className="text-gray-800">One Time Use Per User</span>
                 <div className="relative inline-flex items-center cursor-pointer">
@@ -101,20 +109,17 @@ export function NewCouponModal({ onClose }: NewCouponModalProps) {
                   </div>
                 </div>
               </div>
-
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm text-gray-600 mb-1">Total No. Of Uses</label>
                   <div className="relative">
-                    
-                     <input
-                  type="number"
-                  value={totalUses}
-                  onChange={(e) => setTotalUses(e.target.value)}
-                  placeholder="total number uses"
-                  className="w-full border rounded-md px-3 py-2 text-gray-800"
-                />
-                  
+                    <input
+                      type="number"
+                      value={totalUses}
+                      onChange={(e) => setTotalUses(e.target.value)}
+                      placeholder="total number uses"
+                      className="w-full border rounded-md px-3 py-2 text-gray-800"
+                    />
                   </div>
                 </div>
                 <div>
@@ -126,11 +131,9 @@ export function NewCouponModal({ onClose }: NewCouponModalProps) {
                       onChange={(e) => setExpiryDate(e.target.value)}
                       className="w-full border rounded-md px-3 py-2 text-gray-800"
                     />
-                    
                   </div>
                 </div>
               </div>
-
               <div>
                 <label className="block text-sm text-gray-600 mb-2">Discount Details</label>
                 <div className="flex space-x-6">
@@ -148,17 +151,16 @@ export function NewCouponModal({ onClose }: NewCouponModalProps) {
                     <input
                       type="radio"
                       name="discountType"
-                      checked={discountType === "amount"}
-                      onChange={() => setDiscountType("amount")}
+                      checked={discountType === "flat"}
+                      onChange={() => setDiscountType("flat")}
                       className="mr-2 text-orange-500"
                     />
                     <span className="text-gray-800">Flat Discount(₹)</span>
                   </label>
                 </div>
               </div>
-
               <div>
-                <label className="block text-sm text-gray-600 mb-1">{discountType==="amount"?"Flat Discount price":"Discount percentage"}</label>
+                <label className="block text-sm text-gray-600 mb-1">Flat Discount Amount(₹)</label>
                 <input
                   type="text"
                   value={discountAmount}
@@ -166,7 +168,6 @@ export function NewCouponModal({ onClose }: NewCouponModalProps) {
                   className="w-full border rounded-md px-3 py-2 text-gray-800"
                 />
               </div>
-
               <div>
                 <label className="block text-sm text-gray-600 mb-1">Minimum Cart Value</label>
                 <input
@@ -176,10 +177,9 @@ export function NewCouponModal({ onClose }: NewCouponModalProps) {
                   className="w-full border rounded-md px-3 py-2 text-gray-800"
                 />
               </div>
-
               <div>
                 <label className="block text-sm text-gray-600 mb-2">Terms & Conditions</label>
-                <div className="bg-gray-50 p-3 rounded-md ">
+                <div className="bg-gray-50 p-3 rounded-md max-h-40 overflow-y-auto">
                   <ol className="list-decimal pl-5 text-sm text-gray-800 space-y-2">
                     {terms.map((term, idx) => (
                       <li key={idx} className="flex items-center space-x-2">
@@ -212,9 +212,8 @@ export function NewCouponModal({ onClose }: NewCouponModalProps) {
                 </div>
               </div>
             </div>
-
-            <button type="submit" className="w-full mt-6 py-3 bg-orange-500 text-white rounded-md hover:bg-orange-600" onClick={handleSubmit}>
-              Create
+            <button type="submit" className="w-full mt-6 py-3 bg-orange-500 text-white rounded-md hover:bg-orange-600">
+              Update
             </button>
           </form>
         </div>

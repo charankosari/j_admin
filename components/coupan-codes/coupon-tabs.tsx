@@ -3,14 +3,28 @@
 import { useState } from "react"
 import { Search } from "lucide-react"
 
-export function CouponTabs() {
-  const [activeTab, setActiveTab] = useState("all")
-  const [searchTerm, setSearchTerm] = useState("")
-
+interface CouponTabsProps {
+  activeTab: "all" | "active" | "inactive";
+  setActiveTab: React.Dispatch<React.SetStateAction<"all" | "active" | "inactive">>;
+  searchTerm: string;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+  totalCoupons: number;
+  activeCoupons: number;
+  inactiveCoupons: number;
+}
+export function CouponTabs({
+  activeTab,
+  setActiveTab,
+  searchTerm,
+  setSearchTerm,
+  totalCoupons,
+  activeCoupons,
+  inactiveCoupons,
+}: CouponTabsProps) {
   const tabs = [
-    { id: "all", label: "All Coupons", count: 5 },
-    { id: "active", label: "Active Coupons", count: 2 },
-    { id: "inactive", label: "Inactive Coupons", count: null },
+    { id: "all", label: "All Coupons", count: totalCoupons },
+    { id: "active", label: "Active Coupons", count: activeCoupons },
+    { id: "inactive", label: "Inactive Coupons", count: inactiveCoupons },
   ]
 
   return (
@@ -25,7 +39,7 @@ export function CouponTabs() {
                   ? "text-orange-500 border-b-2 border-orange-500"
                   : "text-gray-800 hover:text-gray-600"
               }`}
-              onClick={() => setActiveTab(tab.id)}
+              onClick={() => setActiveTab(tab.id as "all" | "active" | "inactive")}
             >
               {tab.label}
               {tab.count !== null && (

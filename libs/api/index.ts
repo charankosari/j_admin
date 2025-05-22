@@ -11,7 +11,7 @@ import type {
   IReview,
   IAssistance,
   IBanner,
-  ICategory,ISubCategory,IProduct
+  ICategory,ISubCategory,IProduct,ICoupon
 } from './types';
 import { TableStatus } from '@/components/real-time/table-grid';
 
@@ -2302,7 +2302,95 @@ public async deleteAssistance(assistanceId: string): Promise<{
   
     return await response.json();
   }
+  public async getCoupons(): Promise<ICoupon[]> {
+    const response = await fetch(`${APISDK.BASE_URL}/coupon`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
 
+    if (!response.ok) {
+      throw new Error(`Failed to get coupons: ${response.status} ${response.statusText}`);
+    }
+
+    return await response.json();
+  }
+  public async getCoupon(coupon_id: string): Promise<ICoupon> {
+    const response = await fetch(`${APISDK.BASE_URL}/coupon/${coupon_id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to get coupon: ${response.status} ${response.statusText}`);
+    }
+
+    return await response.json();
+  }
+  public async createCoupon(data: {
+    code: string;
+    is_one_time: boolean;
+    expires_on: Date;
+    no_of_uses: number;
+    meta_data: Record<string, string>;
+  }): Promise<string> {
+    const response = await fetch(`${APISDK.BASE_URL}/coupon`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to create coupon: ${response.status} ${response.statusText}`);
+    }
+
+    const res = await response.json();
+    return res.id;
+  }
+  public async updateCoupon(
+    coupon_id: string,
+    data: {
+      code: string;
+      is_one_time: boolean;
+      expires_on: Date;
+      no_of_uses: number;
+      meta_data: Record<string, string>;
+    }
+  ): Promise<void> {
+    const response = await fetch(`${APISDK.BASE_URL}/coupon/${coupon_id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to update coupon: ${response.status} ${response.statusText}`);
+    }
+  }
+  public async deleteCoupon(coupon_id: string): Promise<void> {
+    const response = await fetch(`${APISDK.BASE_URL}/coupon/${coupon_id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to delete coupon: ${response.status} ${response.statusText}`);
+    }
+  }
 };
 
 

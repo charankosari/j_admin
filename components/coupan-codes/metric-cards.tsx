@@ -38,23 +38,17 @@ function MetricCard({ title, value, change, icon }: MetricCardProps) {
   )
 }
 
-export function MetricCards() {
+interface MetricCardsProps {
+  totalCoupons: number;
+  totalUses: number;
+  loading?: boolean;
+}
+export function MetricCards({ totalCoupons, totalUses, loading }: MetricCardsProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <MetricCard title="Active Codes" value="24" icon={<FileText className="h-5 w-5 text-gray-500" />} />
-      <MetricCard title="Total Uses" value="196" change={19} icon={<Users className="h-5 w-5 text-gray-500" />} />
-      <MetricCard
-        title="Customers Saved"
-        value="₹ 19,718"
-        change={14}
-        icon={<DollarSign className="h-5 w-5 text-gray-500" />}
-      />
-      <MetricCard
-        title="Total Revenue"
-        value="24,000 INR"
-        change={12}
-        icon={<DollarSign className="h-5 w-5 text-gray-500" />}
-      />
+      <MetricCard title="Total Coupons" value={loading ? "..." : totalCoupons.toString()} icon={<FileText className="h-5 w-5 text-gray-500" />} />
+      <MetricCard title="Total Uses Remaining" value={loading ? "..." : totalUses.toString()} icon={<Users className="h-5 w-5 text-gray-500" />} />
+      {/* Add more cards as needed */}
     </div>
   )
 }

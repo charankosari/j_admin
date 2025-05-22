@@ -873,6 +873,14 @@
     height: 100vh;
   }
 
+  .max-h-30 {
+    max-height: calc(var(--spacing) * 30);
+  }
+
+  .max-h-40 {
+    max-height: calc(var(--spacing) * 40);
+  }
+
   .max-h-60 {
     max-height: calc(var(--spacing) * 60);
   }
@@ -2554,10 +2562,6 @@
 
   .focus\:ring-gray-900:focus {
     --tw-ring-color: var(--color-gray-900);
-  }
-
-  .focus\:ring-orange-400:focus {
-    --tw-ring-color: var(--color-orange-400);
   }
 
   .focus\:ring-orange-500:focus {

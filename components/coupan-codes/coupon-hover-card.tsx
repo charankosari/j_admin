@@ -2,29 +2,18 @@
 
 import { CSSProperties, useState } from "react"
 
-interface CouponType {
-  id: string
-  code: string
-  active: boolean
-  uses: number
-  expiryDate: string
-  createdAt: string
-  lastUpdated: string
-  oneTimeUse: boolean
-  discountPercentage: number
-  terms: string[]
-}
+import { ICoupon } from "@/libs/api"
 
 interface CouponInfoPopupProps {
-  coupon: CouponType
+  coupon: ICoupon
   mode: "hover" | "popup"
   position?: { x: number; y: number }
   onClose?: () => void
-  onUpdate?: (updatedCoupon: CouponType) => void
+  onUpdate?: (updatedCoupon: ICoupon) => void
 }
 
 export function CouponInfoPopup({ coupon, mode, position, onClose, onUpdate }: CouponInfoPopupProps) {
-  const [couponData, setCouponData] = useState<CouponType>(coupon)
+  const [couponData, setCouponData] = useState<ICoupon>(coupon)
 
   const style: CSSProperties = mode === "hover" && position 
     ? {
@@ -43,16 +32,16 @@ export function CouponInfoPopup({ coupon, mode, position, onClose, onUpdate }: C
         width: "300px",
       }
   
-  const toggleActive = () => {
-    const updatedCoupon = { ...couponData, active: !couponData.active }
-    setCouponData(updatedCoupon)
-    if (onUpdate) {
-      onUpdate(updatedCoupon)
-    }
-  }
+  // const toggleActive = () => {
+  //   const updatedCoupon = { ...couponData, active: !couponData.active }
+  //   setCouponData(updatedCoupon)
+  //   if (onUpdate) {
+  //     onUpdate(updatedCoupon)
+  //   }
+  // }
 
   const toggleOneTimeUse = () => {
-    const updatedCoupon = { ...couponData, oneTimeUse: !couponData.oneTimeUse }
+    const updatedCoupon = { ...couponData, oneTimeUse: !couponData.is_one_time }
     setCouponData(updatedCoupon)
     if (onUpdate) {
       onUpdate(updatedCoupon)
@@ -98,84 +87,34 @@ export function CouponInfoPopup({ coupon, mode, position, onClose, onUpdate }: C
               <div className="text-xs text-gray-500">CODE</div>
               <div className="font-medium text-gray-800">{couponData.code}</div>
             </div>
+          
           </div>
 
           <div className="flex items-center justify-between mb-4">
-            <div className="font-medium text-gray-800">Active</div>
-            <button 
-              onClick={toggleActive} 
-              className="focus:outline-none"
-              aria-label={couponData.active ? "Deactivate coupon" : "Activate coupon"}
-            >
-              <div className="relative inline-flex items-center">
-                <div className={`w-8 h-4 rounded-full cursor-pointer ${couponData.active ? "bg-orange-500" : "bg-gray-200"}`}>
-                  <div
-                    className={`absolute w-3 h-3 bg-white rounded-full top-0.5 transition-transform ${
-                      couponData.active ? "translate-x-[18px]" : "translate-x-[2px]"
-                    }`}
-                  ></div>
-                </div>
-              </div>
-            </button>
-          </div>
+          
 
           <div className="mb-4">
-            <div className="text-xs text-gray-500">NO. OF USES</div>
-            <div className="font-medium text-gray-800">{couponData.uses}</div>
+            <div className="text-xs text-gray-500">NO. OF USES REMAINING</div>
+            <div className="font-medium text-gray-800">{couponData.no_of_uses}</div>
           </div>
+       
 
-          {mode === "popup" && (
-            <>
-              <div className="mb-4">
-                <div className="text-xs text-gray-500">Expiry</div>
-                <div className="font-medium text-gray-800">{couponData.expiryDate}</div>
-              </div>
+        
+        </div>
+        <div className="flex items-center justify-between mb-4">
+          
 
-              <div className="flex justify-between items-start mb-4">
-                <div>
-                  <div className="text-xs text-gray-500">Created_at</div>
-                  <div className="font-medium text-gray-800">{couponData.createdAt}</div>
-                </div>
-                <div>
-                  <div className="text-xs text-gray-500">Last_Updated</div>
-                  <div className="font-medium text-gray-800">{couponData.lastUpdated}</div>
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between mb-4">
-                <div className="font-medium text-gray-800">One Time Use</div>
-                <button 
-                  onClick={toggleOneTimeUse}
-                  className="focus:outline-none"
-                  aria-label={couponData.oneTimeUse ? "Disable one time use" : "Enable one time use"}
-                >
-                  <div className="relative inline-flex items-center">
-                    <div className={`w-8 h-4 rounded-full cursor-pointer ${couponData.oneTimeUse ? "bg-orange-500" : "bg-gray-200"}`}>
-                      <div
-                        className={`absolute w-3 h-3 bg-white rounded-full top-0.5 transition-transform ${
-                          couponData.oneTimeUse ? "translate-x-[18px]" : "translate-x-[2px]"
-                        }`}
-                      ></div>
-                    </div>
-                  </div>
-                </button>
-              </div>
-
-              <div className="mb-4">
-                <div className="text-xs text-gray-500">Discount Percentage</div>
-                <div className="font-medium text-gray-800">{couponData.discountPercentage}%</div>
-              </div>
-
-              <div>
-                <div className="text-xs text-gray-500 mb-1">Terms</div>
-                <ol className="list-decimal pl-4 text-xs text-gray-800 space-y-1">
-                  {couponData.terms.map((term, index) => (
-                    <li key={index}>{term}</li>
-                  ))}
-                </ol>
-              </div>
-            </>
-          )}
+        <div>
+              <div className="text-xs text-gray-500">DISCOUNT TYPE</div>
+              <div className="font-medium text-gray-800">{couponData.meta_data.discountType}</div>
+            </div>
+        <div>
+              <div className="text-xs text-gray-500">DISCOUNT VALUE</div>
+              <div className="font-medium text-gray-800">{couponData.meta_data.discountAmount
+              }</div>
+            </div>
+        
+        </div>
         </div>
       </div>
     </>

@@ -753,18 +753,9 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$square$2d$pen$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Edit$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/square-pen.js [app-client] (ecmascript) <export default as Edit>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/trash-2.js [app-client] (ecmascript) <export default as Trash2>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$coupan$2d$codes$2f$coupon$2d$hover$2d$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/coupan-codes/coupon-hover-card.tsx [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$libs$2f$api$2f$index$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$module__evaluation$3e$__ = __turbopack_context__.i("[project]/libs/api/index.ts [app-client] (ecmascript) <module evaluation>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$libs$2f$api$2f$index$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/libs/api/index.ts [app-client] (ecmascript) <locals>");
-(()=>{
-    const e = new Error("Cannot find module './edit-coupon-modal'");
-    e.code = 'MODULE_NOT_FOUND';
-    throw e;
-})();
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
-;
-;
 ;
 ;
 ;
@@ -776,7 +767,6 @@ function CouponTable({ coupons, reload }) {
         x: 0,
         y: 0
     });
-    const [editingCoupon, setEditingCoupon] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const handleInfoMouseEnter = (e, coupon)=>{
         const rect = e.currentTarget.getBoundingClientRect();
         setHoverPosition({
@@ -791,18 +781,6 @@ function CouponTable({ coupons, reload }) {
     const handleInfoClick = (coupon)=>{
         setSelectedCoupon(coupon);
         setHoveredCoupon(null);
-    };
-    const onDeleteCoupon = async (couponId)=>{
-        if (!window.confirm("Are you sure you want to delete this coupon?")) {
-            return;
-        }
-        try {
-            await __TURBOPACK__imported__module__$5b$project$5d2f$libs$2f$api$2f$index$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["APISDK"].getInstance().deleteCoupon(couponId);
-            await reload();
-        } catch (err) {
-            // Optionally handle error (e.g., show a toast)
-            console.error("Failed to delete coupon", err);
-        }
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "bg-white border rounded-md overflow-hidden",
@@ -819,7 +797,7 @@ function CouponTable({ coupons, reload }) {
                                     children: "Coupon ID"
                                 }, void 0, false, {
                                     fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                                    lineNumber: 53,
+                                    lineNumber: 38,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -827,7 +805,7 @@ function CouponTable({ coupons, reload }) {
                                     children: "Coupon Code"
                                 }, void 0, false, {
                                     fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                                    lineNumber: 56,
+                                    lineNumber: 41,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -835,7 +813,7 @@ function CouponTable({ coupons, reload }) {
                                     children: "Expiry Date"
                                 }, void 0, false, {
                                     fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                                    lineNumber: 59,
+                                    lineNumber: 44,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -843,7 +821,7 @@ function CouponTable({ coupons, reload }) {
                                     children: "Last Updated"
                                 }, void 0, false, {
                                     fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                                    lineNumber: 62,
+                                    lineNumber: 47,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -851,7 +829,7 @@ function CouponTable({ coupons, reload }) {
                                     children: "Created At"
                                 }, void 0, false, {
                                     fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                                    lineNumber: 65,
+                                    lineNumber: 50,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -859,18 +837,18 @@ function CouponTable({ coupons, reload }) {
                                     children: "Actions"
                                 }, void 0, false, {
                                     fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                                    lineNumber: 68,
+                                    lineNumber: 53,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                            lineNumber: 52,
+                            lineNumber: 37,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                        lineNumber: 51,
+                        lineNumber: 36,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -893,23 +871,23 @@ function CouponTable({ coupons, reload }) {
                                                         size: 16
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                                                        lineNumber: 83,
+                                                        lineNumber: 68,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                                                    lineNumber: 77,
+                                                    lineNumber: 62,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                                            lineNumber: 75,
+                                            lineNumber: 60,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                                        lineNumber: 74,
+                                        lineNumber: 59,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -917,7 +895,7 @@ function CouponTable({ coupons, reload }) {
                                         children: coupon.code
                                     }, void 0, false, {
                                         fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                                        lineNumber: 87,
+                                        lineNumber: 72,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -925,7 +903,7 @@ function CouponTable({ coupons, reload }) {
                                         children: coupon.expires_on ? new Date(coupon.expires_on).toLocaleDateString() : ""
                                     }, void 0, false, {
                                         fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                                        lineNumber: 88,
+                                        lineNumber: 73,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -933,7 +911,7 @@ function CouponTable({ coupons, reload }) {
                                         children: coupon.updated_at ? new Date(coupon.updated_at).toLocaleDateString() : ""
                                     }, void 0, false, {
                                         fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                                        lineNumber: 91,
+                                        lineNumber: 76,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -941,7 +919,7 @@ function CouponTable({ coupons, reload }) {
                                         children: coupon.created_at ? new Date(coupon.created_at).toLocaleDateString() : ""
                                     }, void 0, false, {
                                         fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                                        lineNumber: 94,
+                                        lineNumber: 79,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -951,64 +929,62 @@ function CouponTable({ coupons, reload }) {
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                     className: "text-gray-600 hover:text-gray-800 flex items-center",
-                                                    onClick: ()=>setEditingCoupon(coupon),
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$square$2d$pen$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Edit$3e$__["Edit"], {
                                                             size: 16,
                                                             className: "mr-1"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                                                            lineNumber: 103,
+                                                            lineNumber: 85,
                                                             columnNumber: 21
                                                         }, this),
                                                         "Update"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                                                    lineNumber: 99,
+                                                    lineNumber: 84,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                     className: "text-red-500 hover:text-red-700",
-                                                    onClick: ()=>onDeleteCoupon(coupon.id),
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
                                                         size: 16
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                                                        lineNumber: 110,
+                                                        lineNumber: 89,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                                                    lineNumber: 106,
+                                                    lineNumber: 88,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                                            lineNumber: 98,
+                                            lineNumber: 83,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                                        lineNumber: 97,
+                                        lineNumber: 82,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, index, true, {
                                 fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                                lineNumber: 73,
+                                lineNumber: 58,
                                 columnNumber: 13
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                        lineNumber: 71,
+                        lineNumber: 56,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                lineNumber: 50,
+                lineNumber: 35,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1019,7 +995,7 @@ function CouponTable({ coupons, reload }) {
                         children: "Page 1 of 1"
                     }, void 0, false, {
                         fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                        lineNumber: 120,
+                        lineNumber: 99,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1039,17 +1015,17 @@ function CouponTable({ coupons, reload }) {
                                         d: "M15 19l-7-7 7-7"
                                     }, void 0, false, {
                                         fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                                        lineNumber: 124,
+                                        lineNumber: 103,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                                    lineNumber: 123,
+                                    lineNumber: 102,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                                lineNumber: 122,
+                                lineNumber: 101,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1066,29 +1042,29 @@ function CouponTable({ coupons, reload }) {
                                         d: "M9 5l7 7-7 7"
                                     }, void 0, false, {
                                         fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                                        lineNumber: 129,
+                                        lineNumber: 108,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                                    lineNumber: 128,
+                                    lineNumber: 107,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                                lineNumber: 127,
+                                lineNumber: 106,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                        lineNumber: 121,
+                        lineNumber: 100,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                lineNumber: 119,
+                lineNumber: 98,
                 columnNumber: 7
             }, this),
             hoveredCoupon && !selectedCoupon && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$coupan$2d$codes$2f$coupon$2d$hover$2d$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CouponInfoPopup"], {
@@ -1097,7 +1073,7 @@ function CouponTable({ coupons, reload }) {
                 mode: "hover"
             }, void 0, false, {
                 fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                lineNumber: 136,
+                lineNumber: 115,
                 columnNumber: 9
             }, this),
             selectedCoupon && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$coupan$2d$codes$2f$coupon$2d$hover$2d$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CouponInfoPopup"], {
@@ -1106,26 +1082,17 @@ function CouponTable({ coupons, reload }) {
                 mode: "popup"
             }, void 0, false, {
                 fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                lineNumber: 143,
-                columnNumber: 9
-            }, this),
-            editingCoupon && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(EditCouponModal, {
-                coupon: editingCoupon,
-                onClose: ()=>setEditingCoupon(null),
-                onUpdated: reload
-            }, void 0, false, {
-                fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-                lineNumber: 150,
+                lineNumber: 122,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/components/coupan-codes/coupon-table.tsx",
-        lineNumber: 49,
+        lineNumber: 34,
         columnNumber: 5
     }, this);
 }
-_s(CouponTable, "ZRaFUb01S7p2djBQXvXvvXy4VDc=");
+_s(CouponTable, "PIkWQx6V9KG1pJ1wc/b588Nl6zo=");
 _c = CouponTable;
 var _c;
 __turbopack_context__.k.register(_c, "CouponTable");
@@ -1133,508 +1100,15 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
     __turbopack_context__.k.registerExports(module, globalThis.$RefreshHelpers$);
 }
 }}),
-"[project]/components/coupan-codes/new-coupon-modal.tsx [app-client] (ecmascript)": ((__turbopack_context__) => {
-"use strict";
+"[project]/components/coupan-codes/new-coupon-modal.tsx [app-client] (ecmascript)": (function(__turbopack_context__) {
 
-var { g: global, __dirname, k: __turbopack_refresh__, m: module } = __turbopack_context__;
+var { g: global, __dirname, k: __turbopack_refresh__, m: module, e: exports } = __turbopack_context__;
 {
-__turbopack_context__.s({
-    "NewCouponModal": (()=>NewCouponModal)
-});
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/x.js [app-client] (ecmascript) <export default as X>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$libs$2f$api$2f$index$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$module__evaluation$3e$__ = __turbopack_context__.i("[project]/libs/api/index.ts [app-client] (ecmascript) <module evaluation>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$libs$2f$api$2f$index$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/libs/api/index.ts [app-client] (ecmascript) <locals>");
-;
-var _s = __turbopack_context__.k.signature();
-"use client";
-;
-;
-;
-function NewCouponModal({ onClose }) {
-    _s();
-    const [couponCode, setCouponCode] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
-    const [oneTimeUse, setOneTimeUse] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
-    const [totalUses, setTotalUses] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
-    const [expiryDate, setExpiryDate] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
-    const [discountType, setDiscountType] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("percentage");
-    const [discountAmount, setDiscountAmount] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
-    const [minimumCartValue, setMinimumCartValue] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
-    const [terms, setTerms] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([
-        "20% off up to ₹999 on orders above ₹4000.",
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    ]);
-    const handleTermChange = (index, value)=>{
-        setTerms((prev)=>prev.map((term, i)=>i === index ? value : term));
-    };
-    const handleAddTerm = ()=>{
-        setTerms((prev)=>[
-                ...prev,
-                ""
-            ]);
-    };
-    const handleRemoveTerm = (index)=>{
-        setTerms((prev)=>prev.filter((_, i)=>i !== index));
-    };
-    const handleSubmit = async (e)=>{
-        e.preventDefault();
-        // Prepare coupon data
-        const couponData = {
-            code: couponCode,
-            is_one_time: oneTimeUse,
-            expires_on: new Date(expiryDate),
-            no_of_uses: totalUses === "unlimited" ? Number.MAX_SAFE_INTEGER : Number(totalUses),
-            meta_data: {
-                discountType,
-                discountAmount,
-                minimumCartValue,
-                terms: JSON.stringify(terms)
-            }
-        };
-        await __TURBOPACK__imported__module__$5b$project$5d2f$libs$2f$api$2f$index$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["APISDK"].getInstance().createCoupon(couponData);
-        onClose();
-    };
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 overlow-auto scrollbar-thin scrollbar-thumb-orange-400 scrollbar-track-gray-200",
-        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "bg-white rounded-lg w-full max-w-md max-h-[90vh] overflow-y-auto scrollbar-thin scrollbar-thumb-orange-400 scrollbar-track-gray-200",
-            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "p-6",
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex justify-between items-center mb-6",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                className: "text-lg font-medium text-gray-800",
-                                children: "Coupon Code"
-                            }, void 0, false, {
-                                fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                lineNumber: 66,
-                                columnNumber: 13
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                onClick: onClose,
-                                className: "text-gray-400 hover:text-gray-600 transition-colors",
-                                "aria-label": "Close modal",
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
-                                    size: 20
-                                }, void 0, false, {
-                                    fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                    lineNumber: 72,
-                                    columnNumber: 15
-                                }, this)
-                            }, void 0, false, {
-                                fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                lineNumber: 67,
-                                columnNumber: 13
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                        lineNumber: 65,
-                        columnNumber: 11
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
-                        onSubmit: handleSubmit,
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "space-y-6",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                type: "text",
-                                                value: couponCode,
-                                                onChange: (e)=>setCouponCode(e.target.value),
-                                                placeholder: "Enter coupon code",
-                                                className: "w-full border rounded-md px-3 py-2 text-gray-800"
-                                            }, void 0, false, {
-                                                fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                                lineNumber: 79,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                className: "text-xs text-gray-500 mt-1",
-                                                children: "Coupon ID will be generated automatically"
-                                            }, void 0, false, {
-                                                fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                                lineNumber: 86,
-                                                columnNumber: 17
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                        lineNumber: 78,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "flex items-center justify-between",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "text-gray-800",
-                                                children: "One Time Use Per User"
-                                            }, void 0, false, {
-                                                fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                                lineNumber: 90,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "relative inline-flex items-center cursor-pointer",
-                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: `w-10 h-5 rounded-full ${oneTimeUse ? "bg-orange-500" : "bg-gray-200"}`,
-                                                    onClick: ()=>setOneTimeUse(!oneTimeUse),
-                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: `absolute w-3.5 h-3.5 bg-white rounded-full top-[3px] transition-transform ${oneTimeUse ? "translate-x-[22px]" : "translate-x-[3px]"}`
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                                        lineNumber: 96,
-                                                        columnNumber: 21
-                                                    }, this)
-                                                }, void 0, false, {
-                                                    fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                                    lineNumber: 92,
-                                                    columnNumber: 19
-                                                }, this)
-                                            }, void 0, false, {
-                                                fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                                lineNumber: 91,
-                                                columnNumber: 17
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                        lineNumber: 89,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "grid grid-cols-2 gap-4",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                        className: "block text-sm text-gray-600 mb-1",
-                                                        children: "Total No. Of Uses"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                                        lineNumber: 107,
-                                                        columnNumber: 19
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "relative",
-                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                            type: "number",
-                                                            value: totalUses,
-                                                            onChange: (e)=>setTotalUses(e.target.value),
-                                                            placeholder: "total number uses",
-                                                            className: "w-full border rounded-md px-3 py-2 text-gray-800"
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                                            lineNumber: 110,
-                                                            columnNumber: 22
-                                                        }, this)
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                                        lineNumber: 108,
-                                                        columnNumber: 19
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                                lineNumber: 106,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                        className: "block text-sm text-gray-600 mb-1",
-                                                        children: "Expiry"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                                        lineNumber: 121,
-                                                        columnNumber: 19
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "relative",
-                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                            type: "date",
-                                                            value: expiryDate,
-                                                            onChange: (e)=>setExpiryDate(e.target.value),
-                                                            className: "w-full border rounded-md px-3 py-2 text-gray-800"
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                                            lineNumber: 123,
-                                                            columnNumber: 21
-                                                        }, this)
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                                        lineNumber: 122,
-                                                        columnNumber: 19
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                                lineNumber: 120,
-                                                columnNumber: 17
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                        lineNumber: 105,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                className: "block text-sm text-gray-600 mb-2",
-                                                children: "Discount Details"
-                                            }, void 0, false, {
-                                                fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                                lineNumber: 135,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "flex space-x-6",
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                        className: "flex items-center",
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                                type: "radio",
-                                                                name: "discountType",
-                                                                checked: discountType === "percentage",
-                                                                onChange: ()=>setDiscountType("percentage"),
-                                                                className: "mr-2 text-orange-500"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                                                lineNumber: 138,
-                                                                columnNumber: 21
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                className: "text-gray-800",
-                                                                children: "Percentage%"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                                                lineNumber: 145,
-                                                                columnNumber: 21
-                                                            }, this)
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                                        lineNumber: 137,
-                                                        columnNumber: 19
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                        className: "flex items-center",
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                                type: "radio",
-                                                                name: "discountType",
-                                                                checked: discountType === "flat",
-                                                                onChange: ()=>setDiscountType("flat"),
-                                                                className: "mr-2 text-orange-500"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                                                lineNumber: 148,
-                                                                columnNumber: 21
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                className: "text-gray-800",
-                                                                children: "Flat Discount(₹)"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                                                lineNumber: 155,
-                                                                columnNumber: 21
-                                                            }, this)
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                                        lineNumber: 147,
-                                                        columnNumber: 19
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                                lineNumber: 136,
-                                                columnNumber: 17
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                        lineNumber: 134,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                className: "block text-sm text-gray-600 mb-1",
-                                                children: discountType === "flat" ? "Flat Discount price" : "Discount percentage"
-                                            }, void 0, false, {
-                                                fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                                lineNumber: 161,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                type: "text",
-                                                value: discountAmount,
-                                                onChange: (e)=>setDiscountAmount(e.target.value),
-                                                className: "w-full border rounded-md px-3 py-2 text-gray-800"
-                                            }, void 0, false, {
-                                                fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                                lineNumber: 162,
-                                                columnNumber: 17
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                        lineNumber: 160,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                className: "block text-sm text-gray-600 mb-1",
-                                                children: "Minimum Cart Value"
-                                            }, void 0, false, {
-                                                fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                                lineNumber: 171,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                type: "text",
-                                                value: minimumCartValue,
-                                                onChange: (e)=>setMinimumCartValue(e.target.value),
-                                                className: "w-full border rounded-md px-3 py-2 text-gray-800"
-                                            }, void 0, false, {
-                                                fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                                lineNumber: 172,
-                                                columnNumber: 17
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                        lineNumber: 170,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                className: "block text-sm text-gray-600 mb-2",
-                                                children: "Terms & Conditions"
-                                            }, void 0, false, {
-                                                fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                                lineNumber: 181,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "bg-gray-50 p-3 rounded-md ",
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ol", {
-                                                        className: "list-decimal pl-5 text-sm text-gray-800 space-y-2",
-                                                        children: terms.map((term, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                                                                className: "flex items-center space-x-2",
-                                                                children: [
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                                        type: "text",
-                                                                        value: term,
-                                                                        onChange: (e)=>handleTermChange(idx, e.target.value),
-                                                                        className: "flex-1 border rounded-md px-2 py-1 text-gray-800"
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                                                        lineNumber: 186,
-                                                                        columnNumber: 25
-                                                                    }, this),
-                                                                    terms.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                                        type: "button",
-                                                                        onClick: ()=>handleRemoveTerm(idx),
-                                                                        className: "text-red-500 hover:text-red-700 px-2",
-                                                                        "aria-label": "Remove term",
-                                                                        children: "×"
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                                                        lineNumber: 193,
-                                                                        columnNumber: 27
-                                                                    }, this)
-                                                                ]
-                                                            }, idx, true, {
-                                                                fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                                                lineNumber: 185,
-                                                                columnNumber: 23
-                                                            }, this))
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                                        lineNumber: 183,
-                                                        columnNumber: 19
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                        type: "button",
-                                                        onClick: handleAddTerm,
-                                                        className: "mt-2 text-orange-500 hover:underline text-xs",
-                                                        children: "+ Add Term"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                                        lineNumber: 205,
-                                                        columnNumber: 19
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                                lineNumber: 182,
-                                                columnNumber: 17
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                        lineNumber: 180,
-                                        columnNumber: 15
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                lineNumber: 77,
-                                columnNumber: 13
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                type: "submit",
-                                className: "w-full mt-6 py-3 bg-orange-500 text-white rounded-md hover:bg-orange-600",
-                                onClick: handleSubmit,
-                                children: "Create"
-                            }, void 0, false, {
-                                fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                                lineNumber: 216,
-                                columnNumber: 13
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                        lineNumber: 76,
-                        columnNumber: 11
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-                lineNumber: 64,
-                columnNumber: 9
-            }, this)
-        }, void 0, false, {
-            fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-            lineNumber: 63,
-            columnNumber: 7
-        }, this)
-    }, void 0, false, {
-        fileName: "[project]/components/coupan-codes/new-coupon-modal.tsx",
-        lineNumber: 62,
-        columnNumber: 5
-    }, this);
-}
-_s(NewCouponModal, "WVgVLU/b/LSYBdOfT4Jwm9W2HyA=");
-_c = NewCouponModal;
-var _c;
-__turbopack_context__.k.register(_c, "NewCouponModal");
-if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
-    __turbopack_context__.k.registerExports(module, globalThis.$RefreshHelpers$);
-}
-}}),
+const e = new Error(`Could not parse module '[project]/components/coupan-codes/new-coupon-modal.tsx'
+
+Expression expected`);
+e.code = 'MODULE_UNPARSEABLE';
+throw e;}}),
 "[project]/app/coupon-codes/page.tsx [app-client] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
@@ -1858,6 +1332,350 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
     __turbopack_context__.k.registerExports(module, globalThis.$RefreshHelpers$);
 }
 }}),
+"[project]/node_modules/lucide-react/dist/esm/icons/file-text.js [app-client] (ecmascript)": ((__turbopack_context__) => {
+"use strict";
+
+var { g: global, __dirname } = __turbopack_context__;
+{
+/**
+ * @license lucide-react v0.488.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */ __turbopack_context__.s({
+    "__iconNode": (()=>__iconNode),
+    "default": (()=>FileText)
+});
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$createLucideIcon$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/createLucideIcon.js [app-client] (ecmascript)");
+;
+const __iconNode = [
+    [
+        "path",
+        {
+            d: "M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z",
+            key: "1rqfz7"
+        }
+    ],
+    [
+        "path",
+        {
+            d: "M14 2v4a2 2 0 0 0 2 2h4",
+            key: "tnqrlb"
+        }
+    ],
+    [
+        "path",
+        {
+            d: "M10 9H8",
+            key: "b1mrlr"
+        }
+    ],
+    [
+        "path",
+        {
+            d: "M16 13H8",
+            key: "t4e002"
+        }
+    ],
+    [
+        "path",
+        {
+            d: "M16 17H8",
+            key: "z1uh3a"
+        }
+    ]
+];
+const FileText = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$createLucideIcon$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])("file-text", __iconNode);
+;
+ //# sourceMappingURL=file-text.js.map
+}}),
+"[project]/node_modules/lucide-react/dist/esm/icons/file-text.js [app-client] (ecmascript) <export default as FileText>": ((__turbopack_context__) => {
+"use strict";
+
+var { g: global, __dirname } = __turbopack_context__;
+{
+__turbopack_context__.s({
+    "FileText": (()=>__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$file$2d$text$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])
+});
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$file$2d$text$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/file-text.js [app-client] (ecmascript)");
+}}),
+"[project]/node_modules/lucide-react/dist/esm/icons/search.js [app-client] (ecmascript)": ((__turbopack_context__) => {
+"use strict";
+
+var { g: global, __dirname } = __turbopack_context__;
+{
+/**
+ * @license lucide-react v0.488.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */ __turbopack_context__.s({
+    "__iconNode": (()=>__iconNode),
+    "default": (()=>Search)
+});
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$createLucideIcon$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/createLucideIcon.js [app-client] (ecmascript)");
+;
+const __iconNode = [
+    [
+        "circle",
+        {
+            cx: "11",
+            cy: "11",
+            r: "8",
+            key: "4ej97u"
+        }
+    ],
+    [
+        "path",
+        {
+            d: "m21 21-4.3-4.3",
+            key: "1qie3q"
+        }
+    ]
+];
+const Search = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$createLucideIcon$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])("search", __iconNode);
+;
+ //# sourceMappingURL=search.js.map
+}}),
+"[project]/node_modules/lucide-react/dist/esm/icons/search.js [app-client] (ecmascript) <export default as Search>": ((__turbopack_context__) => {
+"use strict";
+
+var { g: global, __dirname } = __turbopack_context__;
+{
+__turbopack_context__.s({
+    "Search": (()=>__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$search$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])
+});
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$search$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/search.js [app-client] (ecmascript)");
+}}),
+"[project]/node_modules/lucide-react/dist/esm/icons/info.js [app-client] (ecmascript)": ((__turbopack_context__) => {
+"use strict";
+
+var { g: global, __dirname } = __turbopack_context__;
+{
+/**
+ * @license lucide-react v0.488.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */ __turbopack_context__.s({
+    "__iconNode": (()=>__iconNode),
+    "default": (()=>Info)
+});
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$createLucideIcon$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/createLucideIcon.js [app-client] (ecmascript)");
+;
+const __iconNode = [
+    [
+        "circle",
+        {
+            cx: "12",
+            cy: "12",
+            r: "10",
+            key: "1mglay"
+        }
+    ],
+    [
+        "path",
+        {
+            d: "M12 16v-4",
+            key: "1dtifu"
+        }
+    ],
+    [
+        "path",
+        {
+            d: "M12 8h.01",
+            key: "e9boi3"
+        }
+    ]
+];
+const Info = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$createLucideIcon$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])("info", __iconNode);
+;
+ //# sourceMappingURL=info.js.map
+}}),
+"[project]/node_modules/lucide-react/dist/esm/icons/info.js [app-client] (ecmascript) <export default as Info>": ((__turbopack_context__) => {
+"use strict";
+
+var { g: global, __dirname } = __turbopack_context__;
+{
+__turbopack_context__.s({
+    "Info": (()=>__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$info$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])
+});
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$info$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/info.js [app-client] (ecmascript)");
+}}),
+"[project]/node_modules/lucide-react/dist/esm/icons/square-pen.js [app-client] (ecmascript)": ((__turbopack_context__) => {
+"use strict";
+
+var { g: global, __dirname } = __turbopack_context__;
+{
+/**
+ * @license lucide-react v0.488.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */ __turbopack_context__.s({
+    "__iconNode": (()=>__iconNode),
+    "default": (()=>SquarePen)
+});
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$createLucideIcon$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/createLucideIcon.js [app-client] (ecmascript)");
+;
+const __iconNode = [
+    [
+        "path",
+        {
+            d: "M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7",
+            key: "1m0v6g"
+        }
+    ],
+    [
+        "path",
+        {
+            d: "M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z",
+            key: "ohrbg2"
+        }
+    ]
+];
+const SquarePen = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$createLucideIcon$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])("square-pen", __iconNode);
+;
+ //# sourceMappingURL=square-pen.js.map
+}}),
+"[project]/node_modules/lucide-react/dist/esm/icons/square-pen.js [app-client] (ecmascript) <export default as Edit>": ((__turbopack_context__) => {
+"use strict";
+
+var { g: global, __dirname } = __turbopack_context__;
+{
+__turbopack_context__.s({
+    "Edit": (()=>__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$square$2d$pen$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])
+});
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$square$2d$pen$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/square-pen.js [app-client] (ecmascript)");
+}}),
+"[project]/node_modules/lucide-react/dist/esm/icons/trash-2.js [app-client] (ecmascript)": ((__turbopack_context__) => {
+"use strict";
+
+var { g: global, __dirname } = __turbopack_context__;
+{
+/**
+ * @license lucide-react v0.488.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */ __turbopack_context__.s({
+    "__iconNode": (()=>__iconNode),
+    "default": (()=>Trash2)
+});
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$createLucideIcon$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/createLucideIcon.js [app-client] (ecmascript)");
+;
+const __iconNode = [
+    [
+        "path",
+        {
+            d: "M3 6h18",
+            key: "d0wm0j"
+        }
+    ],
+    [
+        "path",
+        {
+            d: "M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6",
+            key: "4alrt4"
+        }
+    ],
+    [
+        "path",
+        {
+            d: "M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2",
+            key: "v07s0e"
+        }
+    ],
+    [
+        "line",
+        {
+            x1: "10",
+            x2: "10",
+            y1: "11",
+            y2: "17",
+            key: "1uufr5"
+        }
+    ],
+    [
+        "line",
+        {
+            x1: "14",
+            x2: "14",
+            y1: "11",
+            y2: "17",
+            key: "xtxkd"
+        }
+    ]
+];
+const Trash2 = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$createLucideIcon$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])("trash-2", __iconNode);
+;
+ //# sourceMappingURL=trash-2.js.map
+}}),
+"[project]/node_modules/lucide-react/dist/esm/icons/trash-2.js [app-client] (ecmascript) <export default as Trash2>": ((__turbopack_context__) => {
+"use strict";
+
+var { g: global, __dirname } = __turbopack_context__;
+{
+__turbopack_context__.s({
+    "Trash2": (()=>__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])
+});
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/trash-2.js [app-client] (ecmascript)");
+}}),
+"[project]/node_modules/lucide-react/dist/esm/icons/circle-plus.js [app-client] (ecmascript)": ((__turbopack_context__) => {
+"use strict";
+
+var { g: global, __dirname } = __turbopack_context__;
+{
+/**
+ * @license lucide-react v0.488.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */ __turbopack_context__.s({
+    "__iconNode": (()=>__iconNode),
+    "default": (()=>CirclePlus)
+});
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$createLucideIcon$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/createLucideIcon.js [app-client] (ecmascript)");
+;
+const __iconNode = [
+    [
+        "circle",
+        {
+            cx: "12",
+            cy: "12",
+            r: "10",
+            key: "1mglay"
+        }
+    ],
+    [
+        "path",
+        {
+            d: "M8 12h8",
+            key: "1wcyev"
+        }
+    ],
+    [
+        "path",
+        {
+            d: "M12 8v8",
+            key: "napkw2"
+        }
+    ]
+];
+const CirclePlus = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$createLucideIcon$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])("circle-plus", __iconNode);
+;
+ //# sourceMappingURL=circle-plus.js.map
+}}),
+"[project]/node_modules/lucide-react/dist/esm/icons/circle-plus.js [app-client] (ecmascript) <export default as PlusCircle>": ((__turbopack_context__) => {
+"use strict";
+
+var { g: global, __dirname } = __turbopack_context__;
+{
+__turbopack_context__.s({
+    "PlusCircle": (()=>__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$plus$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])
+});
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$plus$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/circle-plus.js [app-client] (ecmascript)");
+}}),
 }]);
 
-//# sourceMappingURL=_eda23373._.js.map
+//# sourceMappingURL=_d057ca71._.js.map

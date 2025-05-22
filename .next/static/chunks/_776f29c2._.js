@@ -2122,6 +2122,72 @@ class APISDK {
         }
         return await response.json();
     }
+    async getCoupons() {
+        const response = await fetch(`${APISDK.BASE_URL}/coupon`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${this.accessToken}`
+            }
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to get coupons: ${response.status} ${response.statusText}`);
+        }
+        return await response.json();
+    }
+    async getCoupon(coupon_id) {
+        const response = await fetch(`${APISDK.BASE_URL}/coupon/${coupon_id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${this.accessToken}`
+            }
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to get coupon: ${response.status} ${response.statusText}`);
+        }
+        return await response.json();
+    }
+    async createCoupon(data) {
+        const response = await fetch(`${APISDK.BASE_URL}/coupon`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${this.accessToken}`
+            },
+            body: JSON.stringify(data)
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to create coupon: ${response.status} ${response.statusText}`);
+        }
+        const res = await response.json();
+        return res.id;
+    }
+    async updateCoupon(coupon_id, data) {
+        const response = await fetch(`${APISDK.BASE_URL}/coupon/${coupon_id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${this.accessToken}`
+            },
+            body: JSON.stringify(data)
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to update coupon: ${response.status} ${response.statusText}`);
+        }
+    }
+    async deleteCoupon(coupon_id) {
+        const response = await fetch(`${APISDK.BASE_URL}/coupon/${coupon_id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${this.accessToken}`
+            }
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to delete coupon: ${response.status} ${response.statusText}`);
+        }
+    }
 }
 ;
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {

@@ -196,6 +196,17 @@ interface ProductSale {
     created_at: Date;
     updated_at: Date;
   }
+  export interface ICoupon {
+    id: string;
+      code: string;
+      is_one_time: boolean;
+      expires_on: Date;
+      no_of_uses: number;
+      meta_data: Record<string, string>;
+      created_at: Date;
+      updated_at: Date;
+  }
+  
   export interface IProduct {
     id: string;
       name: string;
