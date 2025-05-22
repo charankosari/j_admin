@@ -11,7 +11,7 @@ import type {
   IReview,
   IAssistance,
   IBanner,
-  ICategory,ISubCategory,IProduct,ICoupon,ISale
+  ICategory,ISubCategory,IProduct,ICoupon,ISale,IContactMessage
 } from './types';
 import { TableStatus } from '@/components/real-time/table-grid';
 
@@ -163,6 +163,7 @@ export class APISDK {
 
     return await response.json();
   }
+  
 
   public async getDishCategoryById(
     dishCategoryId: string
@@ -207,6 +208,70 @@ export class APISDK {
     }
 
     return await response.json();
+  }
+
+  async getContactMessages(): Promise<{ rows: IContactMessage[] }> {
+    const response = await fetch(`${APISDK.BASE_URL}/message`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to get contact messages: ${response.status} ${response.statusText}`);
+    }
+    const result = await response.json();
+    return result; // Return the entire result object
+  }
+
+   // Get a specific contact message by ID
+   async getContactMessageById(messageId: string): Promise<IContactMessage> {
+    const response = await fetch(`${APISDK.BASE_URL}/message/${messageId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to get contact message: ${response.status} ${response.statusText}`);
+    }
+
+    return await response.json();
+  }
+
+  // Mark a message as read
+  async updateContactMessageStatus(messageId: string, isRead: boolean): Promise<void> {
+    const response = await fetch(`${APISDK.BASE_URL}/message/${messageId}/read`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+      body: JSON.stringify({ is_read: isRead }),
+    });
+  
+    if (!response.ok) {
+      throw new Error(`Failed to update message status: ${response.status} ${response.statusText}`);
+    }
+  }
+
+  // Delete a contact message
+  async deleteContactMessage(messageId: string): Promise<void> {
+    const response = await fetch(`${APISDK.BASE_URL}/message/${messageId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to delete message: ${response.status} ${response.statusText}`);
+    }
   }
 
   public async getDishes(): Promise<IDish[]> {

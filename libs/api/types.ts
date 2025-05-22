@@ -196,6 +196,15 @@ interface ProductSale {
     created_at: Date;
     updated_at: Date;
   }
+  export interface IContactMessage {
+    id: string;
+    message: string;
+    email: string;
+    name?: string;
+    is_read: boolean;
+    created_at: Date;
+    updated_at: Date;
+  }
   export interface ICoupon {
     id: string;
       code: string;

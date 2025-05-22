@@ -18,7 +18,8 @@ import {
   ChevronRight,
   Boxes,
   Box,
-  Star
+  Star,
+  MessageCircle
 } from "lucide-react"
 import { LogoutButton } from "./auth/logout-button"
 import { useAuth } from "@/hooks/useAuth"
@@ -102,6 +103,7 @@ export function Sidebar() {
           <NavItem href="/promotional-mail" icon={<Mail size={18} />} label="Promotional Mail" collapsed={collapsed} />
           <NavItem href="#" icon={<MessageSquare size={18} />} label="Promotional Mesasge" collapsed={collapsed} />
           <NavItem href="/coupon-codes" icon={<Ticket size={18} />} label="Coupon Codes" collapsed={collapsed} />
+          <NavItem href="/contact-messages" icon={<MessageCircle size={18} />} label="Contact Messages" collapsed={collapsed} />
         </div>
 
         <div className="py-4">

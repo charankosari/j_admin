@@ -327,7 +327,7 @@ useEffect(() => {
                 </div>
               </div>
               <div>
-                <label className="block text-sm text-gray-600 mb-1">Select the Sub-Category(Optional)</label>
+                <label className="block text-sm text-gray-600 mb-1">Select the Sub-Category</label>
                 <div className="relative">
                   <select
                     value={subCategory}
