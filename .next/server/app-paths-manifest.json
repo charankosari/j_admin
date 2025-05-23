@@ -1,6 +1,9 @@
 {
+  "/category/page": "app/category/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/inventory/page": "app/inventory/page.js",
   "/page": "app/page.js",
+  "/promotions/page": "app/promotions/page.js",
   "/reviews/page": "app/reviews/page.js",
-  "/staff/page": "app/staff/page.js"
+  "/subcategory/page": "app/subcategory/page.js"
 }

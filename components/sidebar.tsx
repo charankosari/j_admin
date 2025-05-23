@@ -76,7 +76,6 @@ export function Sidebar() {
           )}
           <NavItem href="/oveview" icon={<LayoutGrid size={18} />} label="Overview" collapsed={collapsed} />
           <NavItem href="/inventory" icon={<Package size={18} />} label="Inventory" collapsed={collapsed} />
-          <NavItem href="/promotions" icon={<Tag size={18} />} label="Promotions & Sales" collapsed={collapsed} />
           <NavItem href="/category" icon={<Boxes size={18} />} label="category" collapsed={collapsed} />
           <NavItem href="/subcategory" icon={<Box size={18} />} label="subcategory" collapsed={collapsed} />
           <NavItem href="/reviews" icon={<Star size={18} />} label="reviews" collapsed={collapsed} />

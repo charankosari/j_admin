@@ -886,6 +886,10 @@
     min-height: 100px;
   }
 
+  .min-h-\[200px\] {
+    min-height: 200px;
+  }
+
   .min-h-\[300px\] {
     min-height: 300px;
   }

@@ -12,6 +12,7 @@ interface MetaData {
   colors: { colorName: string; colorCode: string; }[];
   slashed_price: string;
   discount: string;
+  long_description: string;
 }
 // Update the NewProductModalProps to include the new MetaData type
 interface NewProductModalProps {
@@ -61,6 +62,9 @@ export function NewProductModal({ onClose, categories, subCategories,reload,edit
       ? JSON.parse(editProduct.meta_data["3d_image_urls"])
       : []
   )
+  const [longDescription, setLongDescription] = useState<string>(
+    editProduct?.meta_data?.long_description || ""
+  );
   const [variantNames, setVariantNames] = useState<string[]>(
     editProduct?.meta_data?.variants
       ? JSON.parse(editProduct.meta_data.variants)
@@ -79,7 +83,28 @@ export function NewProductModal({ onClose, categories, subCategories,reload,edit
   const [discount, setDiscount] = useState<string>(
     editProduct?.meta_data?.discount || ""
   )
-console.log(categories,subCategories)
+  const [dimensions, setDimensions] = useState({
+    height: editProduct?.meta_data?.dimensions ? JSON.parse(editProduct.meta_data.dimensions).height : "",
+    weight: editProduct?.meta_data?.dimensions ? JSON.parse(editProduct.meta_data.dimensions).weight : "",
+    length: editProduct?.meta_data?.dimensions ? JSON.parse(editProduct.meta_data.dimensions).length : "",
+    breadth: editProduct?.meta_data?.dimensions ? JSON.parse(editProduct.meta_data.dimensions).breadth : ""
+  });
+
+  useEffect(() => {
+    if (productPrice && slashedPrice) {
+      const price = parseFloat(productPrice.replace(/,/g, ''))
+      const slashed = parseFloat(slashedPrice.replace(/,/g, ''))
+      if (!isNaN(price) && !isNaN(slashed) && price > 0 && slashed > price) {
+        const discountPercent = Math.round(((slashed - price) / slashed) * 100)
+        setDiscount(discountPercent.toString())
+      } else {
+        setDiscount("")
+      }
+    } else {
+      setDiscount("")
+    }
+  }, [productPrice, slashedPrice])
+
 useEffect(() => {
   if (editProduct) {
     setProductName(editProduct.name || "")
@@ -113,6 +138,11 @@ useEffect(() => {
         : []
     )
     setDiscount(editProduct.meta_data?.discount || "")
+    setLongDescription(editProduct.meta_data?.long_description || "");
+    if (editProduct.meta_data?.dimensions) {
+      const dims = JSON.parse(editProduct.meta_data.dimensions);
+      setDimensions(dims);
+    }
   }
 }, [editProduct])
 
@@ -141,7 +171,9 @@ useEffect(() => {
           [colorNames[index] || `Color ${index + 1}`]: color
         }))),
     slashed_price: slashedPrice,
-    discount: discount
+    discount: discount,
+    long_description: longDescription,
+    dimensions: JSON.stringify(dimensions),
   };
   const handleAddProduct = async () => {
     try {
@@ -173,6 +205,13 @@ useEffect(() => {
   const handleRemoveImage = (index: number) => {
     const updatedImageUrls = imageUrls.filter((_, i) => i !== index);
     setImageUrls(updatedImageUrls);
+  };
+
+  const handleDimensionChange = (dimension: keyof typeof dimensions, value: string) => {
+    setDimensions(prev => ({
+      ...prev,
+      [dimension]: value
+    }));
   };
 
   const handleAddVariantName = () => {
@@ -262,8 +301,17 @@ useEffect(() => {
             </div>
 
             <div>
+      <label className="block text-sm text-gray-600 mb-1">Long Description (Detailed)</label>
+      <textarea
+        value={longDescription}
+        onChange={(e) => setLongDescription(e.target.value)}
+        className="w-full border rounded-md px-3 py-2 text-gray-800 min-h-[200px]"
+        placeholder="Enter detailed product description, features, specifications, etc."
+      />
+    </div>
+
+            <div>
               <h3 className="text-lg font-medium text-gray-800 mb-2">Product Images</h3>
-              <p className="text-sm text-gray-500 mb-2">Lorem Dolor Sit Amet, Lorem Ipsum</p>
 
               <div className="border-2 border-dashed rounded-md p-8 mb-4 flex flex-col items-center justify-center">
                 <input
@@ -348,6 +396,52 @@ useEffect(() => {
               </div>
             </div>
 
+            <div>
+      <h3 className="text-lg font-medium text-gray-800 mb-2">Product Dimensions</h3>
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm text-gray-600 mb-1">Height (cm)</label>
+          <input
+            type="text"
+            value={dimensions.height}
+            onChange={(e) => handleDimensionChange('height', e.target.value)}
+            className="w-full border rounded-md px-3 py-2 text-gray-800"
+            placeholder="Enter height"
+          />
+        </div>
+        <div>
+          <label className="block text-sm text-gray-600 mb-1">Weight (kg)</label>
+          <input
+            type="text"
+            value={dimensions.weight}
+            onChange={(e) => handleDimensionChange('weight', e.target.value)}
+            className="w-full border rounded-md px-3 py-2 text-gray-800"
+            placeholder="Enter weight"
+          />
+        </div>
+        <div>
+          <label className="block text-sm text-gray-600 mb-1">Length (cm)</label>
+          <input
+            type="text"
+            value={dimensions.length}
+            onChange={(e) => handleDimensionChange('length', e.target.value)}
+            className="w-full border rounded-md px-3 py-2 text-gray-800"
+            placeholder="Enter length"
+          />
+        </div>
+        <div>
+          <label className="block text-sm text-gray-600 mb-1">Breadth (cm)</label>
+          <input
+            type="text"
+            value={dimensions.breadth}
+            onChange={(e) => handleDimensionChange('breadth', e.target.value)}
+            className="w-full border rounded-md px-3 py-2 text-gray-800"
+            placeholder="Enter breadth"
+          />
+        </div>
+      </div>
+    </div>
+
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm text-gray-600 mb-1">Enter the Stock Qty.</label>
@@ -391,12 +485,12 @@ useEffect(() => {
       />
     </div>
     <div>
-      <label className="block text-sm text-gray-600 mb-1">discount</label>
+      <label className="block text-sm text-gray-600 mb-1">Discount (%)</label>
       <input
         type="text"
         value={discount}
-        onChange={(e) => setDiscount(e.target.value)}
-        className="w-full border rounded-md px-3 py-2 text-gray-800"
+        readOnly
+        className="w-full border rounded-md px-3 py-2 text-gray-800 bg-gray-100"
       />
     </div>
             <div>
