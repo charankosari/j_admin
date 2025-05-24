@@ -146,7 +146,12 @@ export function Sidebar() {
             label="Real-Time view"
             collapsed={collapsed}
           />
-          {/* <NavItem href="/table-reservations" icon={<CalendarDays size={18} />} label="Table Reservations" collapsed={collapsed} /> */}
+          <NavItem
+            href="/table-reservations"
+            icon={<CalendarDays size={18} />}
+            label="Table Reservations"
+            collapsed={collapsed}
+          />
           <NavItem
             href="/operations"
             icon={<Settings size={18} />}

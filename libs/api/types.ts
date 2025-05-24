@@ -96,6 +96,8 @@ export interface IDineInTableBooking {
   booking_time: Date;
   from_time: Date;
   to_time?: Date;
+  name?: String;
+  phone?: String;
   number_of_people?: number;
   is_confirmed: boolean;
   is_cancelled: boolean;
