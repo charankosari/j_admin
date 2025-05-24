@@ -681,14 +681,14 @@ class APISDK {
             return APISDK.instance;
         }
         // For first initialization, try to get token from localStorage if not provided
-        if (accessToken === undefined && "object" !== 'undefined') {
+        if (accessToken === undefined && "object" !== "undefined") {
             try {
-                const storedToken = localStorage.getItem('access_token');
+                const storedToken = localStorage.getItem("access_token");
                 if (storedToken) {
                     accessToken = storedToken;
                 }
             } catch (error) {
-                console.error('APISDK: Error accessing localStorage:', error);
+                console.error("APISDK: Error accessing localStorage:", error);
             }
         }
         // Create a new instance with the provided token
@@ -700,13 +700,13 @@ class APISDK {
     }
     async getUser() {
         if (!this.accessToken) {
-            console.error('APISDK: No access token available for getUser request');
-            throw new Error('Authentication required');
+            console.error("APISDK: No access token available for getUser request");
+            throw new Error("Authentication required");
         }
         const response = await fetch(`${APISDK.BASE_URL}/auth/user`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -717,9 +717,9 @@ class APISDK {
     }
     async loginRequest(countryCode, phoneNumber) {
         const response = await fetch(`${APISDK.BASE_URL}/auth/login-request`, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json"
             },
             body: JSON.stringify({
                 country_code: countryCode,
@@ -733,9 +733,9 @@ class APISDK {
     }
     async verifyAccountAccess(countryCode, phoneNumber, otp) {
         const response = await fetch(`${APISDK.BASE_URL}/auth/verify-account-access`, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json"
             },
             body: JSON.stringify({
                 country_code: countryCode,
@@ -751,9 +751,9 @@ class APISDK {
     }
     async getDishCategories() {
         const response = await fetch(`${APISDK.BASE_URL}/dish/categories`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -764,9 +764,9 @@ class APISDK {
     }
     async getDishCategoryById(dishCategoryId) {
         const response = await fetch(`${APISDK.BASE_URL}/dish/categories/${dishCategoryId}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -777,9 +777,9 @@ class APISDK {
     }
     async getDishById(dishId) {
         const response = await fetch(`${APISDK.BASE_URL}/dish/i/${dishId}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -790,9 +790,9 @@ class APISDK {
     }
     async getContactMessages() {
         const response = await fetch(`${APISDK.BASE_URL}/message`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -805,9 +805,9 @@ class APISDK {
     // Get a specific contact message by ID
     async getContactMessageById(messageId) {
         const response = await fetch(`${APISDK.BASE_URL}/message/${messageId}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -819,9 +819,9 @@ class APISDK {
     // Mark a message as read
     async updateContactMessageStatus(messageId, isRead) {
         const response = await fetch(`${APISDK.BASE_URL}/message/${messageId}/read`, {
-            method: 'PATCH',
+            method: "PATCH",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             },
             body: JSON.stringify({
@@ -835,9 +835,9 @@ class APISDK {
     // Delete a contact message
     async deleteContactMessage(messageId) {
         const response = await fetch(`${APISDK.BASE_URL}/message/${messageId}`, {
-            method: 'DELETE',
+            method: "DELETE",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -847,9 +847,9 @@ class APISDK {
     }
     async getDishes() {
         const response = await fetch(`${APISDK.BASE_URL}/dish/dishes`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -860,9 +860,9 @@ class APISDK {
     }
     async getDishesByCategoryId(dishCategoryId) {
         const response = await fetch(`${APISDK.BASE_URL}/dish/dishes/${dishCategoryId}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -873,9 +873,9 @@ class APISDK {
     }
     async createDishCategory(name, picture) {
         const response = await fetch(`${APISDK.BASE_URL}/dish/categories`, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             },
             body: JSON.stringify({
@@ -891,9 +891,9 @@ class APISDK {
     // updateDishCategory
     async updateDishCategory(dishCategoryId, name, picture) {
         const response = await fetch(`${APISDK.BASE_URL}/dish/categories/${dishCategoryId}`, {
-            method: 'PATCH',
+            method: "PATCH",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             },
             body: JSON.stringify({
@@ -908,9 +908,9 @@ class APISDK {
     // deleteDishCategory
     async deleteDishCategory(dishCategoryId) {
         const response = await fetch(`${APISDK.BASE_URL}/dish/categories/${dishCategoryId}`, {
-            method: 'DELETE',
+            method: "DELETE",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -921,9 +921,9 @@ class APISDK {
     // createDish
     async createDish({ name, price, dish_category_id, is_available, is_non_veg, meta_data, picture }) {
         const response = await fetch(`${APISDK.BASE_URL}/dish`, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             },
             body: JSON.stringify({
@@ -944,9 +944,9 @@ class APISDK {
     // updateDish
     async updateDish(dishId, { name, price, picture, dish_category_id, is_available, is_non_veg, meta_data }) {
         const response = await fetch(`${APISDK.BASE_URL}/dish/${dishId}`, {
-            method: 'PATCH',
+            method: "PATCH",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             },
             body: JSON.stringify({
@@ -966,9 +966,9 @@ class APISDK {
     // deleteDish
     async deleteDish(dishId) {
         const response = await fetch(`${APISDK.BASE_URL}/dish/${dishId}`, {
-            method: 'DELETE',
+            method: "DELETE",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -979,9 +979,9 @@ class APISDK {
     // getTables
     async getTables() {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/tables`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -993,9 +993,9 @@ class APISDK {
     // getTableById
     async getTableById(tableId) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/tables/${tableId}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1007,9 +1007,9 @@ class APISDK {
     // getTableByTableNumber
     async getTableByTableNumber(tableNumber) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/tables/by-no/${tableNumber}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1021,9 +1021,9 @@ class APISDK {
     // getBooking
     async getBooking(bookingId) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/bookings/${bookingId}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1035,9 +1035,9 @@ class APISDK {
     // createBooking
     async createBooking({ table_id, booking_date, booking_time, from_time, to_time, number_of_people }) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/bookings`, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             },
             body: JSON.stringify({
@@ -1057,9 +1057,9 @@ class APISDK {
     // updateBooking
     async updateBooking(bookingId, data) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/bookings/${bookingId}`, {
-            method: 'PUT',
+            method: "PUT",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             },
             body: JSON.stringify(data)
@@ -1072,9 +1072,9 @@ class APISDK {
     // deleteBooking
     async deleteBooking(bookingId) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/bookings/${bookingId}`, {
-            method: 'DELETE',
+            method: "DELETE",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1086,9 +1086,9 @@ class APISDK {
     // markBookingAsCancelled
     async markBookingAsCancelled(bookingId) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/bookings/cancel/${bookingId}`, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1100,9 +1100,9 @@ class APISDK {
     // markBookingAsCompleted
     async markBookingAsCompleted(bookingId) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/bookings/complete/${bookingId}`, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1114,9 +1114,9 @@ class APISDK {
     // getOrderById
     async getOrderById(orderId) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/orders/${orderId}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1128,9 +1128,9 @@ class APISDK {
     // getOrdersByBookingId
     async getOrdersByBookingId(bookingId) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/orders/booking/${bookingId}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1142,9 +1142,9 @@ class APISDK {
     // getOrdersByUserId
     async getOrdersByUserId(userId) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/orders/user/${userId}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1156,9 +1156,9 @@ class APISDK {
     // getOrdersByTableId
     async getOrdersByTableId(tableId) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/orders/table/${tableId}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1170,9 +1170,9 @@ class APISDK {
     // createOrder
     async createOrder(orderData) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/orders`, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             },
             body: JSON.stringify(orderData)
@@ -1185,9 +1185,9 @@ class APISDK {
     // markOrderAsCancelled
     async markOrderAsCancelled(orderId) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/orders/cancel/${orderId}`, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1199,9 +1199,9 @@ class APISDK {
     // getCheckoutById
     async getCheckoutById(checkoutId) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/checkouts/${checkoutId}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1213,9 +1213,9 @@ class APISDK {
     // getCheckoutByBookingId
     async getCheckoutByBookingId(bookingId) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/checkouts/booking/${bookingId}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1227,9 +1227,9 @@ class APISDK {
     // getCheckoutByUserId
     async getCheckoutByUserId(userId) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/checkouts/user/${userId}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1241,9 +1241,9 @@ class APISDK {
     // getCheckoutByTableId
     async getCheckoutByTableId(tableId) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/checkouts/table/${tableId}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1255,9 +1255,9 @@ class APISDK {
     // createUserEndCheckout
     async createUserEndCheckout(booking_id) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/checkouts`, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             },
             body: JSON.stringify({
@@ -1272,9 +1272,9 @@ class APISDK {
     // getAvailableTables
     async getAvailableTables(fromTime, toTime) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/available-tables`, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             },
             body: JSON.stringify({
@@ -1290,9 +1290,9 @@ class APISDK {
     // getCheckouts
     async getCheckouts() {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/checkouts`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1304,9 +1304,9 @@ class APISDK {
     // updateCheckout
     async updateCheckout(checkoutId, checkoutData) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/checkouts/${checkoutId}`, {
-            method: 'PATCH',
+            method: "PATCH",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             },
             body: JSON.stringify(checkoutData)
@@ -1319,9 +1319,9 @@ class APISDK {
     // deleteCheckout
     async deleteCheckout(checkoutId) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/checkouts/${checkoutId}`, {
-            method: 'DELETE',
+            method: "DELETE",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1333,9 +1333,9 @@ class APISDK {
     // getOrders
     async getOrders() {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/orders`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1347,9 +1347,9 @@ class APISDK {
     // markOrderAsReady
     async markOrderAsReady(orderId) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/orders/ready/${orderId}`, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1361,9 +1361,9 @@ class APISDK {
     // markOrderAsServed
     async markOrderAsServed(orderId) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/orders/serve/${orderId}`, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1375,9 +1375,9 @@ class APISDK {
     // markOrderAsPreparing
     async markOrderAsPreparing(orderId) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/orders/prepare/${orderId}`, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1389,9 +1389,9 @@ class APISDK {
     // updateOrder
     async updateOrder(orderId, data) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/orders/${orderId}`, {
-            method: 'PATCH',
+            method: "PATCH",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             },
             body: JSON.stringify(data)
@@ -1403,9 +1403,9 @@ class APISDK {
     }
     async updateOrDeleteOrder(orderId, data) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/orders/update/${orderId}`, {
-            method: 'PATCH',
+            method: "PATCH",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             },
             body: JSON.stringify(data)
@@ -1418,9 +1418,9 @@ class APISDK {
     // deleteOrder
     async deleteOrder(orderId) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/orders/${orderId}`, {
-            method: 'DELETE',
+            method: "DELETE",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1432,9 +1432,9 @@ class APISDK {
     // getBookings
     async getBookings() {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/bookings`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1446,9 +1446,9 @@ class APISDK {
     // createTable
     async createTable({ table_number, capacity, meta_data }) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/tables`, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             },
             body: JSON.stringify({
@@ -1465,9 +1465,9 @@ class APISDK {
     // updateTable
     async updateTable(tableId, { table_number, capacity, meta_data }) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/tables/${tableId}`, {
-            method: 'PATCH',
+            method: "PATCH",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             },
             body: JSON.stringify({
@@ -1484,9 +1484,9 @@ class APISDK {
     // deleteTable
     async deleteTable(tableId) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/tables/${tableId}`, {
-            method: 'DELETE',
+            method: "DELETE",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1498,9 +1498,9 @@ class APISDK {
     // getReviewsByDish
     async getReviewsByDish(dishId) {
         const response = await fetch(`${APISDK.BASE_URL}/reviews/d/${dishId}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1512,9 +1512,9 @@ class APISDK {
     // getReviewsByProduct
     async getReviewsByProduct(productId) {
         const response = await fetch(`${APISDK.BASE_URL}/reviews/p/${productId}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1526,9 +1526,9 @@ class APISDK {
     // getReview
     async getReview(reviewId) {
         const response = await fetch(`${APISDK.BASE_URL}/reviews/${reviewId}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1540,9 +1540,9 @@ class APISDK {
     // createReview
     async createReview({ product_id, dish_id, rating, comment, meta_data }) {
         const response = await fetch(`${APISDK.BASE_URL}/reviews`, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             },
             body: JSON.stringify({
@@ -1561,9 +1561,9 @@ class APISDK {
     // deleteReview
     async deleteReview(reviewId) {
         const response = await fetch(`${APISDK.BASE_URL}/reviews/${reviewId}`, {
-            method: 'DELETE',
+            method: "DELETE",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1575,9 +1575,9 @@ class APISDK {
     // updateReview
     async updateReview(reviewId, { rating, comment, meta_data }) {
         const response = await fetch(`${APISDK.BASE_URL}/reviews/${reviewId}`, {
-            method: 'PATCH',
+            method: "PATCH",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             },
             body: JSON.stringify({
@@ -1594,9 +1594,9 @@ class APISDK {
     // getAverageRatingForDish
     async getAverageRatingForDish(dishId) {
         const response = await fetch(`${APISDK.BASE_URL}/reviews/avg/d/${dishId}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1608,9 +1608,9 @@ class APISDK {
     // getAverageRatingForProduct
     async getAverageRatingForProduct(productId) {
         const response = await fetch(`${APISDK.BASE_URL}/reviews/avg/p/${productId}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1621,9 +1621,9 @@ class APISDK {
     }
     async uploadFile(file) {
         const formData = new FormData();
-        formData.append('file', file);
+        formData.append("file", file);
         const response = await fetch(`${APISDK.BASE_URL}/upload`, {
-            method: 'PUT',
+            method: "PUT",
             headers: {
                 Authorization: `Bearer ${this.accessToken}`
             },
@@ -1637,9 +1637,9 @@ class APISDK {
     // getReservations
     async getReservations(page, limit) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/reservations?page=${page}&limit=${limit}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1651,9 +1651,9 @@ class APISDK {
     // markTableAsCleaned
     async markTableAsCleaned(tableId) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/tables/cleaned/${tableId}`, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1665,9 +1665,9 @@ class APISDK {
     // getTableStats
     async getTableStats() {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/table-stats`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1678,9 +1678,9 @@ class APISDK {
     }
     async getAllAssistance() {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/assistance`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1692,9 +1692,9 @@ class APISDK {
     // deleteAssistance
     async deleteAssistance(assistanceId) {
         const response = await fetch(`${APISDK.BASE_URL}/dine-in/assistance/${assistanceId}`, {
-            method: 'DELETE',
+            method: "DELETE",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1706,9 +1706,9 @@ class APISDK {
     // Add this near other user-related methods
     async getAdminUsers() {
         const response = await fetch(`${APISDK.BASE_URL}/admin/users`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1720,9 +1720,9 @@ class APISDK {
     // getAllStats
     async getAllStats() {
         const response = await fetch(`${APISDK.BASE_URL}/admin/allstats`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1734,7 +1734,7 @@ class APISDK {
     // Create banner
     async createBanner(formData) {
         const response = await fetch(`${APISDK.BASE_URL}/banner/create`, {
-            method: 'POST',
+            method: "POST",
             headers: {
                 Authorization: `Bearer ${this.accessToken}`
             },
@@ -1748,9 +1748,9 @@ class APISDK {
     // Get all banners
     async getBanners() {
         const response = await fetch(`${APISDK.BASE_URL}/banner`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1762,9 +1762,9 @@ class APISDK {
     // Delete a banner
     async deleteBanner(bannerId) {
         const response = await fetch(`${APISDK.BASE_URL}/banner/${bannerId}`, {
-            method: 'DELETE',
+            method: "DELETE",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1774,9 +1774,9 @@ class APISDK {
     }
     async createEmployee(employeeData) {
         const response = await fetch(`${APISDK.BASE_URL}/admin/staff`, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             },
             body: JSON.stringify(employeeData)
@@ -1788,9 +1788,9 @@ class APISDK {
     }
     async getEmployees() {
         const response = await fetch(`${APISDK.BASE_URL}/admin/staff`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1801,9 +1801,9 @@ class APISDK {
     }
     async getEmployeeById(staffId) {
         const response = await fetch(`${APISDK.BASE_URL}/admin/staff/${staffId}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1814,9 +1814,9 @@ class APISDK {
     }
     async updateEmployee(staffId, employeeData) {
         const response = await fetch(`${APISDK.BASE_URL}/admin/staff/${staffId}`, {
-            method: 'PATCH',
+            method: "PATCH",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             },
             body: JSON.stringify(employeeData)
@@ -1828,9 +1828,9 @@ class APISDK {
     }
     async deleteEmployee(staffId) {
         const response = await fetch(`${APISDK.BASE_URL}/admin/staff/${staffId}`, {
-            method: 'DELETE',
+            method: "DELETE",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1841,9 +1841,9 @@ class APISDK {
     }
     async createNewCategory(name, imageUrl) {
         const response = await fetch(`${APISDK.BASE_URL}/category`, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             },
             body: JSON.stringify({
@@ -1859,9 +1859,9 @@ class APISDK {
     }
     async getAllCategories() {
         const response = await fetch(`${APISDK.BASE_URL}/category`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1872,9 +1872,9 @@ class APISDK {
     }
     async updateCategory(categoryId, name, imageUrl) {
         const response = await fetch(`${APISDK.BASE_URL}/category/${categoryId}`, {
-            method: 'PATCH',
+            method: "PATCH",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             },
             body: JSON.stringify({
@@ -1888,9 +1888,9 @@ class APISDK {
     }
     async deleteCategory(categoryId) {
         const response = await fetch(`${APISDK.BASE_URL}/category/${categoryId}`, {
-            method: 'DELETE',
+            method: "DELETE",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1900,9 +1900,9 @@ class APISDK {
     }
     async getCategoryById(categoryId) {
         const response = await fetch(`${APISDK.BASE_URL}/category/${categoryId}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1914,9 +1914,9 @@ class APISDK {
     //sub categories
     async createNewSubCategory(name, categoryId, image_url) {
         const response = await fetch(`${APISDK.BASE_URL}/subcategory`, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             },
             body: JSON.stringify({
@@ -1933,9 +1933,9 @@ class APISDK {
     }
     async getAllSubCategories() {
         const response = await fetch(`${APISDK.BASE_URL}/subcategory`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1946,9 +1946,9 @@ class APISDK {
     }
     async updateSubCategory(subCategoryId, name, categoryId, image_url) {
         const response = await fetch(`${APISDK.BASE_URL}/subcategory/${subCategoryId}`, {
-            method: 'PATCH',
+            method: "PATCH",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             },
             body: JSON.stringify({
@@ -1963,9 +1963,9 @@ class APISDK {
     }
     async deleteSubCategory(subCategoryId) {
         const response = await fetch(`${APISDK.BASE_URL}/subcategory/${subCategoryId}`, {
-            method: 'DELETE',
+            method: "DELETE",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1975,9 +1975,9 @@ class APISDK {
     }
     async getSubCategoryById(subCategoryId) {
         const response = await fetch(`${APISDK.BASE_URL}/subcategory/${subCategoryId}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -1988,9 +1988,9 @@ class APISDK {
     }
     async getSubCategoriesByCategoryId(categoryId) {
         const response = await fetch(`${APISDK.BASE_URL}/subcategory/c/${categoryId}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -2002,9 +2002,9 @@ class APISDK {
     // product functions
     async createProduct({ name, description, price, image_url, category_id, subcategory_id, meta_data, is_active, availability_count }) {
         const response = await fetch(`${APISDK.BASE_URL}/product`, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             },
             body: JSON.stringify({
@@ -2027,9 +2027,9 @@ class APISDK {
     }
     async updateProduct(product_id, data) {
         const response = await fetch(`${APISDK.BASE_URL}/product/${product_id}`, {
-            method: 'PATCH',
+            method: "PATCH",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             },
             body: JSON.stringify(data)
@@ -2040,9 +2040,9 @@ class APISDK {
     }
     async deleteProduct(product_id) {
         const response = await fetch(`${APISDK.BASE_URL}/product/${product_id}`, {
-            method: 'DELETE',
+            method: "DELETE",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -2052,14 +2052,14 @@ class APISDK {
     }
     async getProductsByCategory({ category_id, subcategory_id }, { limit, page }) {
         const query = new URLSearchParams();
-        if (category_id) query.append('category_id', category_id);
-        if (subcategory_id) query.append('subcategory_id', subcategory_id);
-        query.append('limit', limit.toString());
-        query.append('page', page.toString());
+        if (category_id) query.append("category_id", category_id);
+        if (subcategory_id) query.append("subcategory_id", subcategory_id);
+        query.append("limit", limit.toString());
+        query.append("page", page.toString());
         const response = await fetch(`${APISDK.BASE_URL}/product?${query.toString()}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -2070,9 +2070,9 @@ class APISDK {
     }
     async getProductByCategoryId(category_id) {
         const response = await fetch(`${APISDK.BASE_URL}/product/c/${category_id}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -2083,9 +2083,9 @@ class APISDK {
     }
     async getProductBySubCategoryId(subcategory_id) {
         const response = await fetch(`${APISDK.BASE_URL}/product/s/${subcategory_id}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -2096,9 +2096,9 @@ class APISDK {
     }
     async getProductById(product_id) {
         const response = await fetch(`${APISDK.BASE_URL}/product/i/${product_id}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -2109,12 +2109,12 @@ class APISDK {
     }
     async getProductCount({ category_id, subcategory_id }) {
         const query = new URLSearchParams();
-        if (category_id) query.append('category_id', category_id);
-        if (subcategory_id) query.append('subcategory_id', subcategory_id);
+        if (category_id) query.append("category_id", category_id);
+        if (subcategory_id) query.append("subcategory_id", subcategory_id);
         const response = await fetch(`${APISDK.BASE_URL}/product/count?${query.toString()}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -2126,9 +2126,9 @@ class APISDK {
     }
     async getProductsByIds(product_ids) {
         const response = await fetch(`${APISDK.BASE_URL}/product/ids`, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             },
             body: JSON.stringify({
@@ -2142,9 +2142,9 @@ class APISDK {
     }
     async getReviewsByProductId(product_id) {
         const response = await fetch(`${APISDK.BASE_URL}/review/p/${product_id}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -2155,9 +2155,9 @@ class APISDK {
     }
     async deleteReviewById(review_id) {
         const response = await fetch(`${APISDK.BASE_URL}/review/${review_id}`, {
-            method: 'DELETE',
+            method: "DELETE",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -2168,9 +2168,9 @@ class APISDK {
     }
     async averageRatingsByProductId(product_id) {
         const response = await fetch(`${APISDK.BASE_URL}/review/avg/p/${product_id}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -2181,9 +2181,9 @@ class APISDK {
     }
     async getCoupons() {
         const response = await fetch(`${APISDK.BASE_URL}/coupon`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -2194,9 +2194,9 @@ class APISDK {
     }
     async getCoupon(coupon_id) {
         const response = await fetch(`${APISDK.BASE_URL}/coupon/${coupon_id}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -2207,9 +2207,9 @@ class APISDK {
     }
     async createCoupon(data) {
         const response = await fetch(`${APISDK.BASE_URL}/coupon`, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             },
             body: JSON.stringify(data)
@@ -2222,9 +2222,9 @@ class APISDK {
     }
     async updateCoupon(coupon_id, data) {
         const response = await fetch(`${APISDK.BASE_URL}/coupon/${coupon_id}`, {
-            method: 'PATCH',
+            method: "PATCH",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             },
             body: JSON.stringify(data)
@@ -2235,9 +2235,9 @@ class APISDK {
     }
     async deleteCoupon(coupon_id) {
         const response = await fetch(`${APISDK.BASE_URL}/coupon/${coupon_id}`, {
-            method: 'DELETE',
+            method: "DELETE",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -2245,12 +2245,12 @@ class APISDK {
             throw new Error(`Failed to delete coupon: ${response.status} ${response.statusText}`);
         }
     }
-    // sales 
+    // sales
     async getSales() {
         const response = await fetch(`${APISDK.BASE_URL}/sales`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -2261,9 +2261,9 @@ class APISDK {
     }
     async getSale(saleId) {
         const response = await fetch(`${APISDK.BASE_URL}/sales/${saleId}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -2274,9 +2274,9 @@ class APISDK {
     }
     async getSaleProducts(saleType, saleId) {
         const response = await fetch(`${APISDK.BASE_URL}/sales/${saleType}/${saleId}/products`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -2287,9 +2287,9 @@ class APISDK {
     }
     async getCurrentSalesOverProduct(productId) {
         const response = await fetch(`${APISDK.BASE_URL}/sales/over/${productId}`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
@@ -2300,9 +2300,9 @@ class APISDK {
     }
     async createSale(saleData) {
         const response = await fetch(`${APISDK.BASE_URL}/sales`, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             },
             body: JSON.stringify(saleData)
@@ -2314,9 +2314,9 @@ class APISDK {
     }
     async updateSale(saleId, saleData) {
         const response = await fetch(`${APISDK.BASE_URL}/sales/${saleId}`, {
-            method: 'PATCH',
+            method: "PATCH",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             },
             body: JSON.stringify(saleData)
@@ -2327,15 +2327,28 @@ class APISDK {
     }
     async deleteSale(saleId) {
         const response = await fetch(`${APISDK.BASE_URL}/sales/${saleId}`, {
-            method: 'DELETE',
+            method: "DELETE",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.accessToken}`
             }
         });
         if (!response.ok) {
             throw new Error(`Failed to delete sale: ${response.status} ${response.statusText}`);
         }
+    }
+    async getEcomStats() {
+        const response = await fetch(`${APISDK.BASE_URL}/admin/allecomstats`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${this.accessToken}`
+            }
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to get all stats: ${response.status} ${response.statusText}`);
+        }
+        return await response.json();
     }
 }
 ;
@@ -2499,103 +2512,103 @@ function Sidebar() {
         setCollapsed(!collapsed);
     };
     // Format user display name from first_name and last_name
-    const displayName = user ? `${user.first_name || ''} ${user.last_name || ''}`.trim() : "Jeevan";
+    const displayName = user ? `${user.first_name || ""} ${user.last_name || ""}`.trim() : "Jeevan";
     // Don't render sensitive parts while still loading
     if (isLoading) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: `${collapsed ? 'w-20' : 'w-60'} h-screen bg-white border-r flex flex-col transition-all duration-300`,
+            className: `${collapsed ? "w-20" : "w-60"} h-screen bg-white border-r flex flex-col transition-all duration-300`,
             children: [
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: `${collapsed ? 'justify-center' : 'pl-4'} p-4 border-b flex items-center`,
+                    className: `${collapsed ? "justify-center" : "pl-4"} p-4 border-b flex items-center`,
                     children: [
                         !collapsed && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                             src: "/logo1.svg",
                             alt: ""
                         }, void 0, false, {
                             fileName: "[project]/components/sidebar.tsx",
-                            lineNumber: 43,
+                            lineNumber: 53,
                             columnNumber: 26
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                             onClick: toggleSidebar,
-                            className: `${collapsed ? 'ml-0' : 'ml-auto'} p-1 text-black bg-gray-100 rounded-full hover:bg-gray-100`,
+                            className: `${collapsed ? "ml-0" : "ml-auto"} p-1 text-black bg-gray-100 rounded-full hover:bg-gray-100`,
                             children: collapsed ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
                                 size: 20
                             }, void 0, false, {
                                 fileName: "[project]/components/sidebar.tsx",
-                                lineNumber: 48,
+                                lineNumber: 60,
                                 columnNumber: 26
                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$left$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronLeft$3e$__["ChevronLeft"], {
                                 size: 20
                             }, void 0, false, {
                                 fileName: "[project]/components/sidebar.tsx",
-                                lineNumber: 48,
+                                lineNumber: 60,
                                 columnNumber: 55
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/components/sidebar.tsx",
-                            lineNumber: 44,
+                            lineNumber: 54,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/components/sidebar.tsx",
-                    lineNumber: 42,
+                    lineNumber: 48,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "flex-1 overflow-auto"
                 }, void 0, false, {
                     fileName: "[project]/components/sidebar.tsx",
-                    lineNumber: 51,
+                    lineNumber: 63,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/components/sidebar.tsx",
-            lineNumber: 41,
+            lineNumber: 43,
             columnNumber: 7
         }, this);
     }
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: `${collapsed ? 'w-20' : 'w-60'} h-screen bg-white  border-r flex flex-col transition-all duration-300`,
+        className: `${collapsed ? "w-20" : "w-60"} h-screen bg-white  border-r flex flex-col transition-all duration-300`,
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: `${collapsed ? 'justify-center' : 'pl-4'} p-4 border-b flex items-center`,
+                className: `${collapsed ? "justify-center" : "pl-4"} p-4 border-b flex items-center`,
                 children: [
                     !collapsed && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                         src: "/logo1.svg",
                         alt: ""
                     }, void 0, false, {
                         fileName: "[project]/components/sidebar.tsx",
-                        lineNumber: 61,
+                        lineNumber: 81,
                         columnNumber: 24
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         onClick: toggleSidebar,
-                        className: `${collapsed ? 'ml-0' : 'ml-auto'} p-1 text-black bg-gray-100 rounded-full hover:bg-gray-100`,
+                        className: `${collapsed ? "ml-0" : "ml-auto"} p-1 text-black bg-gray-100 rounded-full hover:bg-gray-100`,
                         children: collapsed ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
                             size: 20
                         }, void 0, false, {
                             fileName: "[project]/components/sidebar.tsx",
-                            lineNumber: 66,
+                            lineNumber: 88,
                             columnNumber: 24
                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$left$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronLeft$3e$__["ChevronLeft"], {
                             size: 20
                         }, void 0, false, {
                             fileName: "[project]/components/sidebar.tsx",
-                            lineNumber: 66,
+                            lineNumber: 88,
                             columnNumber: 53
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/components/sidebar.tsx",
-                        lineNumber: 62,
+                        lineNumber: 82,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/sidebar.tsx",
-                lineNumber: 60,
+                lineNumber: 76,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2611,28 +2624,28 @@ function Sidebar() {
                                     children: "CONVENIENCE"
                                 }, void 0, false, {
                                     fileName: "[project]/components/sidebar.tsx",
-                                    lineNumber: 74,
+                                    lineNumber: 96,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/sidebar.tsx",
-                                lineNumber: 73,
+                                lineNumber: 95,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(NavItem, {
-                                href: "/oveview",
+                                href: "/ecom-oveview",
                                 icon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$layout$2d$grid$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__LayoutGrid$3e$__["LayoutGrid"], {
                                     size: 18
                                 }, void 0, false, {
                                     fileName: "[project]/components/sidebar.tsx",
-                                    lineNumber: 77,
-                                    columnNumber: 42
+                                    lineNumber: 101,
+                                    columnNumber: 19
                                 }, void 0),
                                 label: "Overview",
                                 collapsed: collapsed
                             }, void 0, false, {
                                 fileName: "[project]/components/sidebar.tsx",
-                                lineNumber: 77,
+                                lineNumber: 99,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(NavItem, {
@@ -2641,14 +2654,14 @@ function Sidebar() {
                                     size: 18
                                 }, void 0, false, {
                                     fileName: "[project]/components/sidebar.tsx",
-                                    lineNumber: 78,
-                                    columnNumber: 44
+                                    lineNumber: 107,
+                                    columnNumber: 19
                                 }, void 0),
                                 label: "Inventory",
                                 collapsed: collapsed
                             }, void 0, false, {
                                 fileName: "[project]/components/sidebar.tsx",
-                                lineNumber: 78,
+                                lineNumber: 105,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(NavItem, {
@@ -2657,14 +2670,14 @@ function Sidebar() {
                                     size: 18
                                 }, void 0, false, {
                                     fileName: "[project]/components/sidebar.tsx",
-                                    lineNumber: 79,
-                                    columnNumber: 43
+                                    lineNumber: 113,
+                                    columnNumber: 19
                                 }, void 0),
                                 label: "category",
                                 collapsed: collapsed
                             }, void 0, false, {
                                 fileName: "[project]/components/sidebar.tsx",
-                                lineNumber: 79,
+                                lineNumber: 111,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(NavItem, {
@@ -2673,14 +2686,14 @@ function Sidebar() {
                                     size: 18
                                 }, void 0, false, {
                                     fileName: "[project]/components/sidebar.tsx",
-                                    lineNumber: 80,
-                                    columnNumber: 46
+                                    lineNumber: 119,
+                                    columnNumber: 19
                                 }, void 0),
                                 label: "subcategory",
                                 collapsed: collapsed
                             }, void 0, false, {
                                 fileName: "[project]/components/sidebar.tsx",
-                                lineNumber: 80,
+                                lineNumber: 117,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(NavItem, {
@@ -2689,20 +2702,20 @@ function Sidebar() {
                                     size: 18
                                 }, void 0, false, {
                                     fileName: "[project]/components/sidebar.tsx",
-                                    lineNumber: 81,
-                                    columnNumber: 42
+                                    lineNumber: 125,
+                                    columnNumber: 19
                                 }, void 0),
                                 label: "reviews",
                                 collapsed: collapsed
                             }, void 0, false, {
                                 fileName: "[project]/components/sidebar.tsx",
-                                lineNumber: 81,
+                                lineNumber: 123,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/sidebar.tsx",
-                        lineNumber: 71,
+                        lineNumber: 93,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2715,12 +2728,12 @@ function Sidebar() {
                                     children: "CAFE"
                                 }, void 0, false, {
                                     fileName: "[project]/components/sidebar.tsx",
-                                    lineNumber: 87,
+                                    lineNumber: 134,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/sidebar.tsx",
-                                lineNumber: 86,
+                                lineNumber: 133,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(NavItem, {
@@ -2729,14 +2742,14 @@ function Sidebar() {
                                     size: 18
                                 }, void 0, false, {
                                     fileName: "[project]/components/sidebar.tsx",
-                                    lineNumber: 90,
-                                    columnNumber: 35
+                                    lineNumber: 139,
+                                    columnNumber: 19
                                 }, void 0),
                                 label: "Overview",
                                 collapsed: collapsed
                             }, void 0, false, {
                                 fileName: "[project]/components/sidebar.tsx",
-                                lineNumber: 90,
+                                lineNumber: 137,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(NavItem, {
@@ -2745,14 +2758,14 @@ function Sidebar() {
                                     size: 18
                                 }, void 0, false, {
                                     fileName: "[project]/components/sidebar.tsx",
-                                    lineNumber: 91,
-                                    columnNumber: 44
+                                    lineNumber: 145,
+                                    columnNumber: 19
                                 }, void 0),
                                 label: "Real-Time view",
                                 collapsed: collapsed
                             }, void 0, false, {
                                 fileName: "[project]/components/sidebar.tsx",
-                                lineNumber: 91,
+                                lineNumber: 143,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(NavItem, {
@@ -2761,20 +2774,20 @@ function Sidebar() {
                                     size: 18
                                 }, void 0, false, {
                                     fileName: "[project]/components/sidebar.tsx",
-                                    lineNumber: 93,
-                                    columnNumber: 45
+                                    lineNumber: 152,
+                                    columnNumber: 19
                                 }, void 0),
                                 label: "Operations",
                                 collapsed: collapsed
                             }, void 0, false, {
                                 fileName: "[project]/components/sidebar.tsx",
-                                lineNumber: 93,
+                                lineNumber: 150,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/sidebar.tsx",
-                        lineNumber: 84,
+                        lineNumber: 131,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2787,12 +2800,12 @@ function Sidebar() {
                                     children: "MARKETING"
                                 }, void 0, false, {
                                     fileName: "[project]/components/sidebar.tsx",
-                                    lineNumber: 99,
+                                    lineNumber: 161,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/sidebar.tsx",
-                                lineNumber: 98,
+                                lineNumber: 160,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(NavItem, {
@@ -2801,14 +2814,14 @@ function Sidebar() {
                                     size: 18
                                 }, void 0, false, {
                                     fileName: "[project]/components/sidebar.tsx",
-                                    lineNumber: 102,
-                                    columnNumber: 51
+                                    lineNumber: 166,
+                                    columnNumber: 19
                                 }, void 0),
                                 label: "Promotional Mail",
                                 collapsed: collapsed
                             }, void 0, false, {
                                 fileName: "[project]/components/sidebar.tsx",
-                                lineNumber: 102,
+                                lineNumber: 164,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(NavItem, {
@@ -2817,14 +2830,14 @@ function Sidebar() {
                                     size: 18
                                 }, void 0, false, {
                                     fileName: "[project]/components/sidebar.tsx",
-                                    lineNumber: 103,
-                                    columnNumber: 35
+                                    lineNumber: 172,
+                                    columnNumber: 19
                                 }, void 0),
                                 label: "Promotional Mesasge",
                                 collapsed: collapsed
                             }, void 0, false, {
                                 fileName: "[project]/components/sidebar.tsx",
-                                lineNumber: 103,
+                                lineNumber: 170,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(NavItem, {
@@ -2833,14 +2846,14 @@ function Sidebar() {
                                     size: 18
                                 }, void 0, false, {
                                     fileName: "[project]/components/sidebar.tsx",
-                                    lineNumber: 104,
-                                    columnNumber: 47
+                                    lineNumber: 178,
+                                    columnNumber: 19
                                 }, void 0),
                                 label: "Coupon Codes",
                                 collapsed: collapsed
                             }, void 0, false, {
                                 fileName: "[project]/components/sidebar.tsx",
-                                lineNumber: 104,
+                                lineNumber: 176,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(NavItem, {
@@ -2849,20 +2862,20 @@ function Sidebar() {
                                     size: 18
                                 }, void 0, false, {
                                     fileName: "[project]/components/sidebar.tsx",
-                                    lineNumber: 105,
-                                    columnNumber: 51
+                                    lineNumber: 184,
+                                    columnNumber: 19
                                 }, void 0),
                                 label: "Contact Messages",
                                 collapsed: collapsed
                             }, void 0, false, {
                                 fileName: "[project]/components/sidebar.tsx",
-                                lineNumber: 105,
+                                lineNumber: 182,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/sidebar.tsx",
-                        lineNumber: 96,
+                        lineNumber: 158,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2875,12 +2888,12 @@ function Sidebar() {
                                     children: "Staff managemenr"
                                 }, void 0, false, {
                                     fileName: "[project]/components/sidebar.tsx",
-                                    lineNumber: 111,
+                                    lineNumber: 193,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/sidebar.tsx",
-                                lineNumber: 110,
+                                lineNumber: 192,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(NavItem, {
@@ -2889,30 +2902,30 @@ function Sidebar() {
                                     size: 18
                                 }, void 0, false, {
                                     fileName: "[project]/components/sidebar.tsx",
-                                    lineNumber: 114,
-                                    columnNumber: 40
+                                    lineNumber: 200,
+                                    columnNumber: 19
                                 }, void 0),
                                 label: "Staff Management",
                                 collapsed: collapsed
                             }, void 0, false, {
                                 fileName: "[project]/components/sidebar.tsx",
-                                lineNumber: 114,
+                                lineNumber: 198,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/sidebar.tsx",
-                        lineNumber: 108,
+                        lineNumber: 190,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/sidebar.tsx",
-                lineNumber: 70,
+                lineNumber: 92,
                 columnNumber: 7
             }, this),
             isAuthenticated && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: `p-4 border-t ${collapsed ? 'flex flex-col items-center' : ''}`,
+                className: `p-4 border-t ${collapsed ? "flex flex-col items-center" : ""}`,
                 children: !collapsed ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "flex flex-col",
                     children: [
@@ -2927,12 +2940,12 @@ function Sidebar() {
                                         className: "w-full h-full object-cover"
                                     }, void 0, false, {
                                         fileName: "[project]/components/sidebar.tsx",
-                                        lineNumber: 131,
+                                        lineNumber: 224,
                                         columnNumber: 19
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/components/sidebar.tsx",
-                                    lineNumber: 130,
+                                    lineNumber: 223,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2942,7 +2955,7 @@ function Sidebar() {
                                             children: displayName
                                         }, void 0, false, {
                                             fileName: "[project]/components/sidebar.tsx",
-                                            lineNumber: 138,
+                                            lineNumber: 234,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2950,32 +2963,32 @@ function Sidebar() {
                                             children: user ? `${user.country_code}${user.phone_number}` : "admin@jeevic.com"
                                         }, void 0, false, {
                                             fileName: "[project]/components/sidebar.tsx",
-                                            lineNumber: 139,
+                                            lineNumber: 237,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/sidebar.tsx",
-                                    lineNumber: 137,
+                                    lineNumber: 233,
                                     columnNumber: 17
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/sidebar.tsx",
-                            lineNumber: 129,
+                            lineNumber: 222,
                             columnNumber: 15
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$auth$2f$logout$2d$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["LogoutButton"], {
                             className: "text-sm text-gray-700 hover:text-orange-500 transition-colors"
                         }, void 0, false, {
                             fileName: "[project]/components/sidebar.tsx",
-                            lineNumber: 144,
+                            lineNumber: 244,
                             columnNumber: 15
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/components/sidebar.tsx",
-                    lineNumber: 128,
+                    lineNumber: 221,
                     columnNumber: 13
                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
                     children: [
@@ -2987,12 +3000,12 @@ function Sidebar() {
                                 className: "w-full h-full object-cover"
                             }, void 0, false, {
                                 fileName: "[project]/components/sidebar.tsx",
-                                lineNumber: 149,
+                                lineNumber: 249,
                                 columnNumber: 17
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/components/sidebar.tsx",
-                            lineNumber: 148,
+                            lineNumber: 248,
                             columnNumber: 15
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$auth$2f$logout$2d$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["LogoutButton"], {
@@ -3000,20 +3013,20 @@ function Sidebar() {
                             className: "text-gray-700 hover:text-orange-500 transition-colors"
                         }, void 0, false, {
                             fileName: "[project]/components/sidebar.tsx",
-                            lineNumber: 155,
+                            lineNumber: 258,
                             columnNumber: 15
                         }, this)
                     ]
                 }, void 0, true)
             }, void 0, false, {
                 fileName: "[project]/components/sidebar.tsx",
-                lineNumber: 126,
+                lineNumber: 215,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/components/sidebar.tsx",
-        lineNumber: 59,
+        lineNumber: 71,
         columnNumber: 5
     }, this);
 }
@@ -3029,22 +3042,22 @@ function NavItem({ href, icon, label, collapsed }) {
     const isActive = pathname === href && href !== "#";
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
         href: href,
-        className: `flex items-center ${collapsed ? 'justify-center' : 'px-4'} py-2 text-sm ${isActive ? "bg-orange-500 text-white font-medium" : "text-gray-800 hover:bg-gray-100"}`,
+        className: `flex items-center ${collapsed ? "justify-center" : "px-4"} py-2 text-sm ${isActive ? "bg-orange-500 text-white font-medium" : "text-gray-800 hover:bg-gray-100"}`,
         title: collapsed ? label : undefined,
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                className: collapsed ? '' : 'mr-3',
+                className: collapsed ? "" : "mr-3",
                 children: icon
             }, void 0, false, {
                 fileName: "[project]/components/sidebar.tsx",
-                lineNumber: 181,
+                lineNumber: 293,
                 columnNumber: 7
             }, this),
             !collapsed && label
         ]
     }, void 0, true, {
         fileName: "[project]/components/sidebar.tsx",
-        lineNumber: 176,
+        lineNumber: 282,
         columnNumber: 5
     }, this);
 }
