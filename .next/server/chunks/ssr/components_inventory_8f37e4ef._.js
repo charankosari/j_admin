@@ -24,6 +24,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 ;
 function NewProductModal({ onClose, categories, subCategories, reload, editProduct }) {
     const [productName, setProductName] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(editProduct?.name || "");
+    const [brand, setBrand] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(editProduct?.meta_data?.brand || "");
     const [productDescription, setProductDescription] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(editProduct?.description || "");
     const [productPrice, setProductPrice] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(editProduct?.price ? editProduct.price.toString() : "");
     const [slashedPrice, setSlashedPrice] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(editProduct?.meta_data?.slashed_price || "");
@@ -128,7 +129,8 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
         weight: weight,
         height: height,
         breadth: breadth,
-        giftingEnabled: giftingEnabled
+        giftingEnabled: giftingEnabled,
+        brand: brand
     };
     const handleAddProduct = async ()=>{
         try {
@@ -244,7 +246,7 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                 children: "Product Details"
                             }, void 0, false, {
                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                lineNumber: 336,
+                                lineNumber: 340,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -254,18 +256,18 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                     size: 24
                                 }, void 0, false, {
                                     fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                    lineNumber: 343,
+                                    lineNumber: 347,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                lineNumber: 339,
+                                lineNumber: 343,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                        lineNumber: 335,
+                        lineNumber: 339,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -278,7 +280,7 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                         children: "Product Name"
                                     }, void 0, false, {
                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                        lineNumber: 349,
+                                        lineNumber: 353,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -288,13 +290,13 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                         className: "w-full border rounded-md px-3 py-2 text-gray-800"
                                     }, void 0, false, {
                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                        lineNumber: 352,
+                                        lineNumber: 356,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                lineNumber: 348,
+                                lineNumber: 352,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -304,7 +306,7 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                         children: "Product Description"
                                     }, void 0, false, {
                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                        lineNumber: 361,
+                                        lineNumber: 365,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -313,13 +315,13 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                         className: "w-full border rounded-md px-3 py-2 text-gray-800 min-h-[100px]"
                                     }, void 0, false, {
                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                        lineNumber: 364,
+                                        lineNumber: 368,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                lineNumber: 360,
+                                lineNumber: 364,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -329,7 +331,7 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                         children: "Long Description (Detailed)"
                                     }, void 0, false, {
                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                        lineNumber: 372,
+                                        lineNumber: 376,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -339,13 +341,13 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                         placeholder: "Enter detailed product description, features, specifications, etc."
                                     }, void 0, false, {
                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                        lineNumber: 375,
+                                        lineNumber: 379,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                lineNumber: 371,
+                                lineNumber: 375,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -355,7 +357,7 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                         children: "Product Images"
                                     }, void 0, false, {
                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                        lineNumber: 384,
+                                        lineNumber: 388,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -370,7 +372,7 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                                 id: "productImageInput"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                lineNumber: 389,
+                                                lineNumber: 393,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -381,7 +383,7 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                                         className: "h-10 w-10 text-gray-400 mb-2"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                        lineNumber: 401,
+                                                        lineNumber: 405,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -394,13 +396,13 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                                                 children: "Select file"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                                lineNumber: 404,
+                                                                lineNumber: 408,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                        lineNumber: 402,
+                                                        lineNumber: 406,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -408,19 +410,19 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                                         children: "Formats Supported: PNG, JPG, JPEG, MP4 and MOV"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                        lineNumber: 406,
+                                                        lineNumber: 410,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                lineNumber: 397,
+                                                lineNumber: 401,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                        lineNumber: 388,
+                                        lineNumber: 392,
                                         columnNumber: 15
                                     }, this),
                                     showImages && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -434,7 +436,7 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                                         className: "w-full h-full object-cover"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                        lineNumber: 419,
+                                                        lineNumber: 423,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -444,23 +446,23 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                                             className: "h-4 w-4 text-red-500"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                            lineNumber: 431,
+                                                            lineNumber: 435,
                                                             columnNumber: 25
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                        lineNumber: 427,
+                                                        lineNumber: 431,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, index, true, {
                                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                lineNumber: 415,
+                                                lineNumber: 419,
                                                 columnNumber: 21
                                             }, this))
                                     }, void 0, false, {
                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                        lineNumber: 413,
+                                        lineNumber: 417,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -468,13 +470,13 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                         children: "First Image will be the cover"
                                     }, void 0, false, {
                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                        lineNumber: 437,
+                                        lineNumber: 441,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                lineNumber: 383,
+                                lineNumber: 387,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -487,7 +489,7 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                                 children: "Select the Product Category"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                lineNumber: 444,
+                                                lineNumber: 448,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -503,7 +505,7 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                                                 children: "Select Category"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                                lineNumber: 453,
+                                                                lineNumber: 457,
                                                                 columnNumber: 21
                                                             }, this),
                                                             categories.map((category)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -511,13 +513,13 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                                                     children: category.name
                                                                 }, category.id, false, {
                                                                     fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                                    lineNumber: 455,
+                                                                    lineNumber: 459,
                                                                     columnNumber: 23
                                                                 }, this))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                        lineNumber: 448,
+                                                        lineNumber: 452,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -526,24 +528,24 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                                             className: "h-4 w-4 text-gray-500"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                            lineNumber: 461,
+                                                            lineNumber: 465,
                                                             columnNumber: 21
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                        lineNumber: 460,
+                                                        lineNumber: 464,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                lineNumber: 447,
+                                                lineNumber: 451,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                        lineNumber: 443,
+                                        lineNumber: 447,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -553,7 +555,7 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                                 children: "Select the Sub-Category"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                lineNumber: 466,
+                                                lineNumber: 470,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -569,7 +571,7 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                                                 children: "Select Sub-Category"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                                lineNumber: 475,
+                                                                lineNumber: 479,
                                                                 columnNumber: 21
                                                             }, this),
                                                             subCategories.map((subCat)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -577,13 +579,13 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                                                     children: subCat.name
                                                                 }, subCat.id, false, {
                                                                     fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                                    lineNumber: 477,
+                                                                    lineNumber: 481,
                                                                     columnNumber: 23
                                                                 }, this))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                        lineNumber: 470,
+                                                        lineNumber: 474,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -592,30 +594,30 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                                             className: "h-4 w-4 text-gray-500"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                            lineNumber: 483,
+                                                            lineNumber: 487,
                                                             columnNumber: 21
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                        lineNumber: 482,
+                                                        lineNumber: 486,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                lineNumber: 469,
+                                                lineNumber: 473,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                        lineNumber: 465,
+                                        lineNumber: 469,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                lineNumber: 442,
+                                lineNumber: 446,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -625,7 +627,7 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                         children: "Product Dimensions"
                                     }, void 0, false, {
                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                        lineNumber: 490,
+                                        lineNumber: 494,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -638,7 +640,7 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                                         children: "Height (cm)"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                        lineNumber: 495,
+                                                        lineNumber: 499,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -651,13 +653,13 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                                         placeholder: "Enter height"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                        lineNumber: 498,
+                                                        lineNumber: 502,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                lineNumber: 494,
+                                                lineNumber: 498,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -667,7 +669,7 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                                         children: "Weight (kg)"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                        lineNumber: 511,
+                                                        lineNumber: 515,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -678,13 +680,13 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                                         placeholder: "Enter weight"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                        lineNumber: 514,
+                                                        lineNumber: 518,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                lineNumber: 510,
+                                                lineNumber: 514,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -694,7 +696,7 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                                         children: "Length (cm)"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                        lineNumber: 523,
+                                                        lineNumber: 527,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -705,13 +707,13 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                                         placeholder: "Enter length"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                        lineNumber: 526,
+                                                        lineNumber: 530,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                lineNumber: 522,
+                                                lineNumber: 526,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -721,7 +723,7 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                                         children: "Breadth (cm)"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                        lineNumber: 535,
+                                                        lineNumber: 539,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -732,25 +734,25 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                                         placeholder: "Enter breadth"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                        lineNumber: 538,
+                                                        lineNumber: 542,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                lineNumber: 534,
+                                                lineNumber: 538,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                        lineNumber: 493,
+                                        lineNumber: 497,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                lineNumber: 489,
+                                lineNumber: 493,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -761,35 +763,64 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                         children: "Gifting Enabled"
                                     }, void 0, false, {
                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                        lineNumber: 549,
+                                        lineNumber: 553,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "relative inline-flex items-center cursor-pointer",
-                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: `w-10 h-5 rounded-full ${giftingEnabled === "true" ? "bg-green-500" : "bg-gray-200"}`,
-                                            onClick: ()=>setGiftingEnabled(giftingEnabled === "true" ? "false" : "true"),
-                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: `absolute w-3.5 h-3.5 bg-white rounded-full top-[3px] transition-transform ${giftingEnabled === "true" ? "translate-x-[22px]" : "translate-x-[3px]"}`
+                                        className: "relative inline-flex items-center cursor-pointer gap-x-12",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: `w-10 h-5 rounded-full ${giftingEnabled === "true" ? "bg-green-500" : "bg-gray-200"}`,
+                                                onClick: ()=>setGiftingEnabled(giftingEnabled === "true" ? "false" : "true"),
+                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: `absolute w-3.5 h-3.5 bg-white rounded-full top-[3px] transition-transform ${giftingEnabled === "true" ? "translate-x-[22px]" : "translate-x-[3px]"}`
+                                                }, void 0, false, {
+                                                    fileName: "[project]/components/inventory/new-product-modal.tsx",
+                                                    lineNumber: 567,
+                                                    columnNumber: 19
+                                                }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                lineNumber: 563,
-                                                columnNumber: 19
+                                                lineNumber: 557,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                        className: "block text-sm text-gray-600 mb-1",
+                                                        children: "brand"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/components/inventory/new-product-modal.tsx",
+                                                        lineNumber: 576,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                        type: "text",
+                                                        value: brand,
+                                                        onChange: (e)=>setBrand(e.target.value),
+                                                        className: "w-full border rounded-md px-3 py-2 text-gray-800",
+                                                        placeholder: "Enter brand"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/components/inventory/new-product-modal.tsx",
+                                                        lineNumber: 579,
+                                                        columnNumber: 19
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/components/inventory/new-product-modal.tsx",
+                                                lineNumber: 575,
+                                                columnNumber: 17
                                             }, this)
-                                        }, void 0, false, {
-                                            fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                            lineNumber: 553,
-                                            columnNumber: 17
-                                        }, this)
-                                    }, void 0, false, {
+                                        ]
+                                    }, void 0, true, {
                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                        lineNumber: 552,
+                                        lineNumber: 556,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                lineNumber: 548,
+                                lineNumber: 552,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -802,7 +833,7 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                                 children: "Enter the Stock Qty."
                                             }, void 0, false, {
                                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                lineNumber: 575,
+                                                lineNumber: 591,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -812,13 +843,13 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                                 className: "w-full border rounded-md px-3 py-2 text-gray-800"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                lineNumber: 578,
+                                                lineNumber: 594,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                        lineNumber: 574,
+                                        lineNumber: 590,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -829,7 +860,7 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                                 children: "Product Visibility"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                lineNumber: 586,
+                                                lineNumber: 602,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -841,29 +872,29 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                                         onClick: ()=>setProductVisibility(!productVisibility)
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                        lineNumber: 595,
+                                                        lineNumber: 611,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                    lineNumber: 590,
+                                                    lineNumber: 606,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                lineNumber: 589,
+                                                lineNumber: 605,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                        lineNumber: 585,
+                                        lineNumber: 601,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                lineNumber: 573,
+                                lineNumber: 589,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -873,7 +904,7 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                         children: "Price"
                                     }, void 0, false, {
                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                        lineNumber: 608,
+                                        lineNumber: 624,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -883,13 +914,13 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                         className: "w-full border rounded-md px-3 py-2 text-gray-800"
                                     }, void 0, false, {
                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                        lineNumber: 609,
+                                        lineNumber: 625,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                lineNumber: 607,
+                                lineNumber: 623,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -899,7 +930,7 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                         children: "Slashed Price"
                                     }, void 0, false, {
                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                        lineNumber: 617,
+                                        lineNumber: 633,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -909,13 +940,13 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                         className: "w-full border rounded-md px-3 py-2 text-gray-800"
                                     }, void 0, false, {
                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                        lineNumber: 620,
+                                        lineNumber: 636,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                lineNumber: 616,
+                                lineNumber: 632,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -925,7 +956,7 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                         children: "Discount (%)"
                                     }, void 0, false, {
                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                        lineNumber: 628,
+                                        lineNumber: 644,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -935,13 +966,13 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                         className: "w-full border rounded-md px-3 py-2 text-gray-800 bg-gray-100"
                                     }, void 0, false, {
                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                        lineNumber: 631,
+                                        lineNumber: 647,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                lineNumber: 627,
+                                lineNumber: 643,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -951,7 +982,7 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                         children: "Product Variants (optional)"
                                     }, void 0, false, {
                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                        lineNumber: 639,
+                                        lineNumber: 655,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -966,17 +997,17 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                                     placeholder: `Variant Name ${index + 1}`
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                    lineNumber: 645,
+                                                    lineNumber: 661,
                                                     columnNumber: 21
                                                 }, this)
                                             }, index, false, {
                                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                lineNumber: 644,
+                                                lineNumber: 660,
                                                 columnNumber: 19
                                             }, this))
                                     }, void 0, false, {
                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                        lineNumber: 642,
+                                        lineNumber: 658,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -985,13 +1016,13 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                         children: "Add Variant"
                                     }, void 0, false, {
                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                        lineNumber: 657,
+                                        lineNumber: 673,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                lineNumber: 638,
+                                lineNumber: 654,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1001,7 +1032,7 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                         children: "Colors (optional)"
                                     }, void 0, false, {
                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                        lineNumber: 666,
+                                        lineNumber: 682,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1016,7 +1047,7 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                                         className: "w-16 h-16 border rounded-md"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                        lineNumber: 672,
+                                                        lineNumber: 688,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1027,18 +1058,18 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                                         className: "mt-2 text-center border rounded-md px-2 py-1 text-gray-800"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                        lineNumber: 680,
+                                                        lineNumber: 696,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, index, true, {
                                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                                lineNumber: 671,
+                                                lineNumber: 687,
                                                 columnNumber: 19
                                             }, this))
                                     }, void 0, false, {
                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                        lineNumber: 669,
+                                        lineNumber: 685,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1047,19 +1078,19 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                                         children: "Add Color"
                                     }, void 0, false, {
                                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                        lineNumber: 692,
+                                        lineNumber: 708,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                                lineNumber: 665,
+                                lineNumber: 681,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                        lineNumber: 347,
+                        lineNumber: 351,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1070,28 +1101,28 @@ function NewProductModal({ onClose, categories, subCategories, reload, editProdu
                             children: editProduct ? "Update Product" : "Add Product"
                         }, void 0, false, {
                             fileName: "[project]/components/inventory/new-product-modal.tsx",
-                            lineNumber: 702,
+                            lineNumber: 718,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/components/inventory/new-product-modal.tsx",
-                        lineNumber: 701,
+                        lineNumber: 717,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/inventory/new-product-modal.tsx",
-                lineNumber: 334,
+                lineNumber: 338,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/components/inventory/new-product-modal.tsx",
-            lineNumber: 333,
+            lineNumber: 337,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/components/inventory/new-product-modal.tsx",
-        lineNumber: 332,
+        lineNumber: 336,
         columnNumber: 5
     }, this);
 }

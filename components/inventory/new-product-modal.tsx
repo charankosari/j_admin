@@ -50,6 +50,9 @@ export function NewProductModal({
   const [productName, setProductName] = useState<string>(
     editProduct?.name || ""
   );
+  const [brand,setBrand]=useState<string>(
+    editProduct?.meta_data?.brand || ""
+  );
   const [productDescription, setProductDescription] = useState<string>(
     editProduct?.description || ""
   );
@@ -227,6 +230,7 @@ export function NewProductModal({
     height: height,
     breadth: breadth,
     giftingEnabled: giftingEnabled,
+    brand: brand,
   };
   const handleAddProduct = async () => {
     try {
@@ -549,7 +553,7 @@ export function NewProductModal({
               <label className="block text-sm text-gray-600 mr-4">
                 Gifting Enabled
               </label>
-              <div className="relative inline-flex items-center cursor-pointer">
+              <div className="relative inline-flex items-center cursor-pointer gap-x-12">
                 <div
                   className={`w-10 h-5 rounded-full ${
                     giftingEnabled === "true" ? "bg-green-500" : "bg-gray-200"
@@ -567,6 +571,18 @@ export function NewProductModal({
                       : "translate-x-[3px]"
                     }`}
                   ></div>
+                </div>
+                <div>
+                  <label className="block text-sm text-gray-600 mb-1">
+                    brand
+                  </label>
+                  <input
+                    type="text"
+                    value={brand}
+                    onChange={(e) => setBrand(e.target.value)}
+                    className="w-full border rounded-md px-3 py-2 text-gray-800"
+                    placeholder="Enter brand"
+                  />
                 </div>
               </div>
             </div>
